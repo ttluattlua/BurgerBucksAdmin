@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+<!--글목록-->
+<definition name="home.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="common" value="/WEB-INF/views/common/common.jsp"/>
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top_menu" value="/WEB-INF/views/common/top_menu.jsp"/>
+	<put-attribute name="left_main" value="/WEB-INF/views/common/left_side_bar.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/home/main.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/views/common/bottom.jsp"/>
+</definition>
+
+
+
+</tiles-definitions>
+
+
+
+
