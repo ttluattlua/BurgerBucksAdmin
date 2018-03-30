@@ -22,12 +22,42 @@ public class BbaMemberController {
 	@Autowired
 	BbaMemberSerivce bbMemberService;
 	
+	/*--------------------------------------------------------------------------------------------
+	 * 로그인후 메인
+	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model) {
-		logger.info("bbsMemberController login");
+		logger.info("BbaMemberController login");
 		return "home.tiles";
 	}
 	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원등록으로 이동 
+	 *-------------------------------------------------------------------------------------------*/
+	@RequestMapping(value="adminplus.do", method=RequestMethod.GET)
+	public String adminplus(Model model) {
+		logger.info("BbaMemberController adminplus");
+		return "adminplus.tiles";
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 지점관리자로 이동 
+	 *-------------------------------------------------------------------------------------------*/
+	@RequestMapping(value="adminlist.do", method=RequestMethod.GET)
+	public String adminlist(Model model) {
+		logger.info("BbaMemberController adminlist");
+		return "adminlist.tiles";
+	}
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 고객관리로 이동 
+	 *-------------------------------------------------------------------------------------------*/
+	@RequestMapping(value="customerlist.do", method=RequestMethod.GET)
+	public String customerlist(Model model) {
+		logger.info("BbaMemberController customerlist");
+		return "customerlist.tiles";
+	}
 
 }
 
