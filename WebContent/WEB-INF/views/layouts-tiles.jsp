@@ -28,7 +28,7 @@
 			<tiles:insertAttribute name="left_main"/>
 		</div>		
 		
-		<div class="page-wrapper">
+		<div class="page-wrapper" data-interval="false">
 			<tiles:insertAttribute name="main"/>
 		</div>			
 
