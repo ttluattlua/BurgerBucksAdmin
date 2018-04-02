@@ -47,7 +47,7 @@
                             <div class="col-md-6">
                                 <div class="form-group has-danger">
                                     <label class="control-label">성</label>
-                                    <input type="text" id="input-lastname" class="form-control form-control-danger" placeholder="Last Name">
+                                    <input type="text" name="name" id="input-lastname" class="form-control form-control-danger" placeholder="Last Name">
                                 </div>
                             </div>
                             <!--/span-->
@@ -304,23 +304,5 @@ $("#btn_branchMRegi").click(function() {
 
 </script>
 			
-<!-- 
-<script type="text/javascript">
-$("#btn_branchMRegi").click(function() {	
-	alert('등록!');	
-	$("#_adminPForm").attr({ "target":"_self", "action":"adminplusAf.do" }).submit();	
-});
-</script>	 -->
-			
-
-
-
-
-
-
-
-
-
-	
 	
 </html>

@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bba.com.a.model.Bb_AdminDto;
@@ -52,7 +53,8 @@ public class BbaMemberController {
 	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "adminplusAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public String  adminplusAf(Bb_AdminDto adminDto, Model model) throws Exception {
+	public String  adminplusAf(@RequestParam(value="name", required=true) List<String> name, 
+	Bb_AdminDto adminDto, Model model) throws Exception {
 		
 		logger.info("**  BbaMemberController adminplusAf!");
 		
@@ -61,8 +63,16 @@ public class BbaMemberController {
 		logger.info((String)adminDto.getPassword()); 		//pwd
 		logger.info((String)adminDto.getPhone());			//phone
 		
+		
+		String conName ="";
+
+			conName += name.get(1);
+			conName += name.get(0);
+
+		System.out.println("conName : " +conName);
+		adminDto.setName(conName);
 		bbMemberService.addAdmin(adminDto);
-		return "adminlist.tiles";
+		return "redirect:/adminlist.do";
 		
 	}
 	
@@ -74,7 +84,6 @@ public class BbaMemberController {
 	public String adminList(HttpServletRequest request, Model model) throws Exception {
 		logger.info("Welcome BbaMemberController adminList! "+ new Date());
 		
-		
 		/*private int seq;			// 시퀀스
 		private String id;			// id
 		private String password;	// 비밀번호
@@ -83,8 +92,6 @@ public class BbaMemberController {
 		private int store_seq;	// 지점 시퀀스 가져오기
 		private int del;			// 기본 0 , 삭제된 정보 1
 */		
-
-		
 		List<Bb_AdminDto> aList = bbMemberService.getAdminList();
 		model.addAttribute("aList", aList);
 		//model.addAttribute("year", adminparam.getYear());
