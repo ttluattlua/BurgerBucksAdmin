@@ -1,5 +1,8 @@
 package bba.com.a.dao.Impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +27,20 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 		
 		int n = sqlSession.insert(namespace + "addAdmin", adminDto);		
 		return n>0?true:false;
+	}
+
+	/*------------------------------------------------------------------------------
+	* 사원리스트 불러오기 (브랜치매니저)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_AdminDto> getAdminList() throws Exception {
+		// sqlSession 설정 타입 (BATCH, SIMPLE)
+		System.out.println("타입:" + sqlSession.getConfiguration().getDefaultExecutorType());
+		
+		List<Bb_AdminDto> list = new ArrayList<Bb_AdminDto>();		
+		list = sqlSession.selectList(namespace + "getAdminList");
+						
+		return list;
 	}
 
 	

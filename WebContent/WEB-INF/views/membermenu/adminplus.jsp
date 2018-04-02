@@ -31,7 +31,7 @@
             </div>
 
             <div class="card-body">
-                 <form name="adminPForm" id="_adminPForm" method="get" action="adminplusAf.do">
+                 <form action="" name="adminPForm" id="_adminPForm" method="get">
                     <div class="form-body">
                         <h3 class="card-title m-t-15">Person Info</h3>
                         <hr>
@@ -40,7 +40,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">이름</label>
-                                    <input type="text" id="input-firstname" class="form-control" placeholder="First Name">
+                                    <input type="text" name="name" id="input-firstname" class="form-control" placeholder="First Name">
                                 </div>
                             </div>
                             <!--/span-->
@@ -61,7 +61,7 @@
                                     <label for="input-id">ID</label>
                                     <p id="checkMessage_ID" style="line-height: 35px;"></p>
                                     </div>
-                                    <input type="text" id="input-id" placeholder="Enter ID" class="form-control">
+                                    <input type="text" name="id" id="input-id" placeholder="Enter ID" class="form-control">
                                 	<strong class="help-block" style="display: block;width: 200%;" id="checkMessage"><!-- 영문, 숫자, 언더스코어(_), 하이픈(-)으로 이루어진  3~16 문자. --></strong>
                                 </div>
                                 </div>
@@ -75,7 +75,7 @@
                                     <div>
 									<p id="checkMessage_PW" style="line-height: 35px;"></p>
 									</div>
-                                    <input type="password" id="input-pw" placeholder="Enter Password" class="form-control">
+                                    <input type="password" name="password" id="input-pw" placeholder="Enter Password" class="form-control">
                                     	<strong class="help-block" style="display: block;width: 200%;" id="checkMessage2"><!-- 영문, 숫자, 언더스코어(_), 하이픈(-)으로 이루어진  6~18 문자. --></strong>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                             <div class="col-md-12 ">
                                 <div class="form-group">
                                     <label for="input_phone">연락처</label>
-                                    <input type="text" id="input_phone" placeholder="Enter Phone Number" class="form-control">
+                                    <input type="text" name="phone" id="input_phone" placeholder="Enter Phone Number" class="form-control">
                                </div>
                             </div>
                        </div>
@@ -106,14 +106,14 @@
                             <div class="col-md-12 ">
                                 <div class="form-group">
                                     <label for="input_store">지점 번호</label>
-                                    <input type="text" id="input_store" placeholder="Enter Store Number" class="form-control">
+                                    <input type="text" name="store_seq" id="input_store" placeholder="Enter Store Number" class="form-control">
                                 </div>
                              </div>
                        </div>
 
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-dark" id="btn_branchMRegi"> <i class="fa fa-check"></i> Save</button>
+                        <button type="submit" class="btn btn-dark" id="btn_branchMRegi" onclick="account()"> <i class="fa fa-check"></i> Save</button>
                         <button type="button" class="btn btn-inverse">Cancel</button>
                     </div>
                     </div>
@@ -242,13 +242,7 @@
 	</div>
 	</div>
         
-<!-- 등록창 작성 후 -->
-<script type="text/javascript">
-$("#btn_branchMRegi").click(function() {	
-	alert('등록!');	
-	$("#_adminPForm").attr({ "target":"_self", "action":"adminplusAf.do" }).submit();	
-});
-</script>
+
 
 <!-- 비밀번호 확인창 blur -->
 <script type="text/javascript">
@@ -301,7 +295,32 @@ $(function () {
 	$("#checkpw").html(eqpw);
 	});
 });
+
+
+$("#btn_branchMRegi").click(function() {	
+	alert('등록!');	
+	$("#_adminPForm").attr({"target":"_self", "action":"adminplusAf.do" }).submit();		
+});
+
 </script>
 			
+<!-- 
+<script type="text/javascript">
+$("#btn_branchMRegi").click(function() {	
+	alert('등록!');	
+	$("#_adminPForm").attr({ "target":"_self", "action":"adminplusAf.do" }).submit();	
+});
+</script>	 -->
+			
 
+
+
+
+
+
+
+
+
+	
+	
 </html>

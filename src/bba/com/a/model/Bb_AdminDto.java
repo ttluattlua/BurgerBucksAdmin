@@ -15,12 +15,14 @@ public class Bb_AdminDto implements Serializable{
 	private String password;	// 비밀번호
 	private String name;		// 매니저 이름
 	private String phone;		// 전화번호
-	private String store_seq;	// 지점 시퀀스 가져오기
-	private int del;			// 기본 0 , 삭제된 정보 1		
+	private int store_seq;	// 지점 시퀀스 가져오기
+	private int del;			// 기본 0 , 삭제된 정보 1	
+	
+	
 	public Bb_AdminDto() {
 		super();
 	}
-	public Bb_AdminDto(int seq, String id, String password, String name, String phone, String store_seq, int del) {
+	public Bb_AdminDto(int seq, String id, String password, String name, String phone, int store_seq, int del) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -29,6 +31,16 @@ public class Bb_AdminDto implements Serializable{
 		this.phone = phone;
 		this.store_seq = store_seq;
 		this.del = del;
+	}
+	
+	
+	public Bb_AdminDto(String id, String password, String name, String phone, int store_seq) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.phone = phone;
+		this.store_seq = store_seq;
 	}
 	public int getSeq() {
 		return seq;
@@ -60,10 +72,10 @@ public class Bb_AdminDto implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getStore_seq() {
+	public int getStore_seq() {
 		return store_seq;
 	}
-	public void setStore_seq(String store_seq) {
+	public void setStore_seq(int store_seq) {
 		this.store_seq = store_seq;
 	}
 	public int getDel() {

@@ -1,5 +1,7 @@
 package bba.com.a.service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,15 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 		return bbsMemberDao.addAdmin(adminDto);
 	}
 
+	/*------------------------------------------------------------------------------
+	* 사원리스트 불러오기(브랜치매니저)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_AdminDto> getAdminList() throws Exception {
+		return bbsMemberDao.getAdminList();
+	}
+
+	
 	
 	
 }
