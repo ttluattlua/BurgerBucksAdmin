@@ -35,7 +35,7 @@
                         <li class="nav-label">스토어관리</li>         
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/store.png"><span class="hide-menu"></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">스토어등록</a></li>
+                                <li><a href="storelist.do">스토어등록</a></li>
                                 <li><a href="email-read.html">스토어수정</a></li>
                             </ul>
                         </li>

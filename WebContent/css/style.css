@@ -2245,11 +2245,11 @@ textarea {
   border-color: #ef5350;
 }
 .card-outline-primary {
-  border-color: #5c4ac7;
+  border-color: #a33b2b;
 }
 .card-outline-primary .card-header {
-  background: #5c4ac7 none repeat scroll 0 0;
-  border-color: #5c4ac7;
+  background: #a33b2b none repeat scroll 0 0;
+  border-color: #a33b2b;
 }
 .card-body {
   padding: 0;
