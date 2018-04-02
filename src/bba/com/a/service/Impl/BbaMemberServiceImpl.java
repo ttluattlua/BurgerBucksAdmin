@@ -30,7 +30,16 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	public List<Bb_AdminDto> getAdminList() throws Exception {
 		return bbsMemberDao.getAdminList();
 	}
-
+	
+	/*------------------------------------------------------------------------------
+	* 사원 id 중복체크 (브랜치매니저)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public int getAdminID(Bb_AdminDto adminDto) {
+		return bbsMemberDao.getAdminID(adminDto);
+	}
+	
+	
 	
 	
 	

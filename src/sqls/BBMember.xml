@@ -21,6 +21,13 @@
 		ORDER BY SEQ DESC
 	</select>
 	
+	<!-- 사원 등록 체크 아이디 -->
+	<select id="getAdminID" parameterType="bba.com.a.model.Bb_AdminDto"
+		resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM BB_ADMIN
+		WHERE ID=#{id}
+	</select>
 
 </mapper>  
 

@@ -20,6 +20,48 @@
 </div>
 <!-- End Bread crumb -->
 <!-- Container fluid  -->
+
+
+<!-- ajax 조건부 부분 -->
+<script type="text/javascript">
+	$(function() {
+		$("#input-id").blur(function() {
+			var userID = $('#input-id').val();
+			$.ajax({
+				type : 'post',
+				url : 'getAdminID.do',
+				data : {
+					"id" : userID
+				},
+				success : function(data) {
+						/* $("#checkMessage").attr('display','block'); */
+						/*$("#checkMessage").html(data);*/
+						idCheckMessage(data);
+				},
+				error : function() {
+					alert("실패");
+					
+				}
+			});
+		});
+	});
+</script>
+
+<script type="text/javascript">
+function idCheckMessage(data) {
+	if(data == 'SUCS'){
+		$("#checkMessage").html("사용하실 수 있는 아이디입니다");
+		//$("#input-id").val($("#input-id").val());
+	}else{
+		$("#checkMessage").html("사용할 수 없는 아이디입니다");
+		$("#input-id").val("");		
+		
+	}
+}
+</script>
+
+
+
 <div class="container-fluid">
     <!-- Start Page Content -->
 <div class="row">
@@ -62,7 +104,7 @@
                                     <p id="checkMessage_ID" style="line-height: 35px;"></p>
                                     </div>
                                     <input type="text" name="id" id="input-id" placeholder="Enter ID" class="form-control">
-                                	<strong class="help-block" style="display: block;width: 200%;" id="checkMessage"><!-- 영문, 숫자, 언더스코어(_), 하이픈(-)으로 이루어진  3~16 문자. --></strong>
+                                	<strong class="help-block" style="display: block;width: 200%;" id="checkMessage"><!-- 영문, 숫자, 언더스코어(_), 하이픈(-)으로 이루어진  3~16 문자 --></strong>
                                 </div>
                                 </div>
                             </div>

@@ -43,6 +43,14 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 		return list;
 	}
 
+	/*------------------------------------------------------------------------------
+	* 사원 id 중복체크 (브랜치매니저)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public int getAdminID(Bb_AdminDto adminDto) {
+		return sqlSession.selectOne(namespace + "getAdminID", adminDto);
+	}
+
 	
 	
 }

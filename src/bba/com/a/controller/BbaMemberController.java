@@ -47,6 +47,22 @@ public class BbaMemberController {
 		return "adminplus.tiles";
 	}
 	
+	/*--------------------------------------------------------------------------------------------
+	 * 아이디 중복 체크
+	 *-------------------------------------------------------------------------------------------*/
+	@ResponseBody
+	@RequestMapping(value="getAdminID.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String getID(Model model, Bb_AdminDto adminDto) {
+		logger.info("BbaMemberController getID");	
+		
+		int count = bbMemberService.getAdminID(adminDto);
+		
+		if(count > 0) {
+			return "FAILED";
+		}else {
+			return "SUCS";
+		}
+	}
 	
 	/*--------------------------------------------------------------------------------------------
 	 * 사원등록 버튼 클릭 후 DB저장
@@ -56,7 +72,7 @@ public class BbaMemberController {
 	public String  adminplusAf(@RequestParam(value="name", required=true) List<String> name, 
 	Bb_AdminDto adminDto, Model model) throws Exception {
 		
-		logger.info("**  BbaMemberController adminplusAf!");
+		logger.info("BbaMemberController adminplusAf!");
 		
 		logger.info((String)adminDto.getName()); 			//이름
 		logger.info((String)adminDto.getId()); 				//id
