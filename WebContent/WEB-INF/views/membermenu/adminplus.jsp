@@ -10,7 +10,7 @@
    <!-- Bread crumb -->
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-        <h3 class="text-primary" style="color: #a33b2b;">Branch manager Registration</h3> </div>
+        <h3 class="text-primary">Branch manager Registration</h3> </div>
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
@@ -29,9 +29,9 @@
             <div class="card-header">
                 <h4 class="m-b-0 text-white">Branch manager Registration</h4>
             </div>
- 
+
             <div class="card-body">
-                <form action="#">
+                 <form name="adminPForm" id="_adminPForm" method="get" action="adminplusAf.do">
                     <div class="form-body">
                         <h3 class="card-title m-t-15">Person Info</h3>
                         <hr>
@@ -113,7 +113,7 @@
 
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                        <button type="submit" class="btn btn-dark" id="btn_branchMRegi"> <i class="fa fa-check"></i> Save</button>
                         <button type="button" class="btn btn-inverse">Cancel</button>
                     </div>
                     </div>
@@ -242,7 +242,13 @@
 	</div>
 	</div>
         
-        
+<!-- 등록창 작성 후 -->
+<script type="text/javascript">
+$("#btn_branchMRegi").click(function() {	
+	alert('등록!');	
+	$("#_adminPForm").attr({ "target":"_self", "action":"adminplusAf.do" }).submit();	
+});
+</script>
 
 <!-- 비밀번호 확인창 blur -->
 <script type="text/javascript">

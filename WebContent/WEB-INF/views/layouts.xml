@@ -35,6 +35,11 @@
 <put-attribute name="main" value="/WEB-INF/views/membermenu/customerlist.jsp"/>
 </definition>
 
+
+<!-- 브랜치 매니저 등록 버튼 클릭 -->
+
+
+
 </tiles-definitions>
 
 
