@@ -36,11 +36,17 @@
 </definition>
 
 
+<<<<<<< HEAD
+<!-- 브랜치 매니저 등록 버튼 클릭 -->
+
+
+=======
 
 <!--store관리로 이동 -->
 <definition name="storelist.tiles" extends="home.tiles">
 <put-attribute name="main" value="/WEB-INF/views/storemenu/storelist.jsp"/>
 </definition>
+>>>>>>> a7f3dcaeaf6b7de165793153e16dd6b1147796b7
 
 </tiles-definitions>
 

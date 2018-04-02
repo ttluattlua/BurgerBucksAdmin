@@ -1,5 +1,7 @@
 package bba.com.a.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -59,6 +61,20 @@ public class BbaMemberController {
 		return "customerlist.tiles";
 	}
 
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원등록 버튼 클릭 후 DB저장
+	 *-------------------------------------------------------------------------------------------*/
+	/*@RequestMapping(value = "adminplusAf.do", 
+			method = RequestMethod.POST)
+	public String bbswriteAf(BbsDto bbs, Model model) throws Exception {
+		if(bbs.getContent().equals("") || bbs.getTitle().equals("")){
+			return "adminplus";
+		}
+		logger.info("Welcome SistMemberController bbswriteAf! "+ new Date());
+		khBbsService.writeBbs(bbs);
+		return "redirect:/bbslist.do";
+	}*/
 }
 
 
