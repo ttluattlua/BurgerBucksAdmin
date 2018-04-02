@@ -5,6 +5,14 @@
   
 <mapper namespace="BBAMember">
 
+	<!-- 사원 등록 -->
+	<insert id="addAdmin" parameterType="bba.com.a.model.Bb_AdminDto">
+		INSERT INTO ADMIN(SEQ, ID, PASSWORD, NAME, PHONE, STORE_SEQ, DEL)
+		VALUES ( ADMIN_SEQ.NEXTVAL, #{id}, #{password}, #{name}, #{phone}, #{store_seq}, 0 )
+	</insert>
+	
+	
+
 </mapper>  
 
 

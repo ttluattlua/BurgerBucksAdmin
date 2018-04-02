@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import bba.com.a.model.Bb_AdminDto;
 import bba.com.a.service.BbaMemberSerivce;
 
 @Controller
@@ -65,16 +65,21 @@ public class BbaMemberController {
 	/*--------------------------------------------------------------------------------------------
 	 * 사원등록 버튼 클릭 후 DB저장
 	 *-------------------------------------------------------------------------------------------*/
-	/*@RequestMapping(value = "adminplusAf.do", 
+	@RequestMapping(value = "adminplusAf.do", 
 			method = RequestMethod.POST)
-	public String bbswriteAf(BbsDto bbs, Model model) throws Exception {
-		if(bbs.getContent().equals("") || bbs.getTitle().equals("")){
-			return "adminplus";
+	public String adminplusAf(Bb_AdminDto adminDto, Model model) throws Exception {
+		
+		if(adminDto.getName().equals("") || adminDto.getId().equals("") ||
+				adminDto.getPassword().equals("") || adminDto.getPhone().equals("") ||
+				adminDto.getStore_seq().equals("")) {
+			return "adminplus.tiles";
 		}
 		logger.info("Welcome SistMemberController bbswriteAf! "+ new Date());
-		khBbsService.writeBbs(bbs);
-		return "redirect:/bbslist.do";
-	}*/
+		bbMemberService.addAdmin(adminDto);
+		return "redirect:/adminlist.tiles";
+		
+		
+	}
 }
 
 
