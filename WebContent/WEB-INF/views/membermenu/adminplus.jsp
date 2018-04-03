@@ -49,7 +49,7 @@
 
 <script type="text/javascript">
 function idCheckMessage(data) {
-	if(data == 'SUCS'){
+	if(data == 'S'){
 		$("#checkMessage").html("사용하실 수 있는 아이디입니다");
 		//$("#input-id").val($("#input-id").val());
 	}else{
