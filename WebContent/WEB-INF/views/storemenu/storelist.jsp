@@ -702,7 +702,7 @@ function addMarker(props) {
  </script> 
  <!--=======================구글 맵 API (key 내꺼임 나중에 지우고 올려야함)===============================-->
  <script async defer
- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxS09DQjD3WePPaHn8KNG5beXCleuL3Ls&callback=initMap">
+ src="https://maps.googleapis.com/maps/api/js?key=Your_Api_Key&callback=initMap">
  </script>
   <!--=======================우편번호 스크립트===============================-->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
