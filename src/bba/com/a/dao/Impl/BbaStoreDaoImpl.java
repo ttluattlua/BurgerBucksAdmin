@@ -37,6 +37,31 @@ public class BbaStoreDaoImpl implements BbaStoreDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ns+"storeList");
 	}
+	/*--------------------------------------------------------------------------------------------
+	 * store 수정 디테일 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public Bb_StoreDto updateStore(int seq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"updatestore", seq);
+	}
+	/*--------------------------------------------------------------------------------------------
+	 * store 수정 하기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void updateStoreAf(Bb_StoreDto bsdto) {
+		System.out.println("updateStoreAf:"+bsdto.toString());
+		sqlSession.update(ns+"updatestoreAf", bsdto);
+		
+	}
+	/*--------------------------------------------------------------------------------------------
+	 * store 삭제하기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void deleteStore(int seq) {
+		sqlSession.update(ns+"deletestore", seq);
+		
+	}
 	
 	
 

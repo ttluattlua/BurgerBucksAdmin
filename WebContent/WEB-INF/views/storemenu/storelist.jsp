@@ -44,7 +44,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">스토어 현황</h4>
-                                <h6 class="card-subtitle">스토어 현황을 자세히 보고 싶거나 정보를 수정하시려면 더블클릭을 해주세요</h6>
+                                <h6 class="card-subtitle">전국 버거벅스 스토어 현황 총 ${bslist.size() } 개</h6>
                                 <div class="table-responsive m-t-40">
                                     <table id="myTable" class="table table-bordered table-striped">
                                         <thead>
@@ -57,17 +57,19 @@
                                         </thead>
                                         <tbody>
                                         	<c:forEach var="bsdto" items="${bslist}">
-                                            <tr id="${bsdto.seq}">
+                                        	<c:if test="${bsdto.del == 0}">
+                                            <tr id="tr${bsdto.seq}">
                                             	
                                                 <td>${bsdto.name }</td>
                                                 <td>${bsdto.address }</td>
                                                 <td>${bsdto.phone }</td>
                                                 <td>
                                                 <input type="button" id="${bsdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateStore(${bsdto.seq })" data-toggle="modal" data-target="#updatestore"> 
-                                                <input type="button" value="삭제" class="btn btn-inverse" onclick="deleteStore(${bsdto.seq })" data-toggle="modal" data-target="#deletestore">
+                                                <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteStore(${bsdto.seq })" data-toggle="modal" data-target="#deletestore">
                                                 </td>
                                                 
                                             </tr>
+                                            </c:if>
                                             </c:forEach>
                                         </tbody>
                                     </table>
@@ -106,7 +108,7 @@
 				                               <div class="form-group">
 				                                   <label class="control-label">지점명</label>
 				                                   <input type="text" name="name" id="_name" class="form-control" placeholder="지점명" required="required">
-				                                   <small class="form-control-feedback"></small> </div>
+				                                   <small class="form-control-feedback"></small></div>
 				                           </div>
 				                           <!--/span-->
 				                           <div class="col-md-6">
@@ -163,7 +165,7 @@
 				                   </div>
 				                   <div class="form-actions" align="right">
 				                       <button type="button" class="btn btn-success" id="registerStoreBtn" onclick="registerStore()"> <i class="fa fa-check"></i> 등록</button>
-				                       <button type="button" class="btn btn-inverse">Cancel</button>
+				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
 				                   </div>
 				               </form>
 				           </div>
@@ -210,9 +212,11 @@
 				               <h4 class="m-b-0 text-white">스토어 수정</h4>
 				           </div>
 				           <div class="card-body">
-				               <form action="registerStore.do" method="post">
+				               <form action="updateStoreAf.do" method="post">
 				                   <div class="form-body">
 									   <input type="hidden" id="update_latLng" name="updatelatlng">
+									   <input type="hidden" id="updateseq" name="seq">
+									   <input type="hidden" id="Beforejibun" name="Beforejibun"> <!--업데이트 전 이름 -->
 				                       <hr>
 				                       <div class="row p-t-20">
 				                           <div class="col-md-6">
@@ -275,8 +279,8 @@
 				
 				                   </div>
 				                   <div class="form-actions" align="right">
-				                       <button type="button" class="btn btn-success" id="updateStoreAfBtn" onclick="updateStoreAf()"> <i class="fa fa-check"></i> 등록</button>
-				                       <button type="button" class="btn btn-inverse">Cancel</button>
+				                       <button type="button" class="btn btn-success" id="updateStoreAfBtn" onclick="updateStoreAf()"> <i class="fa fa-check"></i> 수정</button>
+				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
 				                   </div>
 				               </form>
 				           </div>
@@ -307,6 +311,55 @@
       </div>
     </div>
   </div>
+  
+  
+  
+   
+<!--==========================삭제 모달창======================================= -->
+  <!-- The Modal -->
+  <div class="modal fade" id="deletestore">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal body -->
+        <div class="modal-body">
+     
+         <div class="card card-outline-primary">
+	           <div class="card-header">
+	               <h4 class="m-b-0 text-white">스토어 삭제</h4>
+	           </div>
+	           <div class="card-body">
+	               <form action="deleteStore.do" method="post">
+	                   <div class="form-body">
+						   <input type="hidden" id="deleteseq" name="seq">
+						 
+	                       <hr>
+	                       <div class="row p-t-20">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                               <button type="button" class="btn btn-success" id="deleteStoreAfBtn" onclick="deleteStoreAf()" style="width: 200px;"> <i class="fa fa-check" ></i> 삭제</button>
+	                                   <small class="form-control-feedback"></small> </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+	                               <div class="form-group has-danger">
+										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal">취소</button>
+	                                   <small class="form-control-feedback"></small> </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                    </div>
+	               </form>
+	           </div>
+           </div>
+		         
+		          
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
 
 
 
@@ -314,11 +367,13 @@
 
  <script type="text/javascript">
  var map; //지도1
- var map2; //지도2(검색용)
- var map3;
+ var map2; //지도2 등록용
+ var map3;	//지도3 수정용
  var geocoder;	//좌표 가져오는 함수에서 사용
  var addStoreMarker; //등록하고 latlng저장 하는 변수
-
+ var markerArray=[]; //마커들 담아 놓는 변수
+ var markers=[];		//처음 DB에서 가져온 마커관련 array담아놓는 변수
+ var markersForMap2And3=[]  //map2와 map3맵초기화하기위해 사용할 변수
  function initMap() {
 	//map options(처음맵위치 : 서울 위도 경도로 설정 )(기본 맵)
 	var options ={
@@ -365,16 +420,17 @@
 	
 	
 	//Array of markers(array로 마커 집어넣기 )
-	 var markers= [
+	 markerArray= [
 		${markers}
 	] 
 	
 	/*---------------------------------------------------------------------------------------------
 	 *반복해서 marker넣어줌 
 	 *----------------------------------------------------------------------------------------------*/
-	for(var i = 0; i < markers.length; i++){
+	for(var i = 0; i < markerArray.length; i++){
 		//add marker
-		addMarker(markers[i]);
+		addMarker(markerArray[i]);
+		
 	}
 
 
@@ -382,10 +438,15 @@
 	 *스토어 등록 누르면 map(본페이지 지도)에 마커 추가 
 	 *----------------------------------------------------------------------------------------------*/
 	$("#registerStoreBtn").click(function() {
+
 		 var marker = new google.maps.Marker({
 	           map: map,
 	           position: addStoreMarker
 	     });
+		 
+		 markers.push(marker);
+		 marker.setMap(map);
+		 
 		 //등록 지점명 content에 넣어줌(addStoreName은 지점명 입력해두는 변수)
 		 var addStoreName = $("#_name").val(); 
 		 var infowindow = new google.maps.InfoWindow({
@@ -396,25 +457,27 @@
 				infowindow.open(map, marker);
 		 });
 		 
+		 
 	}); 
 	
 	/*---------------------------------------------------------------------------------------------
-	 *스토어 수정 누르면 map(본페이지 지도)에 마커 추가 
+	 *스토어 수정 누르면 map(본페이지 지도)에 마커  삭제 및 추가 
 	 *----------------------------------------------------------------------------------------------*/
 	$("#updateStoreAfBtn").click(function() {
-		 var marker = new google.maps.Marker({
-	           map: map,
-	           position: addStoreMarker
-	     });
-		 //등록 지점명 content에 넣어줌(addStoreName은 지점명 입력해두는 변수)
-		 var addStoreName = $("#update_name").val(); 
-		 var infowindow = new google.maps.InfoWindow({
-		 		content:addStoreName
-		 	});
-		 	
-		 	marker.addListener('click', function () {
-				infowindow.open(map, marker);
-		 });
+
+		 	removeMarker(0);
+		
+		
+		 
+		 
+	}); 
+	
+	/*---------------------------------------------------------------------------------------------
+	 *스토어 삭제 누르면 map(본페이지 지도)에 마커  삭제
+	 *----------------------------------------------------------------------------------------------*/
+	$("#deleteStoreAfBtn").click(function() {
+		
+		 removeMarker(1);
 		 
 	}); 
  
@@ -426,18 +489,15 @@
  *지도에 마커 추가하는 함수	
  *------------------------------------------------------------------------------*/ 
 function addMarker(props) {
-	var marker = new google.maps.Marker({
- 		position:props.coords,
- 		map:map,
- 		//icon:props.iconImage
- 	});
-	
-	//check for cutomicon
-	if(props.iconImage){
-		//set icon image
-		marker.setIcon(props.iconImage);
-	}
-	
+
+ 	var marker = new google.maps.Marker({
+        position: props.coords,
+        map: map,
+        title: props.content
+      });
+ 	markers.push(marker);
+    marker.setMap(map);
+
 	//check content
 	if(props.content){
 		var infowindow = new google.maps.InfoWindow({
@@ -448,7 +508,56 @@ function addMarker(props) {
 			infowindow.open(map, marker);
 		});
 	}
+	
+	
 }
+ 
+/*--------------------------------------------------------------------------------
+ *지도에 마커 삭제하는 함수 
+ *------------------------------------------------------------------------------*/  
+function removeMarker(num) {
+	var updateseq;
+	if(num == 0){ //0이면 update할때사용
+		updateseq = $("#updateseq").val();
+	}else if(num == 1){		//1이면 delete할때 사용
+		updateseq = $("#deleteseq").val();	
+	}
+	/* alert("updateseq"+updateseq); */
+	var index;
+	for(var i = 0; i < markerArray.length; i++){
+
+		var seq = markerArray[i].seq;
+		/* alert("seq"+seq); */
+		if(updateseq == seq){
+			 /* alert("같은거찾음");
+			 alert("i:" + i); */
+			 
+			 markers[i].setMap(null); //마커 삭제실질적부분
+			 index = i;
+			 
+		} 
+	}
+	//수정눌렀을때는 새로운 마커 생성및 배열에 넣어줌
+	if(num==0){
+		 /* alert(addStoreMarker); */
+		 var marker = new google.maps.Marker({
+	           map: map,
+	           position: addStoreMarker
+	     });
+		 markers[index] = marker; //수정된 마커부분에 해당 마커 넣어줌
+		 markers[index].setMap(map);
+		 //등록 지점명 content에 넣어줌(addStoreName은 지점명 입력해두는 변수)
+		 var addStoreName = $("#update_name").val(); 
+		 var infowindow = new google.maps.InfoWindow({
+		 		content:addStoreName
+		 	});
+		 	
+		 	marker.addListener('click', function () {
+				infowindow.open(map, marker);
+		 });
+	}
+}
+
  
 
 /*--------------------------------------------------------------------------------
@@ -471,22 +580,24 @@ function addMarker(props) {
         //위도경도 value에 합쳐주기
        if(num == 0){
        $("#_latLng").attr("value", lat);
-       alert( $("#_latLng").attr("value"));
+      /*  alert( $("#_latLng").attr("value")); */
        }else if(num == 1){
-   	   $("#update_latLng").attr("value", lat);
-       alert( $("#update_latLng").attr("value"));   
+	   	   $("#update_latLng").attr("value", lat);
+	       /* alert( $("#update_latLng").val());    */
        }
        //등록눌렀을때 위도 경도 마커에 표시해주기 위해 임의로 addStoreMarket 글로벌 변수에 저장해둠
        addStoreMarker = lat;
+       /* alert("daumlat: " + lat); */
      	if (status === 'OK') {
          resultsMap.setCenter(results[0].geometry.location);
          var marker = new google.maps.Marker({
            map: resultsMap,
            position: results[0].geometry.location
          });
+         markersForMap2And3.push(marker);
          
          
-         alert("markerpositon:"+marker.position);
+        /*  alert("markerpositon:"+marker.position); */
 
        } else {
          alert('Geocode was not successful for the following reason: ' + status);
@@ -568,7 +679,12 @@ function addMarker(props) {
 		
  function registerStore() {	
 	 
-	 	
+		//초기화
+		for (var i = 0; i < markersForMap2And3.length; i++) {//초기화
+			//초기화
+			markersForMap2And3[i].setMap(null);
+		}
+		markersForMap2And3=[];
 	    alert("스토어등록클릭");
 		var data = {};
 		
@@ -586,13 +702,20 @@ function addMarker(props) {
 			success:function(data){
 
 				//성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-				$('#myTable tr:last').after('<tr id="'+data.map.seq+'"><td>'+data.map.name+'</td>'+
+				$('#myTable tr:last').after('<tr id="tr'+data.map.seq+'"><td>'+data.map.name+'</td>'+
 						'<td>'+data.map.address+'</td>'+
 						'<td>'+data.map.phone+'</td>'+
 						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateStore('+data.map.seq+')" data-toggle="modal" data-target="#updatestore">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteStore('+data.map.seq+')" data-toggle="modal" data-target="#deletestore"></td>'+
 						'</tr>');
-				//맵 addmarker도 해줘야함
+
+				var seq = data.map.seq;
+
+				var resetMarkerArray = {coords:$("#_latLng").val()
+				,content:$("#_name").val()
+				, seq: seq}
+				
+				markerArray.push(resetMarkerArray);
 
 					
 			},
@@ -610,14 +733,19 @@ function addMarker(props) {
   * store 수정 Ajax (주소는 : 우편번호#도로명주소#지번주소#상세주소 로 가져가서 저장- 나중에 데이터 보여줄때는 #으로 자를거임)
   *----------------------------------------------------------------------------------------------*/
 
-  function updateStore(seq) {	
+function updateStore(seq) {	
 		 
-	 	
-	    alert("스토어 수정클릭");
-	    alert(seq);
-		var data = {};
-		
-		data["seq"]= seq;
+	    /* alert("스토어 수정클릭");
+	    alert(seq); */
+	    
+		for (var i = 0; i < markersForMap2And3.length; i++) {//초기화
+			//초기화
+			markersForMap2And3[i].setMap(null);
+		}
+		markersForMap2And3=[];
+	    var data = {};
+	    
+		data["seq"]=seq;
 		
 		$.ajax({
 			contentType:'application/json',
@@ -626,22 +754,82 @@ function addMarker(props) {
 			url:"updateStore.do",			// store
 			type:'POST',
 			success:function(data){
-				//데이터 잘 가져오는지 확인용
-				/* alert(data.map.name);
-				alert(data.map.phone);
-				alert(data.map.address);
-				alert(data.map.latlng);
-				alert(data.map.seq); */
-				//성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-				$('#myTable tr:last').after('<tr><td>'+data.map.name+'</td>'+
-						'<td>'+data.map.address+'</td>'+
-						'<td>'+data.map.phone+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateStore('+data.map.seq+')">'+
-						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteStore('+data.map.seq+')"></td>'+
-						'</tr>');
-				//맵 addmarker도 해줘야함
+				
 
-					
+				/* alert(data.map.postcode);
+				alert(data.map.roadAddress);
+				alert(data.map.jibunAddress);
+				alert(data.map.detailAddress); */
+				document.getElementById('update_name').value = data.map.name;
+				document.getElementById('update_phone').value = data.map.phone;
+				document.getElementById('update_postcode').value = data.map.postcode;
+				document.getElementById('update_roadAddress').value = data.map.roadAddress;
+				document.getElementById('update_jibunAddress').value = data.map.jibunAddress;
+				document.getElementById('_update_detailAddress').value = data.map.detailAddress;
+				document.getElementById('updateseq').value = seq;
+				document.getElementById('update_latLng').value = "("+data.map.lat+", "+data.map.lng+")";
+				
+				
+				
+				//초기화(다른 row 수정 누르고 위도 경도 구한 후, 수정완료 안눌렀을 경우 다시 다른 row 들어가서 수정완료 눌렀을때 위도경도가 꼬이는거방지하기위해)
+				
+				addStoreMarker={lat:parseFloat(data.map.lat), lng:parseFloat(data.map.lng)};
+				
+				//해당 위도 경도 수정 모달창 지도에 띄워주기
+				var marker = new google.maps.Marker({
+			           map: map3,
+			           position: addStoreMarker
+			         });
+			         markersForMap2And3.push(marker);
+				
+			},
+			error:function(req, status, error){
+				alert("error");
+			}
+		
+		});
+		
+			
+}
+ 
+ 
+
+function updateStoreAf() {	
+		 
+	 	
+	    /* alert("스토어 수정완료클릭"); */
+	    var data = {};
+		var seq = document.getElementById('updateseq').value;
+	    var name = document.getElementById('update_name').value;
+	    var phone = document.getElementById('update_phone').value;
+	    var address= document.getElementById('update_postcode').value+"#"+
+						document.getElementById('update_roadAddress').value +"#"+
+						document.getElementById('update_jibunAddress').value +"#"+
+						document.getElementById('_update_detailAddress').value ;
+		data["seq"]=seq;
+		data["name"]=name;
+		data["phone"]=phone;
+		data["address"]=address;
+		data["latlng"]=document.getElementById('update_latLng').value;
+		$.ajax({
+			contentType:'application/json',
+			dataType:'json',
+			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
+			url:"updateStoreAf.do",			// store
+			type:'POST',
+			success:function(data){
+				alert("수정완료");
+				//해당 테이블 row일단 삭제
+				var deleteRowId = "tr"+$("#updateseq").val();
+				deleteTableRow(deleteRowId);
+				//수정된걸로 다시생성
+			
+				$('#myTable tr:last').after('<tr id="tr'+seq+'"><td>'+name+'</td>'+
+						'<td>'+address+'</td>'+
+						'<td>'+phone+'</td>'+
+						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateStore('+seq+')" data-toggle="modal" data-target="#updatestore">'+
+						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteStore('+seq+')" data-toggle="modal" data-target="#deletestore"></td>'+
+						'</tr>');
 			},
 			error:function(req, status, error){
 				alert("error");
@@ -653,17 +841,31 @@ function addMarker(props) {
 }
  
 
-  /*---------------------------------------------------------------------------------------------
-   * store 삭제 Ajax (주소는 : 우편번호#도로명주소#지번주소#상세주소 로 가져가서 저장- 나중에 데이터 보여줄때는 #으로 자를거임)
-   *----------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * store 삭제 Ajax (주소는 : 우편번호#도로명주소#지번주소#상세주소 로 가져가서 저장- 나중에 데이터 보여줄때는 #으로 자를거임)
+ *----------------------------------------------------------------------------------------------*/
+ var deleteRow; //지울 테이블 row저장
+function deleteStore(seq) {	
 
-   function deleteStore(seq) {	
+	 
+	 
+		$("#deleteseq").attr("value", seq);
+		/* alert($("#deleteseq").val());	 */
+		
+ 			
+ }
+ 
+
+/*---------------------------------------------------------------------------------------------
+ * store 삭제 Ajax 완료 
+ *----------------------------------------------------------------------------------------------*/
+function deleteStoreAf() {	
  		 
  	 	
- 	    alert("스토어 삭제클릭");
+ 	    /* alert("스토어  삭제 완료"); */
  		var data = {};
- 		alert(seq);
- 		data["seq"]= seq;
+
+ 		data["seq"]= $("#deleteseq").val();
 
  		$.ajax({
  			contentType:'application/json',
@@ -672,21 +874,11 @@ function addMarker(props) {
  			url:"deleteStore.do",			// store
  			type:'POST',
  			success:function(data){
- 				//데이터 잘 가져오는지 확인용
- 				/* alert(data.map.name);
- 				alert(data.map.phone);
- 				alert(data.map.address);
- 				alert(data.map.latlng);
- 				alert(data.map.seq); */
- 				//성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
- 				$('#myTable tr:last').after('<tr><td>'+data.map.name+'</td>'+
- 						'<td>'+data.map.address+'</td>'+
- 						'<td>'+data.map.phone+'</td>'+
- 						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateStore('+data.map.seq+')">'+
- 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteStore('+data.map.seq+')"></td>'+
- 						'</tr>');
- 				//맵 addmarker도 해줘야함
-
+ 				alert("스토어  삭제 완료");
+				alert(data.msg);
+				
+				var deleteRowId = "tr"+$("#deleteseq").val();
+				deleteTableRow(deleteRowId);
  					
  			},
  			error:function(req, status, error){
@@ -699,10 +891,23 @@ function addMarker(props) {
  }
  
 
+/*---------------------------------------------------------------------------------------------
+ * tr 아이디값으로 해당 row 지우는 함수 
+ *----------------------------------------------------------------------------------------------*/
+ function deleteTableRow(deleteRowId){
+	 var row = document.getElementById(deleteRowId);
+	    var table = row.parentNode;
+	    while ( table && table.tagName != 'TABLE' )
+	        table = table.parentNode;
+	    if ( !table )
+	        return;
+	    table.deleteRow(row.rowIndex);
+ }
+
  </script> 
  <!--=======================구글 맵 API (key 내꺼임 나중에 지우고 올려야함)===============================-->
  <script async defer
- src="https://maps.googleapis.com/maps/api/js?key=Your_Api_Key&callback=initMap">
+ src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
  </script>
   <!--=======================우편번호 스크립트===============================-->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
