@@ -36,7 +36,6 @@
 </definition>
 
 
-
 <!--store관리로 이동 -->
 <definition name="storelist.tiles" extends="home.tiles">
 <put-attribute name="main" value="/WEB-INF/views/storemenu/storelist.jsp"/>
