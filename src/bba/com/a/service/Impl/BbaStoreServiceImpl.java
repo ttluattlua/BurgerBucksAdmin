@@ -27,6 +27,24 @@ public class BbaStoreServiceImpl implements BbaStoreSerivce {
 		// TODO Auto-generated method stub
 		return bbaStoreDao.GetStoreList();
 	}
+
+	@Override
+	public Bb_StoreDto updateStore(int seq) {
+		// TODO Auto-generated method stub
+		return bbaStoreDao.updateStore(seq);
+	}
+
+	@Override
+	public void updateStoreAf(Bb_StoreDto bsdto) {
+		bbaStoreDao.updateStoreAf(bsdto);
+		
+	}
+
+	@Override
+	public void deleteStore(int seq) {
+		bbaStoreDao.deleteStore(seq);
+		
+	}
 	
 	
 

@@ -17,8 +17,29 @@
 
 <!--store 가져오기-->
 <select id="storeList" resultType="bba.com.a.model.Bb_StoreDto">
-SELECT SEQ, NAME ,PHONE ,ADDRESS ,LAT, LNG, DEL FROM BB_STORE ORDER BY NAME
+SELECT SEQ, NAME ,PHONE ,ADDRESS ,LAT, LNG, DEL FROM BB_STORE WHERE DEL=0 ORDER BY NAME
 </select>
+
+
+<!--store 수정 디테일 가져오기-->
+<select id="updatestore" resultType="bba.com.a.model.Bb_StoreDto" parameterType="java.lang.Integer">
+SELECT SEQ, NAME ,PHONE ,ADDRESS ,LAT, LNG, DEL FROM BB_STORE WHERE SEQ=#{seq}
+</select>
+
+
+<!--store 수정 하기-->
+<update id="updatestoreAf" parameterType="bba.com.a.model.Bb_StoreDto">
+UPDATE BB_STORE
+SET NAME=#{name}, PHONE=#{phone}, ADDRESS=#{address}, LAT=#{lat}, LNG=#{lng}
+WHERE SEQ=#{seq}
+</update>
+
+<!--store 삭제 하기-->
+<update id="deletestore" parameterType="java.lang.Integer">
+UPDATE BB_STORE
+SET DEL=1
+WHERE SEQ=#{seq}
+</update>
 
 </mapper>  
 
