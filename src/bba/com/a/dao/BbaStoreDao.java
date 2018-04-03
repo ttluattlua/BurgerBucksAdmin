@@ -1,5 +1,17 @@
 package bba.com.a.dao;
 
-public interface BbaStoreDao {
+import java.util.List;
 
+import bba.com.a.model.Bb_StoreDto;
+
+public interface BbaStoreDao {
+	/*--------------------------------------------------------------------------------------------
+	 * store 새로 등록 
+	 *-------------------------------------------------------------------------------------------*/
+	public int registerStore(Bb_StoreDto bsdto);
+	
+	/*--------------------------------------------------------------------------------------------
+	 * store 리스트 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	public List<Bb_StoreDto> GetStoreList();
 }

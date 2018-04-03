@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="BBAStore">
+
+<!--스토어 등록 -->
+<insert id="registerStore" parameterType="bba.com.a.model.Bb_StoreDto">
+ INSERT INTO BB_STORE(SEQ, NAME ,PHONE ,ADDRESS ,LAT, LNG, DEL) 
+ VALUES(STORE_SEQ.NEXTVAL, #{name}, #{phone}, #{address}, #{lat}, #{lng}, 0)
+ <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT STORE_SEQ.CURRVAL FROM dual 
+ </selectKey>
+</insert>
+
+<!--store 가져오기-->
+<select id="storeList" resultType="bba.com.a.model.Bb_StoreDto">
+SELECT SEQ, NAME ,PHONE ,ADDRESS ,LAT, LNG, DEL FROM BB_STORE ORDER BY NAME
+</select>
+
+</mapper>  
+
