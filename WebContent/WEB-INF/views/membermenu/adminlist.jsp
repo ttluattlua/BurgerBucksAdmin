@@ -3,7 +3,13 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 <fmt:requestEncoding value="utf-8"/> 
+
+<!-- icon 불러오기 -->
+<!--core first + styles last-->
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
 
 <!-- Bread crumb -->
@@ -26,23 +32,29 @@
         <h6 class="card-subtitle">Branch manager List</h6>
         <div class="table-responsive m-t-40">
             <table id="myTable" class="table table-bordered table-striped">
+            <col width="10%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="30%"/><col width="10%"/>
                 <thead>
                     <tr>
+                    	<th>Store Code</th>
                         <th>ID</th>
                         <th>Password</th>
                         <th>Name</th>
                         <th>Phone</th>
-                        <th>Store Code</th>
+                        <th>SET/DEL</th>
                     </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${aList}" var="admin" varStatus="vs">
                     <tr>
+                        <td>${admin.store_seq }</td>
                         <td>${admin.id }</td>
                         <td>${admin.password }</td>
                         <td>${admin.name }</td>
                         <td>${admin.phone }</td>
-                        <td>${admin.store_seq }</td>
+                        <td style="text-align: center;">
+                            <a href="setadmin.do" onclick="${admin.seq}"  class="settings" title="Settings" data-toggle="tooltip"><i class="fas fa-cog"></i></a>&nbsp;&nbsp;&nbsp;
+							<a href="deladmin.do" onclick="${admin.seq}" class="delete" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>
+                        </td>
                     </tr>
                    </c:forEach>
                 </tbody>
@@ -50,4 +62,16 @@
         </div>
     </div>
 </div>
-                     
+             
+             
+<script>
+//테이블 클릭
+$(document).ready(function() {
+    var table = $('#myTable').DataTable();
+     
+    $('#myTable tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        alert( 'You clicked on '+data[0]+'\'s row' );
+    } );
+} );
+</script>        

@@ -58,9 +58,9 @@ public class BbaMemberController {
 		int count = bbMemberService.getAdminID(adminDto);
 		
 		if(count > 0) {
-			return "FAILED";
+			return "F";
 		}else {
-			return "SUCS";
+			return "S";
 		}
 	}
 	
@@ -115,6 +115,19 @@ public class BbaMemberController {
 		
 		return "adminlist.tiles";
 	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원 정보 삭제하기 
+	 *-------------------------------------------------------------------------------------------*/
+	@ResponseBody
+	@RequestMapping(value="deladmin.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String deladmin(Bb_AdminDto adminDto) {
+		logger.info("Welcome BbaMemberController deladmin! "+ new Date());
+		
+		//bbMemberService.deladmin(adminDto.getSeq());
+		return "redirect:/calendar.do";
+	}
+	
 	
 	/*--------------------------------------------------------------------------------------------
 	 * 고객관리로 이동 

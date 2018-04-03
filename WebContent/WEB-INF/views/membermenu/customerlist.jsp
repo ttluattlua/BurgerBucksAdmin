@@ -29,6 +29,7 @@
            <h6 class="card-subtitle">Custom List</h6>
            <div class="table-responsive m-t-40">
                <table id="myTable" class="table table-bordered table-striped">
+               <col width="200"/><col width="200"/><col width="200"/><col width="200"/><col width="200"/>
                    <thead>
                        <tr>
                            <th>ID</th>
