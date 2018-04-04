@@ -38,6 +38,14 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	public int getAdminID(Bb_AdminDto adminDto) {
 		return bbsMemberDao.getAdminID(adminDto);
 	}
+
+	/*------------------------------------------------------------------------------
+	* 사원 삭제
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void delAdmin(int seq) {
+		bbsMemberDao.deladmin(seq);
+	}
 	
 	
 	

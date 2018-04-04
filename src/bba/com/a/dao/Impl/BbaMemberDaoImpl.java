@@ -51,6 +51,14 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 		return sqlSession.selectOne(namespace + "getAdminID", adminDto);
 	}
 
+	/*------------------------------------------------------------------------------
+	* 사원 삭제
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void deladmin(int seq) {
+		sqlSession.selectOne(namespace + "deladmin", seq);
+	}
+
 	
 	
 }

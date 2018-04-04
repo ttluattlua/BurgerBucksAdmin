@@ -12,4 +12,6 @@ public interface BbaMemberDao {
 	List<Bb_AdminDto> getAdminList() throws Exception;
 	//사원 id 중복체크
 	int getAdminID(Bb_AdminDto adminDto);
+	//사원 삭제
+	void deladmin(int seq);
 }

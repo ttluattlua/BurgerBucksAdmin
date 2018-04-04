@@ -120,13 +120,28 @@ public class BbaMemberController {
 	 * 사원 정보 삭제하기 
 	 *-------------------------------------------------------------------------------------------*/
 	@ResponseBody
-	@RequestMapping(value="deladmin.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String deladmin(Bb_AdminDto adminDto) {
-		logger.info("Welcome BbaMemberController deladmin! "+ new Date());
+	@RequestMapping(value= "deladmin.do", method={RequestMethod.GET, RequestMethod.POST})
+	public List<Bb_AdminDto> deladmin(@RequestParam("seq") int seq, 
+			HttpServletRequest request, Model model)  {
+
+		System.out.println("delAdmin seq 번호 : " + seq);
+		bbMemberService.delAdmin(seq);
+		List<Bb_AdminDto> aList = null;
+		try {
+			aList = bbMemberService.getAdminList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("aList", aList);
 		
-		//bbMemberService.deladmin(adminDto.getSeq());
-		return "redirect:/calendar.do";
+		for (int i = 0; i < aList.size(); i++) {
+			System.out.println("aList : " + aList.get(i).getId());
+		}
+	    //SocialPerson person = dao.deladmin(seq);
+	    return aList;
 	}
+	
 	
 	
 	/*--------------------------------------------------------------------------------------------
@@ -139,6 +154,7 @@ public class BbaMemberController {
 	}
 	
 	
+
 }
 
 

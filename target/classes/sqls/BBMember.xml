@@ -28,6 +28,13 @@
 		FROM BB_ADMIN
 		WHERE ID=#{id}
 	</select>
+	
+	<!-- 사원 리스트에서 삭제 -->
+	<update id="deladmin" parameterType="java.lang.Integer">
+		UPDATE BB_ADMIN
+		SET DEL=1
+		WHERE SEQ=#{seq}
+	</update>
 
 </mapper>  
 
