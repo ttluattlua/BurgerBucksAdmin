@@ -12,9 +12,9 @@
 <!--==================================모달=============================================-->
 
 <!--===================================우편번호 script=====================================-->
-    <!-- Favicon icon -->
+    <!-- 로고 icon -->
     
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/logo.png">
     <title>버거벅스 관리자 계정</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">

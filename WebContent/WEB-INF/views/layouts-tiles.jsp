@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 <html>
-<title>layouts-tiles</title>
+<title>BurgerBucksAdmin</title>
 
 <tiles:insertAttribute name="header"/>
 
