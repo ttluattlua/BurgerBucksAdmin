@@ -14,4 +14,9 @@ public interface BbaMemberDao {
 	int getAdminID(Bb_AdminDto adminDto);
 	//사원 삭제
 	void deladmin(int seq);
+	
+	//사원 수정 디테일
+	Bb_AdminDto updateadmin(int seq);
+	//사원 수정 후
+	void updateadminAf(Bb_AdminDto adminDto);
 }

@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import bba.com.a.arrow.StoreMapParcing;
 import bba.com.a.model.Bb_AdminDto;
+import bba.com.a.model.Bb_StoreDto;
 import bba.com.a.service.BbaMemberSerivce;
 
 @Controller
@@ -88,6 +90,10 @@ public class BbaMemberController {
 		System.out.println("conName : " +conName);
 		adminDto.setName(conName);
 		bbMemberService.addAdmin(adminDto);
+		
+		model.addAttribute("doc_title", "사원등록");
+		model.addAttribute("doc_menu", "사원등록");
+		
 		return "redirect:/adminlist.do";
 		
 	}
@@ -112,6 +118,9 @@ public class BbaMemberController {
 		model.addAttribute("aList", aList);
 		//model.addAttribute("year", adminparam.getYear());
 		//model.addAttribute("month", adminparam.getMonth());
+		
+		model.addAttribute("doc_title", "사원관리");
+		model.addAttribute("doc_menu", "사원관리");
 		
 		return "adminlist.tiles";
 	}
@@ -142,6 +151,87 @@ public class BbaMemberController {
 	    return aList;
 	}
 	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원 정보 수정하기 (디테일 보기)
+	 *-------------------------------------------------------------------------------------------*/
+	@ResponseBody
+	@RequestMapping(value="updateAdmin.do", method=RequestMethod.POST)
+	public Map<String, Object> updateAdmin(@RequestBody Map<String, Object> map) {
+		logger.info("BbaMemberController updateAdmin");
+		System.out.println("BbaMemberController updateAdmin");
+
+		System.out.println((int)map.get("seq"));
+
+		int seq = (int)map.get("seq");
+		
+		//DB에서 가져오기 
+		Bb_AdminDto admindto = bbMemberService.updateadmin(seq);
+		
+		/*SEQ NUMBER(10) PRIMARY KEY,
+		ID VARCHAR2(20) UNIQUE,
+		PASSWORD VARCHAR2(20) NOT NULL,
+		NAME VARCHAR2(20) NOT NULL,
+		PHONE VARCHAR2(20) NOT NULL,
+		STORE_SEQ NUMBER(10) NOT NULL,
+		DEL NUMBER(1) NOT NULL*/
+		
+		//view로 보내기 
+		map.put("seq", admindto.getSeq());
+		map.put("id", admindto.getId());
+		map.put("password", admindto.getPassword());
+		map.put("name", admindto.getName());
+		map.put("phone", admindto.getPhone());
+		map.put("store_seq", admindto.getStore_seq());
+		map.put("del", admindto.getDel());
+		
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		rmap.put("map",map);
+		
+		return rmap;
+	}
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원 수정 완료
+	 *-------------------------------------------------------------------------------------------*/
+	@ResponseBody
+	@RequestMapping(value="updateAdminAf.do", method=RequestMethod.POST)
+	public Map<String, Object> updateStoreAf(@RequestBody Map<String, Object> map) {
+		logger.info("BbaMemberController updateAdminAf");
+		System.out.println("BbaMemberController updateAdminAf");
+
+		String sseq = (String)map.get("seq");
+		int seq = Integer.parseInt(sseq);
+		
+		/*SEQ NUMBER(10) PRIMARY KEY,
+		ID VARCHAR2(20) UNIQUE,
+		PASSWORD VARCHAR2(20) NOT NULL,
+		NAME VARCHAR2(20) NOT NULL,
+		PHONE VARCHAR2(20) NOT NULL,
+		STORE_SEQ NUMBER(10) NOT NULL,
+		DEL NUMBER(1) NOT NULL*/
+		
+		String store = (String)map.get("store_seq");
+		int store_seq = Integer.parseInt(store);
+		
+		
+		Bb_AdminDto admindto = new Bb_AdminDto(
+				seq, 
+				(String)map.get("id"), 
+				(String)map.get("password"), 
+				(String)map.get("name"), 
+				(String)map.get("phone"), 
+				store_seq, 
+				0);
+
+		bbMemberService.updateadminAf(admindto);
+	
+		Map<String, Object> rmap = new HashMap<String, Object>();
+		rmap.put("msg","수정완료");
+		
+		return rmap;
+	}
 	
 	
 	/*--------------------------------------------------------------------------------------------

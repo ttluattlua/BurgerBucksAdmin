@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import bba.com.a.dao.BbaMemberDao;
 import bba.com.a.model.Bb_AdminDto;
+import bba.com.a.model.Bb_StoreDto;
 
 @Repository
 public class BbaMemberDaoImpl implements BbaMemberDao {
@@ -57,6 +58,25 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 	@Override
 	public void deladmin(int seq) {
 		sqlSession.selectOne(namespace + "deladmin", seq);
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * store 수정 디테일 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public Bb_AdminDto updateadmin(int seq) {
+		return sqlSession.selectOne(namespace+"updateadmin", seq);
+	}
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * store 수정 하기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void updateadminAf(Bb_AdminDto adminDto) {
+		System.out.println("updateadminAf:"+adminDto.toString());
+		sqlSession.update(namespace+"updateadminAf", adminDto);
+		
 	}
 
 	

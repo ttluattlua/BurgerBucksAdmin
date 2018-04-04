@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import bba.com.a.dao.BbaMemberDao;
 import bba.com.a.model.Bb_AdminDto;
+import bba.com.a.model.Bb_StoreDto;
 import bba.com.a.service.BbaMemberSerivce;
 
 @Service
@@ -48,6 +49,23 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	}
 	
 	
+	/*------------------------------------------------------------------------------
+	* 사원 수정 디테일
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_AdminDto updateadmin(int seq) {
+		// TODO Auto-generated method stub
+		return bbsMemberDao.updateadmin(seq);
+	}
+	
+	/*------------------------------------------------------------------------------
+	* 사원 수정 버튼 클릭 후
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void updateadminAf(Bb_AdminDto adminDto) {
+		bbsMemberDao.updateadminAf(adminDto);
+		
+	}
 	
 	
 	
