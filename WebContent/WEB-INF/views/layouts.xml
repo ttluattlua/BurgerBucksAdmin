@@ -42,7 +42,35 @@
 </definition>
 
 
+<!--side관리로 이동 -->
+<definition name="sidelist.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/tablemenu/sidelist.jsp"/>
+</definition>
+
+<!--menu관리로 이동 -->
+<definition name="menulist.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/tablemenu/menulist.jsp"/>
+</definition>
+
+<!--재료관리로 이동 -->
+<definition name="ingredientlist.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/tablemenu/ingredientlist.jsp"/>
+</definition>
+
+
+<!--버거관리로 이동 -->
+<definition name="burgerlist.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/tablemenu/burgerlist.jsp"/>
+</definition>
+
+<!--음료관리로 이동 -->
+<definition name="beveragelist.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/tablemenu/beveragelist.jsp"/>
+</definition>
+
+
 </tiles-definitions>
+
 
 
 
