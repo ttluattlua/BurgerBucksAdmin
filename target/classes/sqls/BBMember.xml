@@ -30,26 +30,70 @@
 	</select>
 	
 	<!-- 사원 리스트에서 삭제 -->
-	<update id="deladmin" parameterType="java.lang.Integer">
+	<update id="delAdmin" parameterType="java.lang.Integer">
 		UPDATE BB_ADMIN
 		SET DEL=1
 		WHERE SEQ=#{seq}
 	</update>
 	
 	<!-- 사원 정보 수정 디테일 가져오기 -->
-	<select id="updateadmin" resultType="bba.com.a.model.Bb_AdminDto" parameterType="java.lang.Integer">
+	<select id="updateAdmin" resultType="bba.com.a.model.Bb_AdminDto" parameterType="java.lang.Integer">
 		SELECT SEQ, ID, PASSWORD, NAME, PHONE, STORE_SEQ, DEL
 		FROM BB_ADMIN
 		WHERE SEQ=#{seq}
 	</select>
-	
+
+		
 	<!--사원 정보 수정 하기-->
-	<update id="updateadminAf" parameterType="bba.com.a.model.Bb_AdminDto">
+	<update id="updateAdminAf" parameterType="bba.com.a.model.Bb_AdminDto">
 		UPDATE BB_ADMIN
-		SET ID=#{id}, PASSWORD=#{password}, NAME=#{name}, PHONE=#{phone}, STROE_SEQ=#{seq}
+		SET ID=#{id}, PASSWORD=#{password}, NAME=#{name}, PHONE=#{phone}, STORE_SEQ=#{store_seq}
 		WHERE SEQ=#{seq}
 	</update>
 	
+	
+	<!-- 점포 이름 가져오기 -->
+	<select id="getStoreName" resultType="bba.com.a.model.Bb_StoreDto" parameterType="java.lang.Integer">
+		SELECT SEQ, NAME, PHONE, ADDRESS, LAT, LNG, DEL
+		FROM BB_STORE
+		WHERE SEQ=#{seq}
+	</select>
+	
+	
+	
+	
+	
+	<!-- 고객 관리 서비스 -->
+	
+	<!-- 고객 리스트 불러오기 -->
+	<select id="getCustomerList" resultType="bba.com.a.model.Bb_MemberDto">
+		SELECT SEQ, ID, PASSWORD, BDAY, NAME, PHONE, SEX, MILEAGE, GRADE, EXP, DEL
+		FROM BB_MEMBER
+		ORDER BY SEQ DESC
+	</select>
+	
+	<!-- 고객 리스트에서 삭제 -->
+	<update id="delCustomer" parameterType="java.lang.Integer">
+		UPDATE BB_MEMBER
+		SET DEL=1
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<!-- 고객 정보 수정 디테일 가져오기 -->
+	<select id="updateCustomer" resultType="bba.com.a.model.Bb_MemberDto" parameterType="java.lang.Integer">
+		SELECT SEQ, ID, PASSWORD, BDAY, NAME, PHONE, SEX, MILEAGE, GRADE, EXP, DEL
+		FROM BB_MEMBER
+		WHERE SEQ=#{seq}
+	</select>
+
+		
+	<!--고객 정보 수정 하기-->
+	<update id="updateCustomerAf" parameterType="bba.com.a.model.Bb_MemberDto">
+		UPDATE BB_MEMBER
+		SET ID=#{id}, PASSWORD=#{password}, BDAY=#{bday}, NAME=#{name}, PHONE=#{phone}, SEX=#{sex}, 
+		MILEAGE=#{mileage}, GRADE=#{grade}, EXP=#{exp}
+		WHERE SEQ=#{seq}
+	</update>
 
 </mapper>  
 

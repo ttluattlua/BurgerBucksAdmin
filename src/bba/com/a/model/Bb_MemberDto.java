@@ -11,14 +11,14 @@ public class Bb_MemberDto {
 	private String password;
 	private String bday;
 	private String name;
-	private int phone;
+	private String phone;
 	private int sex;
 	private int mileage;
 	private int grade;
 	private int exp;
 	private int del;
 	
-	public Bb_MemberDto(int seq, String id, String password, String bday, String name, int phone, int sex, int mileage,
+	public Bb_MemberDto(int seq, String id, String password, String bday, String name, String phone, int sex, int mileage,
 			int grade, int exp, int del) {
 		super();
 		this.seq = seq;
@@ -63,10 +63,10 @@ public class Bb_MemberDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public int getSex() {
