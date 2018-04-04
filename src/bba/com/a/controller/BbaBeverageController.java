@@ -1,0 +1,16 @@
+package bba.com.a.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import bba.com.a.service.BbaBeverageService;
+
+@Controller
+public class BbaBeverageController {
+	private static final Logger logger = LoggerFactory.getLogger(BbaBeverageController.class);
+
+	@Autowired
+	BbaBeverageService bbaBeverageService;
+}

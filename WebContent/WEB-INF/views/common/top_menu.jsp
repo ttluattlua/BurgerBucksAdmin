@@ -66,11 +66,11 @@
                                         <h4 class="m-b-20"><img alt="" src="./icons/menuicon/fast-food.png"></h4>
                                         <!-- List style -->
                                         <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/hamburger.png"> 버거관리</a></li>
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/french-fries.png"> 사이드관리</a></li>
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/cabbage.png"> 재료관리</a></li>
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/coke.png"> 음료관리</a></li>
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/menu.png"> 메뉴관리</a></li>
+                                            <li><a href="burgerlist.do"><img alt="" src="./icons/menuicon/hamburger.png"> 버거관리</a></li>
+                                            <li><a href="sidelist.do"><img alt="" src="./icons/menuicon/french-fries.png"> 사이드관리</a></li>
+                                            <li><a href="ingredientlist.do"><img alt="" src="./icons/menuicon/cabbage.png"> 재료관리</a></li>
+                                            <li><a href="beveragelist.do"><img alt="" src="./icons/menuicon/coke.png"> 음료관리</a></li>
+                                            <li><a href="menulist.do"><img alt="" src="./icons/menuicon/menu.png"> 메뉴관리</a></li>
                                         </ul>
                                     </li>
                                     <!--스토어 수정/등록-->

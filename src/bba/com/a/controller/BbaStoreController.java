@@ -20,7 +20,7 @@ import bba.com.a.service.BbaStoreSerivce;
 
 @Controller
 public class BbaStoreController {
-	private static final Logger logger = LoggerFactory.getLogger(BbaMemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BbaStoreController.class);
 	
 	@Autowired
 	BbaStoreSerivce bbaStoreService;
