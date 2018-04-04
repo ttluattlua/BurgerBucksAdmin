@@ -1,35 +1,5 @@
-
 $(document).ready(function() {
-    $('#adminTable').DataTable();
-} );
-
-$(document).ready(function() {
-    $('#adminTable').DataTable( {
-        initComplete: function () {
-            this.api().columns().every( function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo( $(column.footer()).empty() )
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
- 
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
- 
-                column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
-                } );
-            } );
-        }
-    } );
-} );
-$(document).ready(function() {
-	
-	   $('#myTable').DataTable();
+        $('#myTable').DataTable();
         $(document).ready(function() {
             var table = $('#example').DataTable({
                 "columnDefs": [{
@@ -71,16 +41,20 @@ $(document).ready(function() {
             });*/
         });
     });
-
-/*
-    $('#adminTable').DataTable({
+    $('#example23').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
-    */
-
+    
+    
+    <!-- 페이지 처리! -->
+	  $.fn.DataTable.ext.pager.numbers_length = 7;
+	    $('#adminTT').DataTable( {
+	       "pagingType":"full_numbers",
+	    } );  
+	    
 	    
 	    
 	    

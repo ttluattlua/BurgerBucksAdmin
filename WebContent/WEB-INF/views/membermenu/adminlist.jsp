@@ -34,7 +34,7 @@
            <h4 class="card-title">고객 리스트</h4>
            <h6 class="card-subtitle">Custom List</h6>
            <div class="table-responsive m-t-40">
-               <table id="adminTable" class="table table-bordered table-striped" style="width: 80%">
+               <table id="myTable" class="table table-bordered table-striped" style="width: 80%">
                <col width="200"/><col width="200"/><col width="200"/><col width="200"/><col width="200"/>
                    <thead>
                     <tr>
@@ -119,7 +119,7 @@ $(document).ready(function() {
                     return false;
                 }
                 
-                var div = document.querySelector('#adminTable');
+                var div = document.querySelector('#myTable');
                 var html = '<table>';
                 html += '<thead><tr><th>Store Code</th><th>ID</th><th>Password</th><th>Name</th><th>Phone</th><th>SET/DEL</th></tr></thead>';
                 html += '<tbody>';
