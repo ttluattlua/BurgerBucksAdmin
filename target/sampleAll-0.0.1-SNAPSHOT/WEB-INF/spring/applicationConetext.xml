@@ -38,7 +38,7 @@
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"/>
-		<constructor-arg index="1" value="SIMPLE"/>
+		<!-- <constructor-arg index="1" value="SIMPLE"/> -->
 	</bean>
 	
 	<!-- 가변적인 처리를 하기 위한 설정 -->

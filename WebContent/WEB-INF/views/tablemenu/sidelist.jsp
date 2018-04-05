@@ -46,7 +46,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach var="bsdto" items="${bslist}">
+                            	<c:forEach var="bsdto" items="${sideList}">
                             	<c:if test="${bsdto.del == 0}">
                                 <tr id="tr${bsdto.seq}">
                                 	
@@ -88,72 +88,62 @@
 				               <h4 class="m-b-0 text-white">사이드 등록</h4>
 				           </div>
 				           <div class="card-body">
-				               <form action="registerStore.do" method="post">
+				               <form action="registerSide.do" method="post" enctype="multipart/form-data" id="fileForm">
 				                   <div class="form-body">
-									   <input type="hidden" id="_latLng" name="latlng">
 				                       <hr>
 				                       <div class="row p-t-20">
 				                           <div class="col-md-6">
 				                               <div class="form-group">
-				                                   <label class="control-label">지점명</label>
-				                                   <input type="text" name="name" id="_name" class="form-control" placeholder="지점명" required="required">
+				                                   <label class="control-label">사이드명</label>
+				                                   <input type="text" name="name" id="name" class="form-control" placeholder="사이드명" required="required">
 				                                   <small class="form-control-feedback"></small></div>
 				                           </div>
 				                           <!--/span-->
 				                           <div class="col-md-6">
 				                               <div class="form-group has-danger">
-				                                   <label class="control-label">전화번호</label>
-				                                   <input type="text" name="phone" id="_phone" class="form-control form-control-danger" placeholder="전화번호" required="required">
+				                                   <label class="control-label">가격</label>
+				                                   <input type="number" min="0" name="price" id="price" class="form-control form-control-danger" placeholder="가격" required="required">
 				                                   <small class="form-control-feedback"></small> </div>
 				                           </div>
 				                           <!--/span-->
 				                       </div>
 				                       <!--/row-->
+
 				
 				                        <div class="row">
 				                           <div class="col-md-6">
 				                               <div class="form-group">
-				                                   <label>Post Code</label>
-				                                   <input type="text" name="postcode" class="form-control" id="register_postcode" placeholder="우편번호" readonly="readonly" required="required">
+				                                   <label>칼로리</label>
+				                                   <input type="number" min="0" name="cal"  class="form-control" id="cal" placeholder="칼로리" required="required">
 				                               </div>
 				                           </div>
 				                           <!--/span-->
 				                           <div class="col-md-6">
-				                               <div class="form-group">
-													<input type="button" onclick="DaumPostcode(0)" value="우편번호 찾기" class="btn btn-inverse" style="margin-top: 30px;">
-				                               </div>
+					                          <div class="form-group">
+                                                   <label class="control-label">이미지 타입</label>
+                                                   <select name="what_Image" id="what_Image"  class="form-control custom-select" data-placeholder="이미지 타입을 선택해주세요" tabindex="1" style="height: 40px;">
+                                                       <option value="실물사진">실물사진</option>
+                                                       <option value="일러스트">일러스트</option>
+                                                   </select>
+	                                           </div>
 				                           </div>
 				                           <!--/span-->
 				                       </div>
+				                       <!--/row-->
+				                       
 				                       <div class="row">
 				                           <div class="col-md-12 ">
 				                               <div class="form-group">
-				                                   <label>도로명 주소</label>
-				                                   <input type="text" name="roadAddress" class="form-control" id="register_roadAddress" placeholder="도로명주소" readonly="readonly" required="required">
+				                                   <label>사진등록</label>
+				                                    <input type="file" id="image_src" name="image_src" class="form-control"/>
 				                               </div>
 				                           </div>
 				                       </div>
-				         			  <div class="row">
-				                           <div class="col-md-12 ">
-				                               <div class="form-group">
-				                                   <label>지번 주소 </label>
-				                                   <input type="text" name="jibunAddress" class="form-control" id="register_jibunAddress" placeholder="지번주소" readonly="readonly" required="required">
-				                               		<span id="register_guide" style="color:#999"></span>                               		
-				                               </div>
-				                           </div>
-				                       </div>
-				                       <div class="row">
-				                           <div class="col-md-12 ">
-				                               <div class="form-group">
-				                                   <label>상세 주소  </label>
-				                                   <input type="text" name="detailAddress" id="_detailAddress" class="form-control" placeholder="상세주소" required="required">                          		
-				                               </div>
-				                           </div>
-				                       </div>
+				         			  
 				
 				                   </div>
 				                   <div class="form-actions" align="right">
-				                       <button type="button" class="btn btn-success" id="registerStoreBtn" onclick="registerStore()"> <i class="fa fa-check"></i> 등록</button>
+				                       <button type="button" class="btn btn-success" id="registerSideBtn" onclick="registerSideClick()"> <i class="fa fa-check"></i> 등록</button>
 				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
 				                   </div>
 				               </form>
@@ -163,3 +153,56 @@
 		      </div>
 		    </div>
 		  </div>
+		  
+		  
+
+
+
+
+<script type="text/javascript">
+
+function registerSideClick() {
+	alert("클릭");
+    var formData = new FormData($("#fileForm")[0]);
+    $.ajax({
+        type : 'post',
+        url : 'registerSide.do',
+        dataType:'json',
+        data : formData,
+        processData : false,
+        contentType : false,
+        success : function(data) {
+            alert("파일 업로드하였습니다.");
+            console.log(data);
+            console.log(data.name);
+            console.log(data.price);
+            console.log(data.cal);
+            console.log(data.del);
+
+        },
+        error : function(req, status, error) {
+            alert("파일 업로드에 실패하였습니다.");
+            alert(req);
+            alert(status);
+            alert(error);
+            console.log(error);
+            console.log(error.status);
+        }
+    });
+}
+
+
+/*---------------------------------------------------------------------------------------------
+ * tr 아이디값으로 해당 row 지우는 함수 
+ *----------------------------------------------------------------------------------------------*/
+ function deleteTableRow(deleteRowId){
+	 var row = document.getElementById(deleteRowId);
+	    var table = row.parentNode;
+	    while ( table && table.tagName != 'TABLE' )
+	        table = table.parentNode;
+	    if ( !table )
+	        return;
+	    table.deleteRow(row.rowIndex);
+ }
+
+</script>

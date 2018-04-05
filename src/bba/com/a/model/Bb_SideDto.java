@@ -13,15 +13,18 @@ public class Bb_SideDto implements Serializable {
 	private int cal;			//사이드 칼로리
 	private int del;			//삭제 여부 
 	
+	private String what_Image;
+	
 	public Bb_SideDto() {}
-
-	public Bb_SideDto(int seq, String name, int price, int cal, int del) {
+	
+	public Bb_SideDto(int seq, String name, int price, int cal, int del, String what_Image) {
 		super();
 		this.seq = seq;
 		this.name = name;
 		this.price = price;
 		this.cal = cal;
 		this.del = del;
+		this.what_Image = what_Image;
 	}
 
 	public int getSeq() {
@@ -64,10 +67,22 @@ public class Bb_SideDto implements Serializable {
 		this.del = del;
 	}
 
+	
+	public String getWhat_Image() {
+		return what_Image;
+	}
+
+	public void setWhat_Image(String what_Image) {
+		this.what_Image = what_Image;
+	}
+
 	@Override
 	public String toString() {
-		return "Bb_SideDto [seq=" + seq + ", name=" + name + ", price=" + price + ", cal=" + cal + ", del=" + del + "]";
+		return "Bb_SideDto [seq=" + seq + ", name=" + name + ", price=" + price + ", cal=" + cal + ", del=" + del
+				+ ", what_Image=" + what_Image + "]";
 	}
+
+	
 	
 	
 }

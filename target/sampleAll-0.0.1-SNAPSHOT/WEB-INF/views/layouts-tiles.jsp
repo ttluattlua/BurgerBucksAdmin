@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 <html>
-<title>layouts-tiles</title>
+<title>BurgerBucksAdmin</title>
 
 <tiles:insertAttribute name="header"/>
 
@@ -28,7 +28,7 @@
 			<tiles:insertAttribute name="left_main"/>
 		</div>		
 		
-		<div class="page-wrapper">
+		<div class="page-wrapper" data-interval="false">
 			<tiles:insertAttribute name="main"/>
 		</div>			
 

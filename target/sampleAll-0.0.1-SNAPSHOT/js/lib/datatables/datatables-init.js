@@ -3,7 +3,7 @@ $(document).ready(function() {
         $(document).ready(function() {
             var table = $('#example').DataTable({
                 "columnDefs": [{
-                    "visible": false,
+                    "visible": true,
                     "targets": 2
                 }],
                 "order": [
@@ -20,21 +20,25 @@ $(document).ready(function() {
                         page: 'current'
                     }).data().each(function(group, i) {
                         if (last !== group) {
-                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            $(rows).eq(i).before('<tr class="group"><td colspan="7">' + group + '</td></tr>');
                             last = group;
                         }
                     });
                 }
             });
+         
+            
+           
+         
             // Order by the grouping
-            $('#example tbody').on('click', 'tr.group', function() {
+            /*$('#example tbody').on('click', 'tr.group', function() {
                 var currentOrder = table.order()[0];
                 if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
                     table.order([2, 'desc']).draw();
                 } else {
                     table.order([2, 'asc']).draw();
                 }
-            });
+            });*/
         });
     });
     $('#example23').DataTable({
@@ -43,3 +47,14 @@ $(document).ready(function() {
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
+    
+    
+    <!-- 페이지 처리! -->
+	  $.fn.DataTable.ext.pager.numbers_length = 7;
+	    $('#adminTT').DataTable( {
+	       "pagingType":"full_numbers",
+	    } );  
+	    
+	    
+	    
+	    

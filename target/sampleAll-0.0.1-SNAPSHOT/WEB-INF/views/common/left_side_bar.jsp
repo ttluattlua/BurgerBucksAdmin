@@ -16,27 +16,25 @@
 						<li class="nav-label">멤버관리</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/users.png"><span class="hide-menu"></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">사원등록</a></li>
-                                <li><a href="email-read.html">사원관리</a></li>
-                                <li><a href="email-inbox.html">고객관리</a></li>
-                                <li><a href="email-inbox.html">멤버수정</a></li>
+                                <li><a href="adminplus.do">사원등록</a></li>
+                                <li><a href="adminlist.do">사원관리</a></li>
+                                <li><a href="customerlist.do">고객관리</a></li>
                             </ul>
                         </li>
                         <li class="nav-label">테이블관리</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/fast-food.png"><span class="hide-menu"></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">버거관리</a></li>
-                                <li><a href="email-read.html">사이드관리</a></li>
-                                <li><a href="email-inbox.html">재료관리</a></li>
-                                <li><a href="email-inbox.html">음료관리</a></li>
-                                <li><a href="email-inbox.html">메뉴관리</a></li>
+                                <li><a href="burgerlist.do">버거관리</a></li>
+                                <li><a href="sidelist.do">사이드관리</a></li>
+                                <li><a href="ingredientlist.do">재료관리</a></li>
+                                <li><a href="beveragelist.do">음료관리</a></li>
+                                <li><a href="menulist.do">메뉴관리</a></li>
                             </ul>
                         </li>
                         <li class="nav-label">스토어관리</li>         
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/store.png"><span class="hide-menu"></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">스토어등록</a></li>
-                                <li><a href="email-read.html">스토어수정</a></li>
+                                <li><a href="storelist.do">스토어관리</a></li>
                             </ul>
                         </li>
                         <li class="nav-label">주문관리</li>   
