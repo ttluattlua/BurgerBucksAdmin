@@ -606,6 +606,9 @@ function removeMarker(num) {
      });
      
 }
+
+
+
  
  /*--------------------------------------------------------------------------------
  *우편번호 스크립트 
@@ -657,11 +660,11 @@ function removeMarker(num) {
              if(data.autoRoadAddress) {
                  //예상되는 도로명 주소에 조합형 주소를 추가한다.
                  var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                 document.getElementById(guide[num]).innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                 document.getElementById(roadAddres[num]).value = expRoadAddr;
 
              } else if(data.autoJibunAddress) {
                  var expJibunAddr = data.autoJibunAddress;
-                 document.getElementById(guide[num]).innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                 document.getElementById(jibunAddres[num]).value = expJibunAddr;
 
              } else {
                  document.getElementById(guide[num]).innerHTML = '';
@@ -907,7 +910,7 @@ function deleteStoreAf() {
  </script> 
  <!--=======================구글 맵 API (key 내꺼임 나중에 지우고 올려야함)===============================-->
  <script async defer
- src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxS09DQjD3WePPaHn8KNG5beXCleuL3Ls&callback=initMap">
  </script>
   <!--=======================우편번호 스크립트===============================-->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

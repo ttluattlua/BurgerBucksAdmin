@@ -9,7 +9,20 @@
 <mapper namespace="BBASide">
 
 
+<!--사이드 등록 -->
+<insert id="registerSide" parameterType="bba.com.a.model.Bb_SideDto">
+ INSERT INTO BB_SIDE(SEQ, NAME ,PRICE ,CAL, DEL) 
+ VALUES(BB_SIDE_SEQ.NEXTVAL, #{name}, #{price}, #{cal}, 0)
+ <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_SIDE_SEQ.CURRVAL FROM dual 
+ </selectKey>
+</insert>
 
+<!--사이드 이미지 -->
+<insert id="registerSideImage" parameterType="bba.com.a.model.Bb_ImageDto">
+ INSERT INTO BB_IMAGE(SEQ, TABLE_NAME ,WHAT_IMAGE ,IMAGE_SRC, REF_SEQ, DEL) 
+ VALUES(BB_IMAGE_SEQ.NEXTVAL, #{table_Name}, #{what_Image}, #{image_Src}, #{ref_Seq}, 0)
+</insert>
 
 
 

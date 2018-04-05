@@ -25,7 +25,7 @@
 		</property>
 	</bean>
 	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver" >
 		<property name="requestContextAttribute" value="requestContext"/>
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>	
 	</bean>
@@ -40,20 +40,29 @@
 	<mvc:default-servlet-handler/>
 	
 	<!-- fileupload를 위해서 -->
+	<!-- 파일업로드에 필요한 bean -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="104857600"/>
-		<property name="maxInMemorySize" value="102400"/>
-		<property name="defaultEncoding" value="utf-8"/>
-		<property name="uploadTempDir" value="upload"/>
+	    <!-- 파일업로드 용량 -->
+	    <property name="maxUploadSize" value="10485760"/>
+	    <property name="maxInMemorySize" value="102400"/> <!--한번에 올릴때 최대 사이즈  -->
+		<property name="defaultEncoding" value="utf-8"/>  <!--encoding 형식-->
 	</bean>
-	<!-- filedownload를 위해서-->
-	<bean id="downloadView" class="bba.com.a.arrow.DownloadView"/>
+	<!-- 파일업로드를 위한 디렉토리 설정 -->
+	<!-- String uploadPath = new String("업로드 경로") -->
+	<bean id="uploadPath" class="java.lang.String">
+	    <!-- 파일업로드 디렉토리-->
+	    <constructor-arg value="upload"/>
+	</bean>
+<!-- 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600"/> 용량 최대사이즈    
+		<property name="maxInMemorySize" value="102400"/> 한번에 올릴때 최대 사이즈 
+		<property name="defaultEncoding" value="utf-8"/>  encoding 형식
+		<property name="uploadTempDir" value="upload"/> 업로드 경로 
+	</bean> -->
 	
-	<bean id="downloadViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" >
-			<value>0</value>
-		</property>
-	</bean>
+	
+
+	
 </beans>
 
 
