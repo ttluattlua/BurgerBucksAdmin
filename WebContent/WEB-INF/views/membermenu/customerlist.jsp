@@ -5,14 +5,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="utf-8"/> 
 
+<!-- icon 불러오기 -->
+<!--core first + styles last-->
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+
+
 <!-- Bread crumb -->
           <div class="row page-titles">
               <div class="col-md-5 align-self-center">
-                  <h3 class="text-primary">Custom List</h3> </div>
+                  <h3 class="text-primary">${doc_title }</h3> </div>
               <div class="col-md-7 align-self-center">
                   <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                      <li class="breadcrumb-item active">Custom List</li>
+                      <li class="breadcrumb-item"><a href="javascript:void(0)">${doc_menu }</a></li>
+                      <li class="breadcrumb-item active">${doc_title }</li>
                   </ol>
               </div>
           </div>
@@ -22,33 +28,41 @@
     <!-- Start Page Content -->
 <div class="row">
     <div class="col-12">
-     <!--==========================table1==============================-->
+     <!--========================== 고객 리스트 가져오기 ==============================-->
    <div class="card">
        <div class="card-body">
            <h4 class="card-title">고객 리스트</h4>
-           <h6 class="card-subtitle">Custom List</h6>
+           <h6 class="card-subtitle">Customer List</h6>
            <div class="table-responsive m-t-40">
                <table id="myTable" class="table table-bordered table-striped">
-               <col width="200"/><col width="200"/><col width="200"/><col width="200"/><col width="200"/>
+               <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
                    <thead>
                        <tr>
                            <th>ID</th>
                            <th>Password</th>
                            <th>Name</th>
                            <th>Grade</th>
+                           <th></th>
                        </tr>
                    </thead>
                    <tbody>
-                   <c:forEach items="${cList}" var="custom" varStatus="vs">
-                    <tr>
+                   <c:forEach items="${cList }" var="custom" varStatus="vs">
+                    <tr id="tr${custom.seq}">
                         <td>${custom.id }</td>
                         <td>${custom.password }</td>
                         <td>${custom.name }</td>
                         <td>${custom.grade }</td>
+                        <td>
+							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomer"> 
+                            <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
+						</td>
                     </tr>
                    </c:forEach>
                        
                    </tbody>
+	            
+                   <tfoot>
+			        </tfoot>
                </table>
            </div>
        </div>
@@ -56,5 +70,340 @@
    </div>
    </div>
    </div>
+ 
+ 
+<script type="text/javascript">
+/*---------------------------------------------------------------------------------------------
+ * 테이블 리스트에서 삭제 클릭
+ *----------------------------------------------------------------------------------------------*/
+
+	function ListDelete(seq){
+		alert("삭제 클릭");
+		
+		$.ajax({
+            url : "delCustomer.do",
+            type: "get",
+            data : { "seq" : seq },
+            dataType: 'json',
+    		contentType : "application; charset=utf-8",
+    		traditional : true,
+            success : function(data){
+                //$("#ajax").remove();
+                
+                alert(JSON.stringify(data));
+                //alert("성공" + data);
+                alert("길이 : " +data.length);
+                alert(data[0].id);
+                if(!data){
+                    alert("존재하지 않는 고객입니다");
+                    return false;
+                }
+                
+                var div = document.querySelector('#myTable');
+                var html = '<table>';
+                html += '<col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>';
+                html += '<thead><tr><th>ID</th><th>Password</th><th>Name</th><th>Grade</th></thead>';
+                html += '<tbody>';
+                
+                for(var i=0; i<data.length; i++){
+                    
+               	html += '<tr>';
+                html += '<td>'+data[i].id+'</td>';
+                html += '<td>'+data[i].password+'</td>';
+                html += '<td>'+data[i].name+'</td>';
+                html += '<td>'+data[i].grade+'</td>';
+                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateCustomer"> ';
+				html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
+                html += '</tr>';
+
+                }
+                
+                html += '</tbody></table>';
+                
+                div.innerHTML = html;
+                //$(".container-fluid").after(html);
+                
+            },error : function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+	}
+	
+	
+</script>
+
+
+
+<!--========================== 고객 수정 모달창 ======================================= -->
+ <!-- The Modal -->
+  <div class="modal fade" id="#updateCustomerModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+<!-- Modal body -->
+<div class="modal-body">
+	<div class="row">
+   <div class="col-lg-12">
+    <div class="card card-outline-primary">
+       <div class="card-header">
+           <h4 class="m-b-0 text-white">고객 수정</h4>
+       </div>
+       <div class="card-body">
+           <form action="updateCustomerAf.do" method="post">
+               <div class="form-body">
+	   <input type="hidden" id="updateseq" name="seq">
+	   
+                  <hr>
+                  
+                  <!-- 개인 정보 -->
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <label class="control-label">이름</label>
+                              <input type="text" name="updatename" id="_updatename" class="form-control" placeholder="이름" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      </div>
+                      
+                      <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">아이디</label>
+                              <input type="text" name="updateid" id="_updateid" class="form-control" placeholder="아이디" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">비밀번호</label>
+                              <input type="text" name="updatepassword" id="_updatepassword" class="form-control" placeholder="비밀번호" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      </div>
+                      
+                      <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">전화번호</label>
+                              <input type="text" name="updatephone" id="_updatephone" class="form-control" placeholder="전화번호" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">가입일자</label>
+                              <input type="text" name="updatebday" id="_updatebday" class="form-control" placeholder="가입일자" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      </div>
+                      
+                      
+                       <div class="row">
+                      <div class="col-md-4">
+                          <div class="form-group">
+                              <label class="control-label">마일리지</label>
+                              <input type="text" name="updatemileage" id="_updatemileage class="form-control" placeholder="마일리지" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      
+                      <div class="col-md-4">
+                          <div class="form-group">
+                              <label class="control-label">Grade</label>
+                              <input type="text" name="updategrade" id="_updategrade" class="form-control" placeholder="Grade" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      
+                      <div class="col-md-4">
+                          <div class="form-group">
+                              <label class="control-label">EXP</label>
+                              <input type="text" name="updateexp" id="_updateexp" class="form-control" placeholder="EXP" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      </div>
+                      
+                      
+                      
+                  
+                      
+                  <hr>
+                  
+                  <!-- 지점 정보 -->
+                   <div class="row p-t-20">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">지점명</label>
+                              <input type="text" name="updatestorename" id="_updatestorename" class="form-control" placeholder="지점명" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">지점코드</label>
+                              <input type="text" name="updatestorecode" id="_updatestorecode" class="form-control" placeholder="지점코드" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      </div>
+                      
+                      <div class="row">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <label class="control-label">전화번호</label>
+                              <input type="text" name="updatephone" id="_updatephone" class="form-control" placeholder="전화번호" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      </div>
+ 
+                    
+<!-- 
+                   <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label>Post Code</label>
+                              <input type="text" name="postcode" class="form-control" id="update_postcode" placeholder="우편번호" readonly="readonly" required="required">
+                          </div>
+                      </div>
+                      /span
+                      <div class="col-md-6">
+                          <div class="form-group">
+				<input type="button" onclick="DaumPostcode(1)" value="우편번호 찾기" class="btn btn-inverse" style="margin-top: 30px;">
+                          </div>
+                      </div>
+                      /span
+                  </div> -->
+                  
+              </div>
+              <div class="form-actions" align="right">
+                  <button type="button" class="btn btn-success" id="updateAdminAfBtn" onclick="updateAdminAf()" data-target="#CompanyProfile"> <i class="fa fa-check"></i> 수정</button>
+                  <button type="button" class="btn btn-success" id="deleteAdminAfBtn" onclick="deleteAdminAf()"> <i class="fas fa-minus"></i> 삭제</button>
+                  <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+              </div>
+          </form>
+      </div>
+     </div>
+    </div> <!--왼쪽 사이드 -->
+  </div><!-- ROW -->
+</div>
+      </div>
+    </div>
+  </div>
+  
+<script>
+/*---------------------------------------------------------------------------------------------
+ * store 수정 Ajax (주소는 : 우편번호#도로명주소#지번주소#상세주소 로 가져가서 저장- 나중에 데이터 보여줄때는 #으로 자를거임)
+ *----------------------------------------------------------------------------------------------*/
+
+function ListSet(seq) {	
+		 
+	    alert("스토어 수정클릭");
+	    alert(seq);
+    
+		
+	    var data = {};
+	    
+		data["seq"]=seq;
+		
+		$.ajax({
+			contentType:'application/json',
+			dataType:'json',
+			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
+			url:"updateAdmin.do",			// admin
+			type:'POST',
+			success:function(data){
+				
+				alert(data.map.id);
+				
+				document.getElementById('_updatename').value = data.map.name;
+				document.getElementById('_updateid').value = data.map.id;
+				document.getElementById('_updatepassword').value = data.map.password;
+				document.getElementById('_updatestorename').value = data.map.store_seq;
+				document.getElementById('_updatestorecode').value = data.map.store_seq;
+				document.getElementById('_updatephone').value = data.map.phone;
+				document.getElementById('updateseq').value = seq;
+				
+				
+			},
+			error:function(req, status, error){
+				alert("error");
+			}
+		
+		});
+		
+			
+}
+
+
+function updateAdminAf() {	
+		 
+	    alert("사원 수정완료클릭");
+	    var data = {};
+		var seq = document.getElementById('updateseq').value;
+	    var id= document.getElementById('_updateid').value;
+	    var password= document.getElementById('_updatepassword').value;
+	    var name = document.getElementById('_updatename').value;
+	    var phone = document.getElementById('_updatephone').value;
+	    var store_seq = document.getElementById('_updatestorecode').value;
+	    
+	    
+		data["seq"]=seq;
+		data["id"]=id;
+		data["password"]=password;
+		data["name"]=name;
+		data["phone"]=phone;
+		data["store_seq"]=store_seq;
+		
+		
+		$.ajax({
+			contentType:'application/json',
+			dataType:'json',
+			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
+			url:"updateAdminAf.do",			// store
+			type:'POST',
+			
+			success:function(data){
+				alert("수정완료");
+				//해당 테이블 row일단 삭제
+				var deleteRowId = "tr"+$("#updateseq").val();
+				deleteTableRow(deleteRowId);
+				//수정된걸로 다시생성
+			
+			
+				$('#myTable tr:last').after('<tr id="tr'+seq+'">'+
+						'<td>'+store_seq+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+password+'</td>'+
+						'<td>'+name+'</td>'+
+						'<td>'+phone+'</td>'+
+						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+seq+')" data-toggle="modal" data-target="#updateAdmin">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+seq+')"></td>'+
+						'</tr>');
+				
+				//$(".modal-fade").modal("hide");
+				//$(".modal-backdrop").remove();
+				//$(".modal").modal("hide");
+				$("updateAdmin").modal("hide");
+				//location.reload();
+			},
+			error : function(request,status,error){
+	               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	           }
+		
+		});
+		
+}
+
+
+/*---------------------------------------------------------------------------------------------
+ * tr 아이디값으로 해당 row 지우는 함수 
+ *----------------------------------------------------------------------------------------------*/
+ function deleteTableRow(deleteRowId){
+	 var row = document.getElementById(deleteRowId);
+	    var table = row.parentNode;
+	    while ( table && table.tagName != 'TABLE' )
+	        table = table.parentNode;
+	    if ( !table )
+	        return;
+	    table.deleteRow(row.rowIndex);
+ }
+</script>
+  
 
 

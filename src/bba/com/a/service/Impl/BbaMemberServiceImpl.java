@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import bba.com.a.dao.BbaMemberDao;
 import bba.com.a.model.Bb_AdminDto;
+import bba.com.a.model.Bb_MemberDto;
+import bba.com.a.model.Bb_StoreDto;
 import bba.com.a.service.BbaMemberSerivce;
 
 @Service
@@ -44,8 +46,75 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public void delAdmin(int seq) {
-		bbsMemberDao.deladmin(seq);
+		bbsMemberDao.delAdmin(seq);
 	}
+	
+	
+	/*------------------------------------------------------------------------------
+	* 사원 수정 디테일
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_AdminDto updateAdmin(int seq) {
+		// TODO Auto-generated method stub
+		return bbsMemberDao.updateAdmin(seq);
+	}
+	
+	/*------------------------------------------------------------------------------
+	* 사원 수정 버튼 클릭 후
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void updateAdminAf(Bb_AdminDto adminDto) {
+		bbsMemberDao.updateAdminAf(adminDto);
+		
+	}
+
+	/*------------------------------------------------------------------------------
+	* 해당 시퀀스의 점포 DTO 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_StoreDto getStoreName(int seq) {
+		return bbsMemberDao.getStoreName(seq);
+	}
+
+	
+	
+	
+	/*------------------------------------------------------------------------------
+	* 고객 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_MemberDto> getCustomerList() throws Exception {
+		return bbsMemberDao.getCustomerList();
+	}
+
+	
+	/*------------------------------------------------------------------------------
+	* 고객 정보 삭제
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void delCustomer(int seq) {
+		bbsMemberDao.delCustomer(seq);
+		
+	}
+
+	/*------------------------------------------------------------------------------
+	* 고객 정보 상세보기 (수정)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_MemberDto updateCustomer(int seq) {
+		// TODO Auto-generated method stub
+		return bbsMemberDao.updateCustomer(seq);
+	}
+
+	/*------------------------------------------------------------------------------
+	* 고객 정보 수정 후
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void updateCustomerAf(Bb_MemberDto customerDto) {
+		bbsMemberDao.updateCustomerAf(customerDto);
+	}
+	
+	
 	
 	
 	

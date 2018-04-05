@@ -48,13 +48,5 @@ $(document).ready(function() {
         ]
     });
     
-    
-    <!-- 페이지 처리! -->
-	  $.fn.DataTable.ext.pager.numbers_length = 7;
-	    $('#adminTT').DataTable( {
-	       "pagingType":"full_numbers",
-	    } );  
-	    
-	    
 	    
 	    

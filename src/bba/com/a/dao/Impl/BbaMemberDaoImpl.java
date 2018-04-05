@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import bba.com.a.dao.BbaMemberDao;
 import bba.com.a.model.Bb_AdminDto;
+import bba.com.a.model.Bb_MemberDto;
+import bba.com.a.model.Bb_StoreDto;
 
 @Repository
 public class BbaMemberDaoImpl implements BbaMemberDao {
@@ -55,10 +57,85 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 	* 사원 삭제
 	* -----------------------------------------------------------------------------*/
 	@Override
-	public void deladmin(int seq) {
-		sqlSession.selectOne(namespace + "deladmin", seq);
+	public void delAdmin(int seq) {
+		sqlSession.selectOne(namespace + "delAdmin", seq);
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원 수정 상세 정보 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public Bb_AdminDto updateAdmin(int seq) {
+		return sqlSession.selectOne(namespace+"updateAdmin", seq);
+	}
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원 수정 하기 버튼 클릭 후
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void updateAdminAf(Bb_AdminDto adminDto) {
+		System.out.println("updateAdminAf:"+adminDto.toString());
+		sqlSession.update(namespace+"updateAdminAf", adminDto);
+		
 	}
 
+
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 해당 시퀀스의 점포 DTO 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public Bb_StoreDto getStoreName(int seq) {
+		return sqlSession.selectOne(namespace+"getStoreName",seq);
+	}
+
+	
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 고객 리스트 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_MemberDto> getCustomerList() throws Exception {
+		List<Bb_MemberDto> list = new ArrayList<Bb_MemberDto>();		
+		list = sqlSession.selectList(namespace + "getCustomerList");
+						
+		return list;
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 고객 정보 삭제
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void delCustomer(int seq) {
+		sqlSession.selectOne(namespace + "delCustomer", seq);
+		
+	}
+
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 고객 정보 수정 (디테일 뷰)
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public Bb_MemberDto updateCustomer(int seq) {
+		return sqlSession.selectOne(namespace+"updateCustomer", seq);
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 고객 정보 수정 후 
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void updateCustomerAf(Bb_MemberDto customerDto) {
+		System.out.println("updateCustomerAf:"+customerDto.toString());
+		sqlSession.update(namespace+"updateCustomerAf", customerDto);
+		
+	}
+
+	
+	
+	
+	
 	
 	
 }

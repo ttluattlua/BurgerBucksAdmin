@@ -10,11 +10,11 @@
    <!-- Bread crumb -->
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-        <h3 class="text-primary">Branch manager Registration</h3> </div>
+        <h3 class="text-primary">${doc_title }</h3> </div>
     <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item active">Branch manager Registration</li>
+            <li class="breadcrumb-item"><a href="javascript:void(0)">${doc_menu }</a></li>
+            <li class="breadcrumb-item active">${doc_title }</li>
         </ol>
     </div>
 </div>
@@ -142,27 +142,34 @@ function idCheckMessage(data) {
                             </div>
                        </div>
                     
-                        
+                    
+					
                         <!-- 스토어 넘버 입력 -->
                        <div class="row">
                             <div class="col-md-12 ">
                                 <div class="form-group">
-                                    <label for="input_store">지점 번호</label>
-                                    <input type="text" name="store_seq" id="input_store" placeholder="Enter Store Number" class="form-control">
+									<label for="exampleFormControlSelect1">지점 선택</label>
+									    <select class="form-control" onchange="document.getElementById('input_store').value = this.options[this.selectedIndex].value">
+									    <option selected value=''>선택하세요</option> 
+									    <c:forEach var="bsdto" items="${bslist}">
+									      <option value='${bsdto.seq }'>${bsdto.name }</option>
+									      </c:forEach>
+									    </select>
+                                    <input type="text" value="" name="input_store" id="input_store" class="form-control" readonly="readonly">
+                                
                                 </div>
                              </div>
                        </div>
-
+                       
 
                     <div class="form-actions">
                         <button type="submit" class="btn btn-dark" id="btn_branchMRegi" onclick="account()"> <i class="fa fa-check"></i> Save</button>
                         <button type="button" class="btn btn-inverse">Cancel</button>
                     </div>
                     </div>
-                    
-                    
-                    
-                    	
+
+
+
 			<script type="text/javascript">
 				jQuery( function($) {		// html 문서를 모두 읽으면 포함한 코드를 실행			
 				
