@@ -15,14 +15,14 @@ import bba.com.a.service.BbaMemberSerivce;
 public class BbaMemberServiceImpl implements BbaMemberSerivce {
 
 	@Autowired
-	private BbaMemberDao bbsMemberDao;
+	private BbaMemberDao bbaMemberDao;
 	
 	/*------------------------------------------------------------------------------
 	* 사원등록(브랜치매니저)
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public boolean addAdmin(Bb_AdminDto adminDto) throws Exception {
-		return bbsMemberDao.addAdmin(adminDto);
+		return bbaMemberDao.addAdmin(adminDto);
 	}
 
 	/*------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public List<Bb_AdminDto> getAdminList() throws Exception {
-		return bbsMemberDao.getAdminList();
+		return bbaMemberDao.getAdminList();
 	}
 	
 	/*------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public int getAdminID(Bb_AdminDto adminDto) {
-		return bbsMemberDao.getAdminID(adminDto);
+		return bbaMemberDao.getAdminID(adminDto);
 	}
 
 	/*------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public void delAdmin(int seq) {
-		bbsMemberDao.delAdmin(seq);
+		bbaMemberDao.delAdmin(seq);
 	}
 	
 	
@@ -56,7 +56,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	@Override
 	public Bb_AdminDto updateAdmin(int seq) {
 		// TODO Auto-generated method stub
-		return bbsMemberDao.updateAdmin(seq);
+		return bbaMemberDao.updateAdmin(seq);
 	}
 	
 	/*------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public void updateAdminAf(Bb_AdminDto adminDto) {
-		bbsMemberDao.updateAdminAf(adminDto);
+		bbaMemberDao.updateAdminAf(adminDto);
 		
 	}
 
@@ -73,7 +73,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public Bb_StoreDto getStoreName(int seq) {
-		return bbsMemberDao.getStoreName(seq);
+		return bbaMemberDao.getStoreName(seq);
 	}
 
 	
@@ -84,7 +84,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public List<Bb_MemberDto> getCustomerList() throws Exception {
-		return bbsMemberDao.getCustomerList();
+		return bbaMemberDao.getCustomerList();
 	}
 
 	
@@ -93,7 +93,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public void delCustomer(int seq) {
-		bbsMemberDao.delCustomer(seq);
+		bbaMemberDao.delCustomer(seq);
 		
 	}
 
@@ -103,7 +103,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	@Override
 	public Bb_MemberDto updateCustomer(int seq) {
 		// TODO Auto-generated method stub
-		return bbsMemberDao.updateCustomer(seq);
+		return bbaMemberDao.updateCustomer(seq);
 	}
 
 	/*------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public void updateCustomerAf(Bb_MemberDto customerDto) {
-		bbsMemberDao.updateCustomerAf(customerDto);
+		bbaMemberDao.updateCustomerAf(customerDto);
 	}
 	
 	

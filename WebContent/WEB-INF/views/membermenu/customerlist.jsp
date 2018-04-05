@@ -35,9 +35,10 @@
            <h6 class="card-subtitle">Customer List</h6>
            <div class="table-responsive m-t-40">
                <table id="myTable" class="table table-bordered table-striped">
-               <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+               <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>
                    <thead>
                        <tr>
+                           <th></th>
                            <th>ID</th>
                            <th>Password</th>
                            <th>Name</th>
@@ -47,16 +48,33 @@
                    </thead>
                    <tbody>
                    <c:forEach items="${cList }" var="custom" varStatus="vs">
-                    <tr id="tr${custom.seq}">
+                   <c:if test="${custom.del eq '0'}">
+                    <tr id="tr${custom.seq }">
+                    	<td></td>
                         <td>${custom.id }</td>
                         <td>${custom.password }</td>
                         <td>${custom.name }</td>
                         <td>${custom.grade }</td>
                         <td>
-							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomer"> 
+							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
 						</td>
                     </tr>
+                    </c:if>
+                    
+                    <c:if test="${custom.del eq '1'}">
+                    <tr id="tr${custom.seq }">
+                    	<td>삭제된 회원</td>
+                        <td>${custom.id }</td>
+                        <td>${custom.password }</td>
+                        <td>${custom.name }</td>
+                        <td>${custom.grade }</td>
+                        <td>
+							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
+                            <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
+						</td>
+                    </tr>
+                    </c:if>
                    </c:forEach>
                        
                    </tbody>
@@ -101,7 +119,7 @@
                 
                 var div = document.querySelector('#myTable');
                 var html = '<table>';
-                html += '<col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>';
+                html += '<col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>';
                 html += '<thead><tr><th>ID</th><th>Password</th><th>Name</th><th>Grade</th></thead>';
                 html += '<tbody>';
                 
@@ -112,7 +130,7 @@
                 html += '<td>'+data[i].password+'</td>';
                 html += '<td>'+data[i].name+'</td>';
                 html += '<td>'+data[i].grade+'</td>';
-                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateCustomer"> ';
+                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateCustomerModal"> ';
 				html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
                 html += '</tr>';
 
@@ -136,7 +154,7 @@
 
 <!--========================== 고객 수정 모달창 ======================================= -->
  <!-- The Modal -->
-  <div class="modal fade" id="#updateCustomerModal">
+  <div class="modal fade" id="updateCustomerModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
@@ -154,13 +172,26 @@
 	   <input type="hidden" id="updateseq" name="seq">
 	   
                   <hr>
-                  
+                 
+               
                   <!-- 개인 정보 -->
                   <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-9">
                           <div class="form-group">
                               <label class="control-label">이름</label>
                               <input type="text" name="updatename" id="_updatename" class="form-control" placeholder="이름" required="required">
+                              <small class="form-control-feedback"></small></div>
+                      </div>
+                      
+                      <div class="col-md-3">
+                          <div class="form-group">
+                              <label class="control-label">성별</label>
+                              <select class="form-control" onchange="document.getElementById('_updatesex').value = this.options[this.selectedIndex].value">
+								<option selected value=''>선택하세요</option> 
+								<option value='0'>남자</option>
+								<option value='1'>여자</option>
+							  </select>
+                              <input type="text" name="updatesex" id="_updatesex" class="form-control" placeholder="성별" required="required" readonly="readonly">
                               <small class="form-control-feedback"></small></div>
                       </div>
                       </div>
@@ -192,7 +223,7 @@
                       <div class="col-md-6">
                           <div class="form-group">
                               <label class="control-label">가입일자</label>
-                              <input type="text" name="updatebday" id="_updatebday" class="form-control" placeholder="가입일자" required="required">
+                              <input type="date" name="updatebday" id="_updatebday" value="" class="form-control" placeholder="가입일자" required="required">
                               <small class="form-control-feedback"></small></div>
                       </div>
                       </div>
@@ -202,7 +233,7 @@
                       <div class="col-md-4">
                           <div class="form-group">
                               <label class="control-label">마일리지</label>
-                              <input type="text" name="updatemileage" id="_updatemileage class="form-control" placeholder="마일리지" required="required">
+                              <input type="text" name="updatemileage" id="_updatemileage" class="form-control" placeholder="마일리지" required="required">
                               <small class="form-control-feedback"></small></div>
                       </div>
                       
@@ -220,61 +251,11 @@
                               <small class="form-control-feedback"></small></div>
                       </div>
                       </div>
-                      
-                      
-                      
-                  
-                      
-                  <hr>
-                  
-                  <!-- 지점 정보 -->
-                   <div class="row p-t-20">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="control-label">지점명</label>
-                              <input type="text" name="updatestorename" id="_updatestorename" class="form-control" placeholder="지점명" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="control-label">지점코드</label>
-                              <input type="text" name="updatestorecode" id="_updatestorecode" class="form-control" placeholder="지점코드" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      </div>
-                      
-                      <div class="row">
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label class="control-label">전화번호</label>
-                              <input type="text" name="updatephone" id="_updatephone" class="form-control" placeholder="전화번호" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      </div>
- 
-                    
-<!-- 
-                   <div class="row">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label>Post Code</label>
-                              <input type="text" name="postcode" class="form-control" id="update_postcode" placeholder="우편번호" readonly="readonly" required="required">
-                          </div>
-                      </div>
-                      /span
-                      <div class="col-md-6">
-                          <div class="form-group">
-				<input type="button" onclick="DaumPostcode(1)" value="우편번호 찾기" class="btn btn-inverse" style="margin-top: 30px;">
-                          </div>
-                      </div>
-                      /span
-                  </div> -->
-                  
+      
               </div>
               <div class="form-actions" align="right">
-                  <button type="button" class="btn btn-success" id="updateAdminAfBtn" onclick="updateAdminAf()" data-target="#CompanyProfile"> <i class="fa fa-check"></i> 수정</button>
-                  <button type="button" class="btn btn-success" id="deleteAdminAfBtn" onclick="deleteAdminAf()"> <i class="fas fa-minus"></i> 삭제</button>
+                  <button type="button" class="btn btn-success" id="updateCustomerAfBtn" onclick="updateCustomerAf()" data-target="#CompanyProfile"> <i class="fa fa-check"></i> 수정</button>
+                  <button type="button" class="btn btn-success" id="deleteCustomerAfBtn" onclick="deleteCustomerAf()"> <i class="fas fa-minus"></i> 삭제</button>
                   <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
               </div>
           </form>
@@ -294,9 +275,8 @@
 
 function ListSet(seq) {	
 		 
-	    alert("스토어 수정클릭");
+	    alert("고객 수정클릭");
 	    alert(seq);
-    
 		
 	    var data = {};
 	    
@@ -306,20 +286,33 @@ function ListSet(seq) {
 			contentType:'application/json',
 			dataType:'json',
 			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
-			url:"updateAdmin.do",			// admin
+			url:"updateCustomer.do",			
 			type:'POST',
 			success:function(data){
 				
 				alert(data.map.id);
 				
+				var sex = "";
+				if(data.map.sex==0){
+					sex="남자";
+				}else{
+					sex="여자";
+				}
+				
+				var ddate = (data.map.bday).split("/");
+				var date = "20"+ddate[0]+"-"+ddate[1]+"-"+ddate[2];
+				alert(date);
+				
 				document.getElementById('_updatename').value = data.map.name;
 				document.getElementById('_updateid').value = data.map.id;
+				document.getElementById('_updatesex').value = sex;
 				document.getElementById('_updatepassword').value = data.map.password;
-				document.getElementById('_updatestorename').value = data.map.store_seq;
-				document.getElementById('_updatestorecode').value = data.map.store_seq;
 				document.getElementById('_updatephone').value = data.map.phone;
+				document.getElementById('_updatebday').value = date;
+				document.getElementById('_updatemileage').value = data.map.mileage;
+				document.getElementById('_updategrade').value = data.map.grade;
+				document.getElementById('_updateexp').value = data.map.exp;
 				document.getElementById('updateseq').value = seq;
-				
 				
 			},
 			error:function(req, status, error){
@@ -332,31 +325,40 @@ function ListSet(seq) {
 }
 
 
-function updateAdminAf() {	
+function updateCustomerAf() {	
 		 
 	    alert("사원 수정완료클릭");
+	    
+		
 	    var data = {};
 		var seq = document.getElementById('updateseq').value;
+	    var name= document.getElementById('_updatename').value;
 	    var id= document.getElementById('_updateid').value;
 	    var password= document.getElementById('_updatepassword').value;
-	    var name = document.getElementById('_updatename').value;
-	    var phone = document.getElementById('_updatephone').value;
-	    var store_seq = document.getElementById('_updatestorecode').value;
+	    var phone= document.getElementById('_updatephone').value;
+	    var bday= document.getElementById('_updatebday').value;
+	    var mileage= document.getElementById('_updatemileage').value;
+	    var grade = document.getElementById('_updategrade').value;
+	    var exp = document.getElementById('_updateexp').value;
+	    
 	    
 	    
 		data["seq"]=seq;
+		data["name"]=name;
 		data["id"]=id;
 		data["password"]=password;
-		data["name"]=name;
 		data["phone"]=phone;
-		data["store_seq"]=store_seq;
+		data["bday"]=bday;
+		data["mileage"]=mileage;
+		data["grade"]=grade;
+		data["exp"]=exp;
 		
 		
 		$.ajax({
 			contentType:'application/json',
 			dataType:'json',
 			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
-			url:"updateAdminAf.do",			// store
+			url:"updateCustomerAf.do",			// store
 			type:'POST',
 			
 			success:function(data){
@@ -365,15 +367,14 @@ function updateAdminAf() {
 				var deleteRowId = "tr"+$("#updateseq").val();
 				deleteTableRow(deleteRowId);
 				//수정된걸로 다시생성
-			
-			
+
+                           
 				$('#myTable tr:last').after('<tr id="tr'+seq+'">'+
-						'<td>'+store_seq+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td>'+password+'</td>'+
-						'<td>'+name+'</td>'+
-						'<td>'+phone+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+seq+')" data-toggle="modal" data-target="#updateAdmin">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+seq+')"></td>'+
+						'<td>'+ID+'</td>'+
+						'<td>'+Password+'</td>'+
+						'<td>'+Name+'</td>'+
+						'<td>'+Grade+'</td>'+
+						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+seq+')" data-toggle="modal" data-target="#updateCustomerModal">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+seq+')"></td>'+
 						'</tr>');
 				
 				//$(".modal-fade").modal("hide");

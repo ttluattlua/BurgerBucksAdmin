@@ -4,6 +4,12 @@
 
 <tiles-definitions>
 
+<definition name="login.tiles" template="/WEB-INF/views/login/login.jsp">
+</definition>
+
+<definition name="loginAf.tiles" template="/WEB-INF/views/home/main.jsp">
+</definition>
+
 <!--글목록-->
 <definition name="home.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="common" value="/WEB-INF/views/common/common.jsp"/>
@@ -15,22 +21,20 @@
 </definition>
 
 
-
 <!--사원등록-->
 <definition name="adminplus.tiles" extends="home.tiles">
 <put-attribute name="main" value="/WEB-INF/views/membermenu/adminplus.jsp"/>
 </definition>
+
+
 <!--지점관리자 관리-->
-
-
-
 <definition name="adminlist.tiles" extends="home.tiles">
 <put-attribute name="main" value="/WEB-INF/views/membermenu/adminlist.jsp"/>
 </definition>
+
+
+
 <!--고객 관리-->
-
-
-
 <definition name="customerlist.tiles" extends="home.tiles">
 <put-attribute name="main" value="/WEB-INF/views/membermenu/customerlist.jsp"/>
 </definition>

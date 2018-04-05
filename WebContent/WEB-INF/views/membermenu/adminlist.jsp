@@ -49,7 +49,23 @@
 	                <tbody>
 	                
                    <c:forEach items="${aList}" var="admin" varStatus="vs">
-                   
+
+					<c:if test="${admin.del eq '1'}">
+					  <tr id="tr${admin.seq}">
+                    	
+                        <td>삭제된 회원</td>
+                        <td>${admin.id }</td>
+                        <td>${admin.password }</td>
+                        <td>${admin.name }</td>
+                        <td>${admin.phone }</td>
+                        <td>
+							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
+                            <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
+						</td>
+                    </tr>
+					</c:if>
+					
+                   <c:if test="${admin.del eq '0'}">
                     <tr id="tr${admin.seq}">
                     
                         <td>${admin.store_seq }</td>
@@ -62,6 +78,7 @@
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
 						</td>
                     </tr>
+                    </c:if>
                     </c:forEach>
                    </tbody>
                    <tfoot>
@@ -271,7 +288,7 @@ $(document).ready(function() {
 
 function ListSet(seq) {	
 		 
-	    alert("스토어 수정클릭");
+	    alert("사원 수정클릭");
 	    alert(seq);
     
 		

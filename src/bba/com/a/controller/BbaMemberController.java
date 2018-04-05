@@ -36,11 +36,21 @@ public class BbaMemberController {
 	@Autowired
 	BbaStoreSerivce bbaStoreService;
 	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 로그인 화면 (첫화면)
+	 *-------------------------------------------------------------------------------------------*/
+	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String login(Model model) {
+		logger.info("BbaMemberController login");
+		return "login.tiles";
+	}
+	
 	/*--------------------------------------------------------------------------------------------
 	 * 로그인후 메인
 	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value="login.do", method=RequestMethod.GET)
-	public String login(Model model) {
+	@RequestMapping(value="loginAf.do", method=RequestMethod.POST)
+	public String loginAf(Model model) {
 		logger.info("BbaMemberController login");
 		return "home.tiles";
 	}
@@ -282,11 +292,20 @@ public class BbaMemberController {
 	
 	
 	/*--------------------------------------------------------------------------------------------
-	 * 고객관리로 이동 
+	 * 고객 관리로 이동 
 	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value="customerlist.do", method=RequestMethod.GET)
-	public String customerlist(Model model) {
+	@RequestMapping(value="customerlist.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String customerlist(HttpServletRequest request, Model model) throws Exception {
 		logger.info("BbaMemberController customerlist");
+		
+		System.out.println("첫번째로 옴??");
+		
+		List<Bb_MemberDto> cList = bbMemberService.getCustomerList();
+		model.addAttribute("cList", cList);
+		
+		model.addAttribute("doc_title", "고객관리");
+		model.addAttribute("doc_menu", "멤버관리");
+		
 		return "customerlist.tiles";
 	}
 	
@@ -295,7 +314,7 @@ public class BbaMemberController {
 	/*--------------------------------------------------------------------------------------------
 	 * 고객 리스트 불러오기
 	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value = "customerList.do", 
+/*	@RequestMapping(value = "customerList.do", 
 			method = {RequestMethod.POST,RequestMethod.GET})
 	public String customerList(HttpServletRequest request, Model model) throws Exception {
 		logger.info("Welcome BbaMemberController customerList! "+ new Date());
@@ -310,13 +329,13 @@ public class BbaMemberController {
 		model.addAttribute("doc_menu", "멤버관리");
 		
 		return "customerlist.tiles";
-	}
+	}*/
 	
 	
 
 
 	/*--------------------------------------------------------------------------------------------
-	 * 사원 정보 삭제하기 
+	 * 고객 정보 삭제하기 
 	 *-------------------------------------------------------------------------------------------*/
 	@ResponseBody
 	@RequestMapping(value= "delCustomer.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -343,7 +362,7 @@ public class BbaMemberController {
 	
 	
 	/*--------------------------------------------------------------------------------------------
-	 * 사원 정보 수정하기 (디테일 보기)
+	 * 고객 정보 수정하기 (디테일 보기)
 	 *-------------------------------------------------------------------------------------------*/
 	@ResponseBody
 	@RequestMapping(value="updateCustomer.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -392,7 +411,7 @@ public class BbaMemberController {
 	
 	
 	/*--------------------------------------------------------------------------------------------
-	 * 사원 수정 완료
+	 * 고객 수정 완료
 	 *-------------------------------------------------------------------------------------------*/
 	@ResponseBody
 	@RequestMapping(value="updateCustomerAf.do", method=RequestMethod.POST)
@@ -401,6 +420,7 @@ public class BbaMemberController {
 		System.out.println("BbaMemberController updateCustomerAf");
 		
 		String sseq = (String)map.get("seq");
+		sseq = sseq.replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
 		System.out.println("updateCustomerAf seq : " + sseq);
 		int seq = Integer.parseInt(sseq);
 		
@@ -417,6 +437,7 @@ public class BbaMemberController {
 			EXP NUMBER(10) NOT NULL,
 			DEL NUMBER(1) NOT NULL*/
 		
+
 		String ssex = (String)map.get("sex");
 		int sex = Integer.parseInt(ssex);
 		
