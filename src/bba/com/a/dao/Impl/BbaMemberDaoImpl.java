@@ -21,6 +21,15 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 	private String namespace = "BBAMember."; 
 	
 	
+	
+	/*------------------------------------------------------------------------------
+	* 사원 로그인
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_AdminDto loginAdminIdPw(Bb_AdminDto adminDto) {
+		return sqlSession.selectOne(namespace+ "loginAdminIdPw", adminDto);
+	}
+
 	/*------------------------------------------------------------------------------
 	* 사원등록(브랜치매니저)
 	* -----------------------------------------------------------------------------*/
@@ -59,6 +68,15 @@ public class BbaMemberDaoImpl implements BbaMemberDao {
 	@Override
 	public void delAdmin(int seq) {
 		sqlSession.selectOne(namespace + "delAdmin", seq);
+	}
+	
+	/*------------------------------------------------------------------------------
+	* 사원 회복
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void recoveryAdmin(int seq) {
+		sqlSession.selectOne(namespace +"recoveryAdmin", seq);
+		
 	}
 	
 	/*--------------------------------------------------------------------------------------------

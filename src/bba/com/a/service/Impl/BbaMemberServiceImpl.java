@@ -17,6 +17,16 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	@Autowired
 	private BbaMemberDao bbaMemberDao;
 	
+	
+	
+	/*------------------------------------------------------------------------------
+	* 사원 로그인
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_AdminDto loginAdminIdPw(Bb_AdminDto adminDto) {
+		return bbaMemberDao.loginAdminIdPw(adminDto);
+	}
+
 	/*------------------------------------------------------------------------------
 	* 사원등록(브랜치매니저)
 	* -----------------------------------------------------------------------------*/
@@ -47,6 +57,16 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	@Override
 	public void delAdmin(int seq) {
 		bbaMemberDao.delAdmin(seq);
+	}
+	
+	
+	/*------------------------------------------------------------------------------
+	* 사원 회복
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void recoveryAdmin(int seq) {
+		bbaMemberDao.recoveryAdmin(seq);
+		
 	}
 	
 	
@@ -113,6 +133,8 @@ public class BbaMemberServiceImpl implements BbaMemberSerivce {
 	public void updateCustomerAf(Bb_MemberDto customerDto) {
 		bbaMemberDao.updateCustomerAf(customerDto);
 	}
+
+	
 	
 	
 	

@@ -3,6 +3,7 @@
 	pageEncoding="utf-8"%>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Burger Buck</title>	
 <style>
@@ -64,6 +65,7 @@ a:focus, a:hover {
 	-ms-flex: 1;
 	flex: 1;
 	padding: 3rem 0;
+	text-align: center;
 }
 
 .form input[type="password"], .form input[type="text"], .form input[type="submit"]
@@ -266,7 +268,6 @@ border-bottom:3px solid #78788c
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script>
 
-<% session.invalidate(); %>
 </head>
 
 <body class="align">
@@ -277,25 +278,25 @@ border-bottom:3px solid #78788c
 	<div class="site__container">
 
 		<div class="grid__container">
-			<img alt="이미지 없음" src="..../images/logo/BB_Symbol.png">
-			<label class="title">Burger Buck</label>
+			<img alt="이미지 없음" src="./images/logo/BB_Symbol.png" width="80%" height="80%">
+			<br><br><br>
 
 			<form action="loginAf.do" method="post" class="form form--login">
 
 				<div class="form__field">
 					<label class="fontawesome-user" for="login__username"><span
-						class="hidden">Username</span></label> <input id="login__username"
-						name="input_id" type="text" class="form__input" placeholder="아이디" required>
+						class="hidden">Username</span></label> 
+						<input id="login__username" name="id" type="text" class="form__input" placeholder="아이디" required>
 				</div>
 
 				<div class="form__field">
 					<label class="fontawesome-lock" for="login__password"><span
-						class="hidden">Password</span></label> <input id="login__password"
-						name="input_pw" type="password" class="form__input" placeholder="비밀번호" required>
+						class="hidden">Password</span></label> 
+						<input id="login__password" name="password" type="password" class="form__input" placeholder="비밀번호" required>
 				</div>
 
 				<div class="form__field">
-					<input type="submit" value="로그인">
+					<input type="submit" value="로그인" id="loginBtn">
 				</div>
 				
 				
@@ -330,18 +331,20 @@ border-bottom:3px solid #78788c
 				
 			</form>
 
-			<p class="text--center">
-				회원이 아니신가요? <a href="./user/signup.jsp">지금 가입하세요!</a> <span
-					class="fontawesome-ok-circle"></span>
+			<p class="text--center" style="text-align: right;">
+				점포 문의, 지금 연락주세요! <span	class="fontawesome-ok-circle"></span>
 			</p>
 			
-			<p class="text--center">
+			<p class="text--center" style="text-align: right;">
 				<label style="cursor: pointer;">아이디 저장하기  <input type="checkbox" name="save_login" id="save_login">
 				</label> 
 				<span class="fontawesome-exclamation-sign"></span>
 			</p>
 		</div>
 	</div>
+	
+
+
 
 
 </body>

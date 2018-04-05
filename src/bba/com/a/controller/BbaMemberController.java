@@ -36,24 +36,7 @@ public class BbaMemberController {
 	@Autowired
 	BbaStoreSerivce bbaStoreService;
 	
-	
-	/*--------------------------------------------------------------------------------------------
-	 * 로그인 화면 (첫화면)
-	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String login(Model model) {
-		logger.info("BbaMemberController login");
-		return "login.tiles";
-	}
-	
-	/*--------------------------------------------------------------------------------------------
-	 * 로그인후 메인
-	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value="loginAf.do", method=RequestMethod.POST)
-	public String loginAf(Model model) {
-		logger.info("BbaMemberController login");
-		return "home.tiles";
-	}
+
 	
 	/*--------------------------------------------------------------------------------------------
 	 * 사원등록으로 이동 
@@ -113,6 +96,7 @@ public class BbaMemberController {
 			conName += name.get(0);
 
 		System.out.println("conName : " +conName);
+		System.out.println("등록 된 스토어 코드 : " + adminDto.getStore_seq());
 		adminDto.setName(conName);
 		bbMemberService.addAdmin(adminDto);
 		
@@ -174,7 +158,6 @@ public class BbaMemberController {
 	}
 	
 	
-	
 	/*--------------------------------------------------------------------------------------------
 	 * 사원 정보 삭제하기 
 	 *-------------------------------------------------------------------------------------------*/
@@ -185,6 +168,32 @@ public class BbaMemberController {
 
 		System.out.println("delAdmin seq 번호 : " + seq);
 		bbMemberService.delAdmin(seq);
+		List<Bb_AdminDto> aList = null;
+		try {
+			aList = bbMemberService.getAdminList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("aList", aList);
+		
+		for (int i = 0; i < aList.size(); i++) {
+			System.out.println("aList : " + aList.get(i).getId());
+		}
+	    //SocialPerson person = dao.deladmin(seq);
+	    return aList;
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 사원 정보 회복하기
+	 *-------------------------------------------------------------------------------------------*/
+	@ResponseBody
+	@RequestMapping(value= "recoveryAdmin.do", method={RequestMethod.GET, RequestMethod.POST})
+	public List<Bb_AdminDto> recoveryAdmin(@RequestParam("seq") int seq, 
+			HttpServletRequest request, Model model)  {
+
+		System.out.println("recoveryAdmin seq 번호 : " + seq);
+		bbMemberService.recoveryAdmin(seq);
 		List<Bb_AdminDto> aList = null;
 		try {
 			aList = bbMemberService.getAdminList();
