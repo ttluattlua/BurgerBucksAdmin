@@ -15,7 +15,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- 버거벅스 로고 헤더부분(왼쪽)-->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="main.do">
                         <!-- Logo icon -->
                         <b><img src="./images/logo.png" style="width: 40px; height: 40px;" alt="homepage" class="dark-logo" /></b>
                         <!--End Logo icon -->
@@ -58,7 +58,6 @@
                                             <li><a href="adminplus.do"><img alt="" src="./icons/menuicon/userplus.png"> 사원 등록</a></li>
                                             <li><a href="adminlist.do"><img alt="" src="./icons/menuicon/worker.png"> 사원 관리</a></li>
                                             <li><a href="customerlist.do"><img alt="" src="./icons/menuicon/customer.png"> 고객 관리</a></li>
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/userupdate.png"> 멤버 수정</a></li>
                                         </ul>
                                     </li>
                                     <!--버거/재료/음료/사이드/메뉴 관리 바-->
@@ -78,8 +77,7 @@
                                         <h4 class="m-b-20"><img alt="" src="./icons/menuicon/store.png"></h4>
                                         <!-- List style -->
                                         <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/store-new-badges.png"> 스토어 등록</a></li>
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/store-reforms.png"> 스토어 수정</a></li>                                     
+                                            <li><a href="storelist.do"><img alt="" src="./icons/menuicon/store-new-badges.png"> 스토어 관리</a></li>
                                         </ul>
                                     </li>
                                     <!--주문관리-->
@@ -87,7 +85,7 @@
                                         <h4 class="m-b-20"><img alt="" src="./icons/menuicon/order-food-24px.png"></h4>
                                         <!-- List style -->
                                         <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><img alt="" src="./icons/menuicon/order-food.png"> 주문관리</a></li>                                    
+                                            <li><a href="orderlist.do"><img alt="" src="./icons/menuicon/order-food.png"> 주문관리</a></li>                                    
                                         </ul>
                                     </li>
                                 </ul>

@@ -23,8 +23,6 @@ public class BbaLoginController {
 	@Autowired
 	BbaMemberSerivce bbMemberService;
 	
-	@Autowired
-	BbaStoreSerivce bbaStoreService;
 	
 	
 	/*--------------------------------------------------------------------------------------------
@@ -50,15 +48,26 @@ public class BbaLoginController {
 		
 		Bb_AdminDto admin = bbMemberService.loginAdminIdPw(adminDto);
 		if(admin==null) {
-			return "login.tiles";
+			model.addAttribute("msg", "아이디 / 비밀번호를 확인하세요."); 
+			model.addAttribute("url", "login.jsp"); 
+			return "redirect:/login.do";
 		}else {
 			session.setAttribute("loginedId", admin.getId()) ;
 			session.setMaxInactiveInterval(60*60);
+			
+			model.addAttribute("msg", admin.getId()+" login 완료"); 
 		    
 			return "home.tiles";
 		}
-		
-		
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * main 화면으로 이동
+	 *-------------------------------------------------------------------------------------------*/
+	@RequestMapping(value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String main(Model model) {
+		logger.info("BbaMemberController login");
+		return "home.tiles";
 	}
 	
 	/*

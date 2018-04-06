@@ -28,17 +28,16 @@
     <!-- Start Page Content -->
 <div class="row">
     <div class="col-12">
-     <!--========================== 사원 리스트 가져오기 ==============================-->
+     <!--========================== 주문 리스트 가져오기 ==============================-->
    <div class="card">
        <div class="card-body">
-           <h4 class="card-title">사원 리스트</h4>
-           <h6 class="card-subtitle">Branch Manager List</h6>
+           <h4 class="card-title">주문 리스트</h4>
+           <h6 class="card-subtitle">Order List</h6>
            <div class="table-responsive m-t-40">
                <table id="myTable" class="table table-bordered table-striped">
                <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>
                    <thead>
                     <tr>
-                    	
                     	<th>Store Code</th>
                         <th>ID</th>
                         <th>Password</th>
@@ -48,40 +47,25 @@
                     </tr>
 	                </thead>
 	                <tbody>
-	                
-                   <c:forEach items="${aList}" var="admin" varStatus="vs">
-
-					<c:if test="${admin.del eq '1'}">
-					  <tr id="tr${admin.seq}">
-                    	
-                    	
-                        <td>삭제된 회원</td>
-                        <td>${admin.id }</td>
-                        <td>${admin.password }</td>
-                        <td>${admin.name }</td>
-                        <td>${admin.phone }</td>
-                        <td>
-							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
-                            <input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery(${admin.seq})">
-						</td>
-                    </tr>
-					</c:if>
-					
-                   <c:if test="${admin.del eq '0'}">
-                    <tr id="tr${admin.seq}">
+                    <tr>
                     
-                        <td>${admin.store_seq }</td>
-                        <td>${admin.id }</td>
-                        <td>${admin.password }</td>
-                        <td>${admin.name }</td>
-                        <td>${admin.phone }</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
                         <td>
-							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
+                       		 <a href="#iconPlus" class="btn btn-info" data-toggle="collapse">+</a>
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
 						</td>
                     </tr>
-                    </c:if>
-                    </c:forEach>
+                    <tr id="minusDel">
+			        	<td colspan="6"><div id="iconPlus" class="collapse">';
+						<div data-toggle="buttons">';
+						</div></div></td>
+			        </tr>
+                    
+                    
                    </tbody>
                    <tfoot>
 			            <tr>
@@ -95,21 +79,7 @@
    </div>
    </div>
    </div>
-             
-<!--              
-<script>
-//테이블 클릭
-$(document).ready(function() {
-    var table = $('#myTable').DataTable();
-     
-    $('#myTable tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
-        alert( 'You clicked on '+data[0]+'\'s row' );
-    } );
-} );
-</script>   
- -->
- 
+
 
 
 
@@ -363,7 +333,12 @@ $(document).ready(function() {
 	                //$(".container-fluid").after(html);
 
 	            
-	             
+	                $(document).ready(function() {
+	                	  $.fn.DataTable.ext.pager.numbers_length = 5;
+	                	    $('#myTable').DataTable( {
+	                	       "pagingType":"full_numbers",
+	                	    } );  
+	                	} );
 	                
 	            },error : function(request,status,error){
 	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

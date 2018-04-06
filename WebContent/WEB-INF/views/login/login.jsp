@@ -342,7 +342,6 @@ border-bottom:3px solid #78788c
 			</p>
 		</div>
 	</div>
-	
 
 
 
