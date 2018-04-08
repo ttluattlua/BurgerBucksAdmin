@@ -3,12 +3,21 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/> 
+
+
 
 <!-- icon 불러오기 -->
 <!--core first + styles last-->
 <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="./DataTables/datatables.min.css"/>
+<script type="text/javascript" src="./DataTables/datatables.min.js"></script>
 
 
 <!-- Bread crumb -->
@@ -29,57 +38,186 @@
 <div class="row">
     <div class="col-12">
      <!--========================== 주문 리스트 가져오기 ==============================-->
-   <div class="card">
+
+   
+      <div class="card">
        <div class="card-body">
            <h4 class="card-title">주문 리스트</h4>
            <h6 class="card-subtitle">Order List</h6>
            <div class="table-responsive m-t-40">
-               <table id="myTable" class="table table-bordered table-striped">
-               <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>
-                   <thead>
-                    <tr>
-                    	<th>Store Code</th>
-                        <th>ID</th>
-                        <th>Password</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th></th>
-                    </tr>
-	                </thead>
-	                <tbody>
-                    <tr>
-                    
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>
-                       		 <a href="#iconPlus" class="btn btn-info" data-toggle="collapse">+</a>
-                            <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
-						</td>
-                    </tr>
-                    <tr id="minusDel">
-			        	<td colspan="6"><div id="iconPlus" class="collapse">';
-						<div data-toggle="buttons">';
-						</div></div></td>
-			        </tr>
-                    
-                    
-                   </tbody>
-                   <tfoot>
-			            <tr>
-			               
-			            </tr>
-			        </tfoot>
-               </table>
+           <div>
+           <hr>
+           	<button id="btn-show-all-children" type="button" class="btn btn-inverse" >Expand All</button>
+			<button id="btn-hide-all-children" type="button" class="btn btn-inverse" >Collapse All</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div style="text-align: right;">
+			<i class="material-icons">shopping_cart</i> 장바구니 / 
+			<i class="material-icons">payment</i> 주문완료 / 
+			<i class="material-icons">room_service</i> 준비중 / 
+			<i class="material-icons">directions_bike</i> 배달시작 / 
+			<i class="material-icons">assignment_turned_in</i> 배달완료 / 
+			</div>
+           </div>
+
+
+
+
+<table id="orderTable" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+        	<th>No</th>
+            <th>점포명</th>
+            <th>주문자</th>
+            <th>연락처</th>
+            <th>주문일자</th>
+            <th>현재상태</th>
+            <th>상태변경</th>
+            <th></th>
+            <th class="none">배송지</th>
+            <th class="none">배송지 메모</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>No</th>
+            <th>점포명</th>
+            <th>주문자</th>
+            <th>연락처</th>
+            <th>주문일자</th>
+            <th>현재상태</th>
+            <th>상태변경</th>
+            <th></th>
+            <th>배송지</th>
+            <th>배송지 메모</th>
+        </tr>
+    </tfoot>
+    <tbody>
+    
+    <!-- private int seq;
+	private int member_seq;
+	private int member_addr;
+	private int store_seq;
+	private String date;
+	private int status;
+	private int del; -->
+    
+   <!--  model.addAttribute("olist", olist);
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("addrList", addrList);
+		model.addAttribute("storeList", storeList); -->
+	
+	
+<%-- 	JSTL 문법의 for문 사용법
+<c:forEach items="${리스트가 받아올 배열이름}" var=$"{for문안에서 사용할 변수}" varStatus="status">
+status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
+
+#{status.current}   현재의 for문에 해당하는 번호
+#{status.index} 0부터의 순서
+#{status.count} 1부터의 순서
+#{status.first}  현재 루프가 처음인지 확인
+#{status.last}  현재 루프가 마지막인지 확인
+#{status.begin} for문의 시작 값
+#{status.end}   for문의 끝 값
+#{status.step}  for문의 증가값 --%>
+	
+	<c:set var="memberList" value="${memberList }" />
+	<c:set var="addrList" value="${addrList }" />
+	<c:set var="storeList" value="${storeList }" />
+    <c:forEach items="${olist}" var="order" varStatus="status">
+   <c:set var="i" value="${status.index}" />
+
+
+        <tr>
+        	<!-- 기본 정보 -->
+            <td><c:out value="${status.count}" /></td>
+            <td>${storeList[i].name }</td>
+            <td>${memberList[i].id }</td>
+            <td>${memberList[i].phone }</td>
+            <td>${order.order_date }</td>
+            <td>
+
+			<c:choose>
+
+		    <c:when test="${order.status eq '0'}">
+            <i class="material-icons">shopping_cart</i>
+		    </c:when>
+
+		    <c:when test="${order.status eq '1'}">
+            <i class="material-icons">payment</i>
+		    </c:when>
+		    
+		    <c:when test="${order.status eq '2'}">
+            <i class="material-icons">room_service</i>
+		    </c:when>
+		    
+		    <c:when test="${order.status eq '3'}">
+            <i class="material-icons">directions_bike</i>
+		    </c:when>
+		   
+		    <c:otherwise>
+            <i class="material-icons">assignment_turned_in</i>
+		    </c:otherwise>
+
+			</c:choose>
+            </td>
+            <td>
+            
+            <select class="form-control" onchange="document.getElementById('input_store').value = this.options[this.selectedIndex].value">
+		    <option selected value=''>선택하세요</option> 
+		      <option value='0'>장바구니</option>
+		      <option value='1'>주문완료</option>
+		      <option value='2'>준비중</option>
+		      <option value='3'>배달시작</option>
+		      <option value='4'>배달완료</option>
+		    </select>
+
+			</td>
+            <td style="text-align: right;"><button id="save" type="button" class="btn btn-inverse" >저장</button></td>
+            
+            
+            <!-- 상세정보 -->
+            <td>${addrList[i].address }</td>
+            <td>${addrList[i].memo }</td>
+            <hr>
+            
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
            </div>
        </div>
    </div>
+   
+   
    </div>
    </div>
    </div>
+   
 
+   <script>
+   
+   $(document).ready(function (){
+	    var table = $('#orderTable').DataTable({
+	        'responsive': true
+	    });
+
+	    // Handle click on "Expand All" button
+	    $('#btn-show-all-children').on('click', function(){
+	        // Expand row details
+	        table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+	    });
+
+	    // Handle click on "Collapse All" button
+	    $('#btn-hide-all-children').on('click', function(){
+	        // Collapse row details
+	        table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
+	    });
+	});
+   </script>
+
+   
+   
+   
 
 
 

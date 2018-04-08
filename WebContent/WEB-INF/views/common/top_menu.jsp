@@ -106,7 +106,7 @@
                                     <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
                                     <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                                     <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                    <li><a href="#"><i class="fa fa-power-off"></i> 로그아웃</a></li>
+                                    <li><a href="login.do"><i class="fa fa-power-off"></i> 로그아웃</a></li>
                                 </ul>
                             </div>
                         </li>

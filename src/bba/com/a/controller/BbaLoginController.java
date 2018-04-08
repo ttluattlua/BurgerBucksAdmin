@@ -1,6 +1,10 @@
 package bba.com.a.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -29,8 +33,13 @@ public class BbaLoginController {
 	 * 로그인 화면 (첫화면)
 	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String login(Model model) {
+	public String login(HttpServletRequest request, Model model) {
 		logger.info("BbaMemberController login");
+		
+		//세션 초기화
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginedId");
+		
 		return "login.tiles";
 	}
 	
@@ -38,18 +47,37 @@ public class BbaLoginController {
 	 * 로그인후 메인
 	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value="loginAf.do", method=RequestMethod.POST)
-	public String loginAf(HttpServletRequest request, Model model, Bb_AdminDto adminDto) {
+	public String loginAf(HttpServletRequest request, HttpServletResponse response,  Model model, Bb_AdminDto adminDto) {
 		logger.info("BbaMemberController login");
 		
 		System.out.println("로그인 시 id : " + adminDto.getId());
 		System.out.println("로그인 시 password : " + adminDto.getPassword());
 		
 		HttpSession session = request.getSession();
+
+	    /*// 요청 URI로 1depth path를 구한다.
+		String reqUri = request.getRequestURI();
+		String[] reqUris = reqUri.split("/");
+		String firstPath = "";
+		firstPath = reqUris[1];*/
 		
 		Bb_AdminDto admin = bbMemberService.loginAdminIdPw(adminDto);
 		if(admin==null) {
-			model.addAttribute("msg", "아이디 / 비밀번호를 확인하세요."); 
-			model.addAttribute("url", "login.jsp"); 
+			
+
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out;
+			try {
+				//실패시 창 띄우기
+				out = response.getWriter();
+				out.println("<script>alert('아이디/ 비밀번호를 확인하세요.'); history.go(-1);</script>");
+	            out.flush(); 
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			return "redirect:/login.do";
 		}else {
 			session.setAttribute("loginedId", admin.getId()) ;
