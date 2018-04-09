@@ -127,10 +127,10 @@
 	                           <div class="col-md-6">
 	                               <div class="form-group">
 	                                  <label class="control-label">채소</label>
-                                       <select name="veggie" id="veggie"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+                                       <select name="veggie" id="veggie"  class="form-control custom-select" tabindex="1" style="height: 40px;" onchange="showImage(this.value)">
 										   <c:forEach var="bigdto" items="${IngList}">
                                            		<c:if test="${bigdto.types == 3}">
-                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}">${bigdto.name}</option>
+                                           			<option value="${bigdto.seq}--something--${bigdto.image_Src}">${bigdto.name}</option>
                                            		</c:if>
                                            </c:forEach>
                                        </select>
@@ -143,7 +143,7 @@
                                        <select name="etc" id="etc"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
 										   <c:forEach var="bigdto" items="${IngList}">
                                            		<c:if test="${bigdto.types == 4}">
-                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}" >${bigdto.name}</option>
+                                           			<option onclick="showImage(${bigdto.seq}, '${bigdto.image_Src}')" value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}" >${bigdto.name}</option>
                                            		</c:if>
                                            </c:forEach>
                                        </select>
@@ -160,7 +160,7 @@
 	                                   <table>
 	                                   		<tr>
 	                                   			<td>
-	                                   			<img alt="" src="" id="bunImage" style="width: 10px;">
+	                                   				<img alt="" src="" id="bunImage" style="width: 100px;">
 	                                   			</td>
 	                                   			<td>재료1</td>
 	                                   			<td>재료2</td>
@@ -219,7 +219,7 @@
  
  <!--=============================스크립트=======================================-->
  <script>
- function showImage(image) {
+/*  function showImage(image) {
 	 var imageUrl = JSON.stringify(image);
 	 console.log(imageUrl);
 	 var obj = JSON.parse(imageUrl);
@@ -229,6 +229,13 @@
 	 alert("imageUrl:" + imageUrl);
 	 alert("imageUrl.r:" + obj.url);
 	$("#bunImage").attr("src", obj.url);
+} */
+function showImage(tempValue) {
+    var temp = tempValue.split('--something--');
+	var seq = parseInt(temp[0]);
+	var src = temp[1];
+	
+	$("#bunImage").attr("src", src);
 }
  
  </script>

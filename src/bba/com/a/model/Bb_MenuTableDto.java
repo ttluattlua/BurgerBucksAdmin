@@ -3,7 +3,7 @@ package bba.com.a.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Bb_MenuDto implements Serializable {
+public class Bb_MenuTableDto implements Serializable {
 
   private int seq;
   private Bb_BurgerDto burger;
@@ -13,15 +13,15 @@ public class Bb_MenuDto implements Serializable {
   private int creatorSeq;
   private int price;
   private int calorie;
-  private boolean del;
+  private int del;
   
   /*---------------------------------------------------------------------------------------
   Constructor
   --------------------------------------------------------------------------------------- */
-  public Bb_MenuDto() { }
+  public Bb_MenuTableDto() { }
 
-public Bb_MenuDto(int seq, Bb_BurgerDto burger, Bb_SideDto side, Bb_BeverageDto beverage, String name, int creatorSeq,
-		int price, int calorie, boolean del) {
+public Bb_MenuTableDto(int seq, Bb_BurgerDto burger, Bb_SideDto side, Bb_BeverageDto beverage, String name, int creatorSeq,
+		int price, int calorie, int del) {
 	super();
 	this.seq = seq;
 	this.burger = burger;
@@ -98,11 +98,12 @@ public void setCalorie(int calorie) {
 	this.calorie = calorie;
 }
 
-public boolean isDel() {
+
+public int getDel() {
 	return del;
 }
 
-public void setDel(boolean del) {
+public void setDel(int del) {
 	this.del = del;
 }
 

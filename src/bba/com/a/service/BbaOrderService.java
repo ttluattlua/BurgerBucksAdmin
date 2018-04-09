@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_MemberDto;
+import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
+import bba.com.a.model.Bb_OrderMenuDto;
 import bba.com.a.model.Bb_StoreDto;
 
 
@@ -23,4 +25,12 @@ public interface BbaOrderService {
 	
 	//점포 리스트 가져오기
 	List<Bb_StoreDto> getStoreList(int store_seq) throws Exception;
+	
+	//주문 상세 가져오기 (orderMenu)
+	List<Bb_OrderMenuDto> getOrderMenuList(int seq) throws Exception;
+	
+	
+	//메뉴 리스트 가져오기
+	List<Bb_MenuTableDto> getMenuList(int seq) throws Exception;
+		
 }

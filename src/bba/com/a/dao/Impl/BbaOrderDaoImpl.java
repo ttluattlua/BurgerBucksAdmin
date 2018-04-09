@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import bba.com.a.dao.BbaOrderDao;
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_MemberDto;
+import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
+import bba.com.a.model.Bb_OrderMenuDto;
 import bba.com.a.model.Bb_StoreDto;
 
 @Repository
@@ -62,11 +64,35 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 	* -----------------------------------------------------------------------------*/
 	@Override
 	public List<Bb_StoreDto> getStoreList(int store_seq) throws Exception {
-		// TODO Auto-generated method stub
 		List<Bb_StoreDto> list = new ArrayList<Bb_StoreDto>();
 		list = sqlSession.selectList(namespace + "getStoreList", store_seq);
 		return list;
 	}
+
+	/*------------------------------------------------------------------------------
+	* 주문 상세 가져오기 (ordermenu)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_OrderMenuDto> getOrderMenuList(int seq) throws Exception {
+		List<Bb_OrderMenuDto> list = new ArrayList<Bb_OrderMenuDto>();
+		list = sqlSession.selectList(namespace + "getStoreList", seq);
+		return list;
+	}
+
+	
+	/*------------------------------------------------------------------------------
+	* 메뉴 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_MenuTableDto> getMenuList(int seq) throws Exception {
+		List<Bb_MenuTableDto> list = new ArrayList<Bb_MenuTableDto>();
+		list = sqlSession.selectList(namespace + "getMenuList", seq);
+		return list;
+	}
+	
+	
+	
+	
 	
 	
 	

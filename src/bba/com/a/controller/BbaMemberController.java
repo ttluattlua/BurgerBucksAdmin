@@ -37,33 +37,8 @@ public class BbaMemberController {
 	BbaStoreSerivce bbaStoreService;
 	
 
-	/*--------------------------------------------------------------------------------------------
-	 * 로그인 화면 (첫화면)
-	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String login(Model model) {
-		logger.info("BbaMemberController login");
-		
-
-		
-		return "login.tiles";
-	}
 	
-	/*--------------------------------------------------------------------------------------------
-	 * 로그인후 메인
-	 *-------------------------------------------------------------------------------------------*/
-	@RequestMapping(value="loginAf.do", method=RequestMethod.POST)
-	public String loginAf(Model model , HttpServletRequest req) {
-		logger.info("BbaMemberController login");
-		
-		//언니 여기다가 이미지 경로 좀 session에다 저장해 놓을게요 지우지말아주세용 ㅋㅋ
-		//여기다 저장한 후에 컴퓨터 서버 바뀌면 여기만 수정해줄 수 있게 바꿔놓으려구용
-		HttpSession session = req.getSession(true);
-		session.setAttribute("imagePath", "http://192.168.25.7:8090/upload/");
-		
-		
-		return "home.tiles";
-	}
+
 
 	
 	/*--------------------------------------------------------------------------------------------

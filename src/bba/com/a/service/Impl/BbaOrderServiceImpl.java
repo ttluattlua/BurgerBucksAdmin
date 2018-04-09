@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import bba.com.a.dao.BbaOrderDao;
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_MemberDto;
+import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
+import bba.com.a.model.Bb_OrderMenuDto;
 import bba.com.a.model.Bb_StoreDto;
 import bba.com.a.service.BbaOrderService;
 
@@ -49,8 +51,23 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
 	public List<Bb_StoreDto> getStoreList(int store_seq) throws Exception {
-		// TODO Auto-generated method stub
 		return bbaOrderDao.getStoreList(store_seq);
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 주문 상세 가져오기 (orderMenu)
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_OrderMenuDto> getOrderMenuList(int seq) throws Exception {
+		return bbaOrderDao.getOrderMenuList(seq);
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 메뉴 리스트 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_MenuTableDto> getMenuList(int seq) throws Exception {
+		return bbaOrderDao.getMenuList(seq);
 	}
 
 	

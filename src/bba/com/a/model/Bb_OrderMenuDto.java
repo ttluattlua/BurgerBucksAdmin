@@ -7,7 +7,7 @@ public class Bb_OrderMenuDto implements Serializable {
 
   private int seq;
   private int orderSeq;
-  private Bb_MenuDto menu;
+  private Bb_MenuTableDto menu;
   private int quantity;
   private int price;
   private boolean del;
@@ -20,7 +20,7 @@ public class Bb_OrderMenuDto implements Serializable {
     super();
   }
 
-  public Bb_OrderMenuDto(int orderSeq, Bb_MenuDto menu, int quantity, int price) {
+  public Bb_OrderMenuDto(int orderSeq, Bb_MenuTableDto menu, int quantity, int price) {
     super();
     this.orderSeq = orderSeq;
     this.menu = menu;
@@ -28,7 +28,7 @@ public class Bb_OrderMenuDto implements Serializable {
     this.price = price;
   }
 
-  public Bb_OrderMenuDto(int seq, int orderSeq, Bb_MenuDto menu, int quantity, int price, boolean del) {
+  public Bb_OrderMenuDto(int seq, int orderSeq, Bb_MenuTableDto menu, int quantity, int price, boolean del) {
     super();
     this.seq = seq;
     this.orderSeq = orderSeq;
@@ -58,11 +58,11 @@ public class Bb_OrderMenuDto implements Serializable {
     this.orderSeq = orderSeq;
   }
 
-  public Bb_MenuDto getMenu() {
+  public Bb_MenuTableDto getMenu() {
     return menu;
   }
 
-  public void setMenu(Bb_MenuDto menu) {
+  public void setMenu(Bb_MenuTableDto menu) {
     this.menu = menu;
   }
 
