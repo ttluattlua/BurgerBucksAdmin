@@ -1,5 +1,7 @@
 package bba.com.a.service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,53 @@ public class BbaSideServiceImpl implements BbaSideService {
 		int seq = bbaSideDao.registerSide(bsdto);
 		bidto.setRef_Seq(seq);
 		System.out.println(bidto.toString());
-		bbaSideDao.registerSideImage(bidto);
-		
+		int image_Seq = bbaSideDao.registerSideImage(bidto);
+		System.out.println("registerSide_ image_Seq:"+image_Seq);
 		bsdto.setSeq(seq);
+		bsdto.setImage_Seq(image_Seq);
 		
 		return bsdto;
 	}
+
+	@Override
+	public List<Bb_SideDto> getSideList() {
+		// TODO Auto-generated method stub
+		
+		List<Bb_SideDto> sideList = bbaSideDao.getSideList();
+		List<Bb_ImageDto> imageList = bbaSideDao.getSideImageList(sideList);
+		
+		for (int i = 0; i < sideList.size(); i++) {
+			sideList.get(i).setImage_Src(imageList.get(i).getImage_Src());
+			sideList.get(i).setImage_Seq(imageList.get(i).getSeq());
+		}
+		
+		return sideList;
+	}
+
+	@Override
+	public Bb_SideDto getSideDetail(int seq) {
+		// TODO Auto-generated method stub
+		return bbaSideDao.getSideDetail(seq);
+	}
+
+	@Override
+	public void updateSideAf(Bb_SideDto bsdto) {
+		bbaSideDao.updateSideAf(bsdto);
+		
+	}
+
+	@Override
+	public void updateSideImageAf(Bb_ImageDto bidto) {
+		bbaSideDao.updateSideImageAf(bidto);
+		
+	}
+
+	@Override
+	public void deleteSide(int seq, int image_Seq) {
+		bbaSideDao.deleteSide(seq);
+		bbaSideDao.deleteSideImage(image_Seq);
+		
+	}
+
+
 }

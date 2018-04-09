@@ -12,8 +12,10 @@ public class Bb_SideDto implements Serializable {
 	private int price;			//사이드 가격
 	private int cal;			//사이드 칼로리
 	private int del;			//삭제 여부 
-	
+	////이미지테이블 
 	private String what_Image;
+	private String image_Src;
+	private int image_Seq;
 	
 	public Bb_SideDto() {}
 	
@@ -25,6 +27,21 @@ public class Bb_SideDto implements Serializable {
 		this.cal = cal;
 		this.del = del;
 		this.what_Image = what_Image;
+	}
+
+	
+	
+	public Bb_SideDto(int seq, String name, int price, int cal, int del, String what_Image, String image_Src,
+			int image_Seq) {
+		super();
+		this.seq = seq;
+		this.name = name;
+		this.price = price;
+		this.cal = cal;
+		this.del = del;
+		this.what_Image = what_Image;
+		this.image_Src = image_Src;
+		this.image_Seq = image_Seq;
 	}
 
 	public int getSeq() {
@@ -76,11 +93,29 @@ public class Bb_SideDto implements Serializable {
 		this.what_Image = what_Image;
 	}
 
+	
+	public String getImage_Src() {
+		return image_Src;
+	}
+
+	public void setImage_Src(String image_Src) {
+		this.image_Src = image_Src;
+	}
+
+	public int getImage_Seq() {
+		return image_Seq;
+	}
+
+	public void setImage_Seq(int image_Seq) {
+		this.image_Seq = image_Seq;
+	}
+
 	@Override
 	public String toString() {
 		return "Bb_SideDto [seq=" + seq + ", name=" + name + ", price=" + price + ", cal=" + cal + ", del=" + del
-				+ ", what_Image=" + what_Image + "]";
+				+ ", what_Image=" + what_Image + ", image_Src=" + image_Src + ", image_Seq=" + image_Seq + "]";
 	}
+
 
 	
 	

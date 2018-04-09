@@ -73,93 +73,162 @@
     
   </div>
                 
-                
-		                
+ 
+  
+                        
 		<!--==========================버거 등록 모달창======================================= -->
-		 <!-- The Modal -->
-		  <div class="modal fade" id="addburger">
-		    <div class="modal-dialog modal-lg">
-		      <div class="modal-content">
-		      
-		        <!-- Modal body -->
-		        <div class="modal-body">
-			         <div class="card card-outline-primary">
-				           <div class="card-header">
-				               <h4 class="m-b-0 text-white">버거 등록</h4>
+	<!-- The Modal -->
+ <div class="modal fade" id="addburger">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+     
+       <!-- Modal body -->
+       <div class="modal-body">
+         <div class="card card-outline-primary">
+	           <div class="card-header">
+	               <h4 class="m-b-0 text-white">버거 등록</h4>
+	           </div>
+	           <div class="card-body">
+	               <form action="registerIng.do" method="post" enctype="multipart/form-data" id="fileForm">
+	                   <div class="form-body">
+	                       <hr>
+	                         <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                  <label class="control-label">번</label>
+                                       <select name="bun" id="bun"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+                                           <c:forEach var="bigdto" items="${IngList}">
+                                           		<c:if test="${bigdto.types == 1}">
+                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}" >${bigdto.name}</option>
+                                           		</c:if>
+                                           </c:forEach>
+                                       </select>
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">패티</label>
+                                       <select name="patty" id="patty"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+										   <c:forEach var="bigdto" items="${IngList}">
+                                           		<c:if test="${bigdto.types == 2}">
+                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}">${bigdto.name}</option>
+                                           		</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
+
+	
+	                        <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                  <label class="control-label">채소</label>
+                                       <select name="veggie" id="veggie"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+										   <c:forEach var="bigdto" items="${IngList}">
+                                           		<c:if test="${bigdto.types == 3}">
+                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}">${bigdto.name}</option>
+                                           		</c:if>
+                                           </c:forEach>
+                                       </select>
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">기타</label>
+                                       <select name="etc" id="etc"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+										   <c:forEach var="bigdto" items="${IngList}">
+                                           		<c:if test="${bigdto.types == 4}">
+                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}" >${bigdto.name}</option>
+                                           		</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
+	                       <div class="row">
+	                           <div class="col-md-12 ">
+	                               <div class="form-group">
+	                                   <label>재료 이미지  </label>
+	                                   
+	                                   <table>
+	                                   		<tr>
+	                                   			<td>
+	                                   			<img alt="" src="" id="bunImage" style="width: 10px;">
+	                                   			</td>
+	                                   			<td>재료1</td>
+	                                   			<td>재료2</td>
+	                                   			<td>재료3</td>
+	                                   			<td>재료4</td>
+	                                   			<td>재료5</td>
+	                                   			<td>재료6</td>
+	                                   			<td>재료7</td>
+	                                   			<td>재료8</td>
+	                                   			<td>재료9</td>
+	                                  	 	</tr>
+	                                   </table>    		
+	                               </div>
+	                           </div>
 				           </div>
-				           <div class="card-body">
-				               <form action="registerStore.do" method="post">
-				                   <div class="form-body">
-									   <input type="hidden" id="_latLng" name="latlng">
-				                       <hr>
-				                       <div class="row p-t-20">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <label class="control-label">지점명</label>
-				                                   <input type="text" name="name" id="_name" class="form-control" placeholder="지점명" required="required">
-				                                   <small class="form-control-feedback"></small></div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-				                               <div class="form-group has-danger">
-				                                   <label class="control-label">전화번호</label>
-				                                   <input type="text" name="phone" id="_phone" class="form-control form-control-danger" placeholder="전화번호" required="required">
-				                                   <small class="form-control-feedback"></small> </div>
-				                           </div>
-				                           <!--/span-->
-				                       </div>
-				                       <!--/row-->
-				
-				                        <div class="row">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <label>Post Code</label>
-				                                   <input type="text" name="postcode" class="form-control" id="register_postcode" placeholder="우편번호" readonly="readonly" required="required">
-				                               </div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-													<input type="button" onclick="DaumPostcode(0)" value="우편번호 찾기" class="btn btn-inverse" style="margin-top: 30px;">
-				                               </div>
-				                           </div>
-				                           <!--/span-->
-				                       </div>
-				                       <div class="row">
-				                           <div class="col-md-12 ">
-				                               <div class="form-group">
-				                                   <label>도로명 주소</label>
-				                                   <input type="text" name="roadAddress" class="form-control" id="register_roadAddress" placeholder="도로명주소" readonly="readonly" required="required">
-				                               </div>
-				                           </div>
-				                       </div>
-				         			  <div class="row">
-				                           <div class="col-md-12 ">
-				                               <div class="form-group">
-				                                   <label>지번 주소 </label>
-				                                   <input type="text" name="jibunAddress" class="form-control" id="register_jibunAddress" placeholder="지번주소" readonly="readonly" required="required">
-				                               		<span id="register_guide" style="color:#999"></span>                               		
-				                               </div>
-				                           </div>
-				                       </div>
-				                       <div class="row">
-				                           <div class="col-md-12 ">
-				                               <div class="form-group">
-				                                   <label>상세 주소  </label>
-				                                   <input type="text" name="detailAddress" id="_detailAddress" class="form-control" placeholder="상세주소" required="required">                          		
-				                               </div>
-				                           </div>
-				                       </div>
-				
-				                   </div>
-				                   <div class="form-actions" align="right">
-				                       <button type="button" class="btn btn-success" id="registerStoreBtn" onclick="registerStore()"> <i class="fa fa-check"></i> 등록</button>
-				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
-				                   </div>
-				               </form>
-				           </div>
-			           </div>
-		        </div>	
-		      </div>
-		    </div>
-		  </div>
+	                       <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <label>사진등록</label>
+	                                    <input type="file" id="image_src" name="image_src" class="form-control"/>
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                        <label class="control-label">재료 타입</label>
+                                        <select name="types" id="types"  class="form-control custom-select" data-placeholder="재료타입을 선택해주세요" tabindex="1" style="height: 40px;">
+                                            <option value="1">번</option>
+                                            <option value="2">패티</option>
+                                            <option value="3">채소</option>
+                                            <option value="4">기타</option>
+                                        </select>
+                                   </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
+	                       
+	                       
+	                       
+	                       
+	         			  
+	
+	                   </div>
+	                   <div class="form-actions" align="right">
+	                       <button type="button" class="btn btn-success" id="registerIngBtn" onclick="registerIngClick()"> <i class="fa fa-check"></i> 등록</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                   </div>
+	               </form>
+	           </div>
+           </div>
+       </div>	
+     </div>
+   </div>
+ </div>
+ 
+ <!--=============================스크립트=======================================-->
+ <script>
+ function showImage(image) {
+	 var imageUrl = JSON.stringify(image);
+	 console.log(imageUrl);
+	 var obj = JSON.parse(imageUrl);
+	 console.log(obj);
+	 console.log(obj.seq);
+	 console.log(obj);
+	 alert("imageUrl:" + imageUrl);
+	 alert("imageUrl.r:" + obj.url);
+	$("#bunImage").attr("src", obj.url);
+}
+ 
+ </script>

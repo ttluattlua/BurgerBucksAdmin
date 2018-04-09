@@ -9,9 +9,67 @@
 <mapper namespace="BBASide">
 
 
+<!--사이드 등록 -->
+<insert id="registerSide" parameterType="bba.com.a.model.Bb_SideDto">
+ INSERT INTO BB_SIDE(SEQ, NAME ,PRICE ,CAL, DEL) 
+ VALUES(BB_SIDE_SEQ.NEXTVAL, #{name}, #{price}, #{cal}, 0)
+ <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_SIDE_SEQ.CURRVAL FROM dual 
+ </selectKey>
+</insert>
+
+<!--사이드 이미지 -->
+<insert id="registerSideImage" parameterType="bba.com.a.model.Bb_ImageDto">
+ INSERT INTO BB_IMAGE(SEQ, TABLE_NAME ,WHAT_IMAGE ,IMAGE_SRC, REF_SEQ, DEL) 
+ VALUES(BB_IMAGE_SEQ.NEXTVAL, #{table_Name}, #{what_Image}, #{image_Src}, #{ref_Seq}, 0)
+  <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_IMAGE_SEQ.CURRVAL FROM dual 
+ </selectKey>
+</insert>
+
+
+<!--사이드 게시 판/ 사이드 리스트 뽑아오기 -->
+<select resultType="bba.com.a.model.Bb_SideDto" id="getSideList"> 
+SELECT SEQ, NAME ,PRICE ,CAL, DEL FROM BB_SIDE WHERE DEL=0 ORDER BY SEQ
+</select>
+
+
+<!--사이드 게시판/사이드 이미지 뽑아오기  -->
+<!--사이드 리스트들의  사이드 이미지 리스트 뽑기(겹치는 국가 방지위해 group by해서 뽑아주기)-->
+
+<select parameterType="java.util.HashMap" resultType="bba.com.a.model.Bb_ImageDto" id="getSideImageList">
+SELECT SEQ, TABLE_NAME ,WHAT_IMAGE ,IMAGE_SRC, REF_SEQ, DEL FROM BB_IMAGE 
+<choose>
+<when test="list.size != 0">
+WHERE REF_SEQ IN 
+<foreach close=")" open="(" separator="," index="index" item="item" collection="list"> #{item} </foreach>
+</when>
+</choose>
+AND TABLE_NAME='BB_SIDE' AND WHAT_IMAGE='실물사진'
+ORDER BY REF_SEQ
+</select>
 
 
 
 
+<!--=================사이드 수정 위해 사이드 디테일 뽑아오기=====================-->
+<select id="getSideDetail" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_SideDto">
+SELECT SEQ, NAME ,PRICE ,CAL, DEL FROM BB_SIDE WHERE SEQ=#{seq}
+</select>
+
+<!--사이드 수정-->
+<update id="updateSideAf" parameterType="bba.com.a.model.Bb_SideDto">
+UPDATE BB_SIDE
+SET NAME=#{name},PRICE=#{price},CAL=#{cal}
+WHERE SEQ=#{seq};
+</update>
+
+
+<!--이미지 수정-->
+<update id="updateSideAf" parameterType="java.lang.Integer">
+UPDATE BB_IMAGE
+SET IMAGE_SRC=#{image_Src}
+WHERE SEQ=#{seq};
+</update>
 
 </mapper>
