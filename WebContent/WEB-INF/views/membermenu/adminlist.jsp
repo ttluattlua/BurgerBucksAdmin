@@ -38,6 +38,7 @@
                <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>
                    <thead>
                     <tr>
+                    	
                     	<th>Store Code</th>
                         <th>ID</th>
                         <th>Password</th>
@@ -53,6 +54,7 @@
 					<c:if test="${admin.del eq '1'}">
 					  <tr id="tr${admin.seq}">
                     	
+                    	
                         <td>삭제된 회원</td>
                         <td>${admin.id }</td>
                         <td>${admin.password }</td>
@@ -60,7 +62,7 @@
                         <td>${admin.phone }</td>
                         <td>
 							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
-                            <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
+                            <input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery(${admin.seq})">
 						</td>
                     </tr>
 					</c:if>
@@ -108,66 +110,6 @@ $(document).ready(function() {
 </script>   
  -->
  
-<script type="text/javascript">
-/*---------------------------------------------------------------------------------------------
- * 테이블 리스트에서 삭제 클릭
- *----------------------------------------------------------------------------------------------*/
-
-	function ListDelete(seq){
-		alert("삭제 클릭");
-		
-		$.ajax({
-            url : "deladmin.do",
-            type: "get",
-            data : { "seq" : seq },
-            dataType: 'json',
-    		contentType : "application; charset=utf-8",
-    		traditional : true,
-            success : function(data){
-                //$("#ajax").remove();
-                
-                alert(JSON.stringify(data));
-                //alert("성공" + data);
-                alert("길이 : " +data.length);
-                alert(data[0].id);
-                if(!data){
-                    alert("존재하지 않는 ID입니다");
-                    return false;
-                }
-                
-                var div = document.querySelector('#myTable');
-                var html = '<table>';
-                html += '<col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>';
-                html += '<thead><tr><th>Store Code</th><th>ID</th><th>Password</th><th>Name</th><th>Phone</th><th>SET/DEL</th></tr></thead>';
-                html += '<tbody>';
-                
-                for(var i=0; i<data.length; i++){
-                    
-               	html += '<tr>';
-                html += '<td>'+data[i].store_seq+'</td>';
-                html += '<td>'+data[i].id+'</td>';
-                html += '<td>'+data[i].password+'</td>';
-                html += '<td>'+data[i].name+'</td>';
-                html += '<td>'+data[i].phone+'</td>';
-                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
-				html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
-                html += '</tr>';
-
-                }
-                
-                html += '</tbody></table>';
-                
-                div.innerHTML = html;
-                //$(".container-fluid").after(html);
-                
-            },error : function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        });
-	}
-	
-	
-</script>
 
 
 
@@ -268,7 +210,6 @@ $(document).ready(function() {
               </div>
               <div class="form-actions" align="right">
                   <button type="button" class="btn btn-success" id="updateAdminAfBtn" onclick="updateAdminAf()" data-target="#CompanyProfile"> <i class="fa fa-check"></i> 수정</button>
-                  <button type="button" class="btn btn-success" id="deleteAdminAfBtn" onclick="deleteAdminAf()"> <i class="fas fa-minus"></i> 삭제</button>
                   <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
               </div>
           </form>
@@ -281,11 +222,161 @@ $(document).ready(function() {
     </div>
   </div>
   
-<script>
+ 
+  
+<script type="text/javascript">
 /*---------------------------------------------------------------------------------------------
- * store 수정 Ajax (주소는 : 우편번호#도로명주소#지번주소#상세주소 로 가져가서 저장- 나중에 데이터 보여줄때는 #으로 자를거임)
+ * 테이블 리스트에서 삭제 클릭
  *----------------------------------------------------------------------------------------------*/
 
+	function ListDelete(seq){
+		alert("삭제 클릭");
+		
+		$.ajax({
+            url : "deladmin.do",
+            type: "get",
+            data : { "seq" : seq },
+            dataType: 'json',
+    		contentType : "application; charset=utf-8",
+    		traditional : true,
+            success : function(data){
+                //$("#ajax").remove();
+                
+                alert(JSON.stringify(data));
+                //alert("성공" + data);
+                alert("길이 : " +data.length);
+                alert(data[0].id);
+                if(!data){
+                    alert("존재하지 않는 ID입니다");
+                    return false;
+                }
+                
+                var div = document.querySelector('#myTable');
+                var html = '<table>';
+                html += '<col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>';
+                html += '<thead><tr><th>Store Code</th><th>ID</th><th>Password</th><th>Name</th><th>Phone</th><th>SET/DEL</th></tr></thead>';
+                html += '<tbody>';
+                
+                for(var i=0; i<data.length; i++){
+                    if(data[i].del==0){
+		               	html += '<tr>';
+		                html += '<td>'+data[i].store_seq+'</td>';
+		                html += '<td>'+data[i].id+'</td>';
+		                html += '<td>'+data[i].password+'</td>';
+		                html += '<td>'+data[i].name+'</td>';
+		                html += '<td>'+data[i].phone+'</td>';
+		                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+						html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
+		                html += '</tr>';
+                    }else{
+                    	html += '<tr>';
+		                html += '<td>'+"삭제된 회원"+'</td>';
+		                html += '<td>'+data[i].id+'</td>';
+		                html += '<td>'+data[i].password+'</td>';
+		                html += '<td>'+data[i].name+'</td>';
+		                html += '<td>'+data[i].phone+'</td>';
+		                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+						html += '<input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery('+data[i].seq+')">';
+		                html += '</tr>';
+                    }
+                }
+                
+                html += '</tbody></table>';
+                
+                div.innerHTML = html;
+                //$(".container-fluid").after(html);
+
+            
+                $(document).ready(function() {
+                	  $.fn.DataTable.ext.pager.numbers_length = 5;
+                	    $('#myTable').DataTable( {
+                	       "pagingType":"full_numbers",
+                	    } );  
+                	} );
+                
+            },error : function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+	}
+	 
+	 
+	/*---------------------------------------------------------------------------------------------
+	 * 테이블 리스트에서 회복 클릭
+	 *----------------------------------------------------------------------------------------------*/
+
+		function ListRecovery(seq){
+			alert("회복 클릭");
+			
+			$.ajax({
+	            url : "recoveryAdmin.do",
+	            type: "get",
+	            data : { "seq" : seq },
+	            dataType: 'json',
+	    		contentType : "application; charset=utf-8",
+	    		traditional : true,
+	            success : function(data){
+	                //$("#ajax").remove();
+	                
+	                alert(JSON.stringify(data));
+	                //alert("성공" + data);
+	                alert("길이 : " +data.length);
+	                alert(data[0].id);
+	                if(!data){
+	                    alert("존재하지 않는 ID입니다");
+	                    return false;
+	                }
+	                
+	                var div = document.querySelector('#myTable');
+	                var html = '<table>';
+	                html += '<col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>';
+	                html += '<thead><tr><th>Store Code</th><th>ID</th><th>Password</th><th>Name</th><th>Phone</th><th>SET/DEL</th></tr></thead>';
+	                html += '<tbody>';
+	                
+	                for(var i=0; i<data.length; i++){
+	                    if(data[i].del==0){
+			               	html += '<tr>';
+			                html += '<td>'+data[i].store_seq+'</td>';
+			                html += '<td>'+data[i].id+'</td>';
+			                html += '<td>'+data[i].password+'</td>';
+			                html += '<td>'+data[i].name+'</td>';
+			                html += '<td>'+data[i].phone+'</td>';
+			                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+							html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
+			                html += '</tr>';
+	                    }else{
+	                    	html += '<tr>';
+			                html += '<td>'+"삭제된 회원"+'</td>';
+			                html += '<td>'+data[i].id+'</td>';
+			                html += '<td>'+data[i].password+'</td>';
+			                html += '<td>'+data[i].name+'</td>';
+			                html += '<td>'+data[i].phone+'</td>';
+			                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+							html += '<input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery('+data[i].seq+')">';
+			                html += '</tr>';
+	                    }
+	                }
+	                
+	                html += '</tbody></table>';
+	                
+	                div.innerHTML = html;
+	                //$(".container-fluid").after(html);
+
+	            
+	             
+	                
+	            },error : function(request,status,error){
+	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
+	        });
+		}
+		 	
+	
+
+
+/*---------------------------------------------------------------------------------------------
+ * 사원 수정
+ *----------------------------------------------------------------------------------------------*/
 function ListSet(seq) {	
 		 
 	    alert("사원 수정클릭");
@@ -325,7 +416,9 @@ function ListSet(seq) {
 			
 }
 
-
+/*---------------------------------------------------------------------------------------------
+ * 사원 수정 후
+ *----------------------------------------------------------------------------------------------*/
 function updateAdminAf() {	
 		 
 	    alert("사원 수정완료클릭");
@@ -399,37 +492,4 @@ function updateAdminAf() {
  }
 </script>
   
-
-<script>
-$(document).ready(function() {
-    $('#myTable').DataTable();
-    $(document).ready(function() {
-        var table = $('#example').DataTable({
-            "columnDefs": [{
-                "visible": true,
-                "targets": 2
-            }],
-            "order": [
-                [2, 'asc']
-            ],
-            "displayLength": 25,
-            "drawCallback": function(settings) {
-                var api = this.api();
-                var rows = api.rows({
-                    page: 'current'
-                }).nodes();
-                var last = null;
-                api.column(2, {
-                    page: 'current'
-                }).data().each(function(group, i) {
-                    if (last !== group) {
-                        $(rows).eq(i).before('<tr class="group"><td colspan="7">' + group + '</td></tr>');
-                        last = group;
-                    }
-                });
-            }
-        });
-    });
-});
-</script>
 

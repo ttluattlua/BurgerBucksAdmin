@@ -8,19 +8,24 @@ public class Bb_OrderDto implements Serializable {
 	private int member_seq;
 	private int member_addr;
 	private int store_seq;
-	private String date;
+	private String order_date;
 	private int status;
 	private int del;
+	
 	List<Bb_OrderMenuDto> order_menu;
 
-	public Bb_OrderDto(int seq, int member_seq, int member_addr, int store_seq, String date, int status, int del,
+	public Bb_OrderDto() {
+		super();
+	}
+
+	public Bb_OrderDto(int seq, int member_seq, int member_addr, int store_seq, String order_date, int status, int del,
 			List<Bb_OrderMenuDto> order_menu) {
 		super();
 		this.seq = seq;
 		this.member_seq = member_seq;
 		this.member_addr = member_addr;
 		this.store_seq = store_seq;
-		this.date = date;
+		this.order_date = order_date;
 		this.status = status;
 		this.del = del;
 		this.order_menu = order_menu;
@@ -58,12 +63,12 @@ public class Bb_OrderDto implements Serializable {
 		this.store_seq = store_seq;
 	}
 
-	public String getDate() {
-		return date;
+	public String getOrder_date() {
+		return order_date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setOrder_date(String order_date) {
+		this.order_date = order_date;
 	}
 
 	public int getStatus() {
@@ -93,8 +98,11 @@ public class Bb_OrderDto implements Serializable {
 	@Override
 	public String toString() {
 		return "Bb_OrderDto [seq=" + seq + ", member_seq=" + member_seq + ", member_addr=" + member_addr
-				+ ", store_seq=" + store_seq + ", date=" + date + ", status=" + status + ", del=" + del
+				+ ", store_seq=" + store_seq + ", order_date=" + order_date + ", status=" + status + ", del=" + del
 				+ ", order_menu=" + order_menu + "]";
-	} 
+	}
+
+	
+	
 
 }

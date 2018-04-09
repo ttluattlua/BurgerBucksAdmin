@@ -155,7 +155,7 @@ function idCheckMessage(data) {
 									      <option value='${bsdto.seq }'>${bsdto.name }</option>
 									      </c:forEach>
 									    </select>
-                                    <input type="text" value="" name="input_store" id="input_store" class="form-control" readonly="readonly">
+                                    <input type="text" value="" name="store_seq" id="input_store" class="form-control" readonly="readonly">
                                 
                                 </div>
                              </div>

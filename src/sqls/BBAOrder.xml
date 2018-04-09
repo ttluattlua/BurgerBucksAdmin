@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="BBAOrder">
+
+	<!-- 
+	
+	CREATE TABLE BB_ORDER(
+	SEQ NUMBER(10) PRIMARY KEY,
+	MEMBER_SEQ NUMBER(10) NOT NULL,
+	MEMBER_ADDR NUMBER(10) NOT NULL,
+	STORE_SEQ NUMBER(10) NOT NULL,
+	ORDER_DATE DATE NOT NULL,
+	STATUS NUMBER(1) NOT NULL,
+	DEL NUMBER(1) NOT NULL
+)
+	) -->
+
+
+	<!-- 주문 리스트 불러오기 -->
+	<select id="getOrderList" resultType="bba.com.a.model.Bb_OrderDto">
+		SELECT SEQ, MEMBER_SEQ, MEMBER_ADDR, STORE_SEQ, ORDER_DATE, STATUS, DEL
+		FROM BB_ORDER
+		ORDER BY SEQ DESC
+	</select>
+	
+	<!-- 주문 리스트 -> // 멤버 테이블 불러오기 -->
+	<select id="getMemberList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_MemberDto">
+		SELECT SEQ, ID, PASSWORD, BDAY, NAME, PHONE, SEX, MILEAGE, GRADE, EXP, DEL
+		FROM BB_MEMBER
+		WHERE SEQ=#{member_seq}
+	</select>
+	
+	<!-- 
+	CREATE TABLE BB_ADDR(
+	SEQ NUMBER(10) PRIMARY KEY,
+	MEMBER_SEQ NUMBER(10) NOT NULL,
+	ADDRESS VARCHAR2(100) NOT NULL,
+	LAT VARCHAR2(100) NOT NULL,
+	LNG VARCHAR2(100) NOT NULL,
+	MEMO VARCHAR2(200),
+	DEL NUMBER(1) NOT NULL -->
+
+	
+	<!-- 주문 리스트 -> // 주소 테이블 불러오기 -->
+	<select id="getAddrList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_AddrDto">
+		SELECT SEQ, MEMBER_SEQ, ADDRESS, LAT, LNG, MEMO, DEL
+		FROM BB_ADDR
+		WHERE SEQ=#{member_addr}
+	</select>
+	
+	
+	
+	<!-- 주문 리스트 -> // 점포 테이블 불러오기 -->
+	<select id="getStoreList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_StoreDto">
+		SELECT SEQ, NAME, PHONE, ADDRESS, LAT, LNG, DEL
+		FROM BB_STORE
+		WHERE SEQ=#{store_seq}
+	</select>
+
+
+
+
+
+
+
+
+
+</mapper>  
+
+
+
+
+

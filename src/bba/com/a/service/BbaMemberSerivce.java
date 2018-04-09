@@ -8,6 +8,9 @@ import bba.com.a.model.Bb_StoreDto;
 
 public interface BbaMemberSerivce {
 
+	//사원 로그인
+	Bb_AdminDto loginAdminIdPw(Bb_AdminDto adminDto);
+	
 	//사원등록
 	boolean addAdmin(Bb_AdminDto adminDto) throws Exception;
 	//사원리스트 가져오기
@@ -16,7 +19,8 @@ public interface BbaMemberSerivce {
 	int getAdminID(Bb_AdminDto adminDto);
 	//사원 삭제
 	void delAdmin(int seq);
-	
+	//사원 회복
+	void recoveryAdmin(int seq);
 	
 	//사원 수정 디테일
 	Bb_AdminDto updateAdmin(int seq);

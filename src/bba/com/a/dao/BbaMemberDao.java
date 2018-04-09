@@ -8,6 +8,10 @@ import bba.com.a.model.Bb_StoreDto;
 
 public interface BbaMemberDao {
 
+	//사원 로그인
+	Bb_AdminDto loginAdminIdPw(Bb_AdminDto adminDto);
+	
+	
 	//사원 등록
 	boolean addAdmin(Bb_AdminDto adminDto)throws Exception;
 	//사원 id 중복체크
@@ -19,7 +23,9 @@ public interface BbaMemberDao {
 	
 	//사원 삭제
 	void delAdmin(int seq);
-	
+	//사원 회복
+	void recoveryAdmin(int seq);
+		
 	//사원 수정 디테일
 	Bb_AdminDto updateAdmin(int seq);
 	//사원 수정 후

@@ -12,16 +12,16 @@
                     <ul id="sidebarnav">
                         <li class="nav-devider"></li>
                         <!--==================사이드바:홈/멤버관리/테이블관리/스토어관리/주문관리===================================-->
-                        <li class="nav-label"><a href="#">Home</a></li>
+                        <li class="nav-label"><a href="main.do">Home</a></li>
 
                         <li class="nav-label">테이블관리</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/fast-food.png"><span class="hide-menu"></span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">버거관리</a></li>
-                                <li><a href="email-read.html">사이드관리</a></li>
-                                <li><a href="email-inbox.html">재료관리</a></li>
-                                <li><a href="email-inbox.html">음료관리</a></li>
-                                <li><a href="email-inbox.html">메뉴관리</a></li>
+                                <li><a href="burgerlist.do">버거관리</a></li>
+                                <li><a href="sidelist.do">사이드관리</a></li>
+                                <li><a href="ingredientlist.do">재료관리</a></li>
+                                <li><a href="beveragelist.do">음료관리</a></li>
+                                <li><a href="menulist.do">메뉴관리</a></li>
                             </ul>
                         </li>
 
