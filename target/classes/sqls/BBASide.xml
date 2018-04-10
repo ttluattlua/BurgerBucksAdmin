@@ -30,7 +30,7 @@
 
 <!--사이드 게시 판/ 사이드 리스트 뽑아오기 -->
 <select resultType="bba.com.a.model.Bb_SideDto" id="getSideList"> 
-SELECT SEQ, NAME ,PRICE ,CAL, DEL FROM BB_SIDE WHERE DEL=0 ORDER BY SEQ
+SELECT SEQ, NAME ,PRICE ,CAL, DEL FROM BB_SIDE ORDER BY SEQ
 </select>
 
 

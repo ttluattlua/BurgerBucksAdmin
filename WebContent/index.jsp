@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title</title>
+ <link rel="icon" type="image/png" sizes="16x16" href="./images/logo.png">
 </head>
 <body>
 

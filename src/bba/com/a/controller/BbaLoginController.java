@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import bba.com.a.model.Bb_AdminDto;
 import bba.com.a.service.BbaMemberSerivce;
+import bba.com.a.service.BbaStatisticService;
 import bba.com.a.service.BbaStoreSerivce;
 
 @Controller
@@ -27,7 +28,8 @@ public class BbaLoginController {
 	@Autowired
 	BbaMemberSerivce bbMemberService;
 	
-	
+	@Autowired
+	BbaStatisticService bbaStatisticService;
 	
 	/*--------------------------------------------------------------------------------------------
 	 * 로그인 화면 (첫화면)
@@ -50,10 +52,14 @@ public class BbaLoginController {
 	public String loginAf(HttpServletRequest request, HttpServletResponse response,  Model model, Bb_AdminDto adminDto) {
 		logger.info("BbaMemberController login");
 		
+		
+		
+		
 		System.out.println("로그인 시 id : " + adminDto.getId());
 		System.out.println("로그인 시 password : " + adminDto.getPassword());
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+		session.setAttribute("imagePath", "http://192.168.110.88:8090/upload/");
 
 	    /*// 요청 URI로 1depth path를 구한다.
 		String reqUri = request.getRequestURI();
@@ -80,6 +86,7 @@ public class BbaLoginController {
 
 			return "redirect:/login.do";
 		}else {
+			
 			session.setAttribute("loginedId", admin.getId()) ;
 			session.setMaxInactiveInterval(60*60);
 			

@@ -59,7 +59,7 @@
                             </thead>
                             <tbody>
                             	<c:forEach var="bigdto" items="${IngList}">
-                            	<c:if test="${bigdto.del == 0}">
+                            	
                                 <tr id="tr${bigdto.seq}">
                                 	<td>
                                 	<img alt="재료사진" src="${bigdto.image_Src}" style="width: 200px">
@@ -83,13 +83,19 @@
                                     <td>${bigdto.price }</td>
                                     <td>${bigdto.cal }</td>
                                     
-          							<td>
-                                     <input type="button" id="${bigdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateIng(${bigdto.seq }, ${bigdto.image_Seq}, '${bigdto.image_Src}', '${bigdto.what_Image}')" data-toggle="modal" data-target="#updateing"> 
-                                    <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteIng(${bigdto.seq }, ${bigdto.image_Seq})" data-toggle="modal" data-target="#deleteing">
-                                    </td>
+          							<td id="td_seq${bigdto.seq}">
+	          							<c:if test="${bigdto.del == 0}">
+	                                     <input type="button" id="${bigdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateIng(${bigdto.seq }, ${bigdto.image_Seq}, '${bigdto.image_Src}', '${bigdto.what_Image}')" data-toggle="modal" data-target="#updateing"> 
+	                                    <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteIng(${bigdto.seq }, ${bigdto.image_Seq})" data-toggle="modal" data-target="#deleteing">
+	                                    </c:if>
+                                    
+	                                    <c:if test="${bigdto.del == 1}">
+	                                   	<p style="color: #a33b2b">삭제된 재료입니다.</p>
+	                                    </c:if>
+	                                </td>
                                     
                                 </tr>
-                                </c:if>
+                                
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -379,23 +385,28 @@ function registerIngClick() {
             var imageurl = "'"+data.image_Src+"'";
             var imageType = "'"+data.what_Image+"'";
           //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
+            if(data.types == 1){
+            	data_type='번';
+            }else if(data.types == 2){
+            	data_type='패티';
+            }else if(data.types == 3){
+            	data_type='채소';
+            }else{
+            	data_type='기타';
+            }
+            //해당 테이블 로우 삭제
+          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
+            //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
  			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
 			'<td><img alt="재료사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
 			'<td>'+data.name+'</td>'+
-			'<c:choose><c:when test="'
-			    +data.types+
-			    '"><td>번</td></c:when><c:when test="'
-			    +data.types+
-			    '"><td>패티</td></c:when><c:when test="'+
-			    data.types+
-			    '"><td>채소</td></c:when>	<c:otherwise><td>기타</td></c:otherwise></c:choose>'+
+			'<td>'+data_type+'</td>'+
 			'<td>'+data.what_Image+'</td>'+
 			'<td>'+data.price+'</td>'+
 			'<td>'+data.cal+'</td>'+
-			'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
+			'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
 			'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteIng('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteing"></td>'+
 			'</tr>');
-        
 
         },
         error : function(req, status, error) {
@@ -431,6 +442,9 @@ function registerIngClick() {
  		 
 		
  	    alert(seq); 
+ 	    $("#updatename").attr("value", "");
+ 	    $("#updateprice").attr("value", "");
+ 	    $("#updatecal").attr("value", "");
  	    $("#update_image_Seq").attr("value", imageSeq); //이미지 시퀀스(나중에 이미지수정위해)
 		$("#update_current_image").attr("src", imageSrc);//이미지 src(현재 띄어주기위해)
 		$("#update_Seq").attr("value", seq);//사이드 시퀀스(사이드 테이블 수정위해)
@@ -450,14 +464,24 @@ function registerIngClick() {
  				console.log(data);
  				var types =data.types;
 				console.log(data);
-				$("#updatename").attr("value", data.name);
-				$("#updateprice").attr("value", data.price);
-				$("#updatecal").attr("value", data.cal);
+				console.log(data.name);
+				var image_type;
+				if(imageType=='실물사진'){
+					image_type=0;
+				}else{
+					image_type=1;
+				}
 				
+				document.getElementById('updatename').value = data.name;
+				document.getElementById('updateprice').value = data.price;
+				document.getElementById('updatecal').value = data.cal;
+
 				//선택한 재료종류를 selected로 걸어주기 
-					$('#update_types option[value='+types+']').attr('selected', 'selected');
+				document.getElementById('update_types').getElementsByTagName('option')[types-1].selected = 'selected';
+				/* 	$('#update_types option[value='+types+']').attr('selected', 'selected'); */
 				//선택한 이미지타입을 selected로 걸어주기 
-					$('#update_what_Image option[value='+imageType+']').attr('selected', 'selected');
+					/* $('#update_what_Image option[value='+imageType+']').attr('selected', 'selected'); */
+					document.getElementById('update_what_Image').getElementsByTagName('option')[image_type].selected = 'selected';
  				
  			},
  			error:function(req, status, error){
@@ -495,27 +519,48 @@ function registerIngClick() {
 	            
 	            var imageurl = "'"+data.image_Src+"'";
 	            var imageType = "'"+data.what_Image+"'";
-	            //해당 테이블 로우 삭제
+	            var data_type;
+	            console.log()
+	            if(data.types == 1){
+	            	data_type='번';
+	            }else if(data.types == 2){
+	            	data_type='패티';
+	            }else if(data.types == 3){
+	            	data_type='채소';
+	            }else{
+	            	data_type='기타';
+	            }
+	            
 	            var deleteRow= "tr"+data.seq;
-	            deleteTableRow(deleteRow);
+	            var tr = $("#"+deleteRow);
+	            var td = tr.children();
+	            
+	            
+	            //해당 테이블 로우 수정
+	            td.eq(0).html('<img alt="재료사진" src="'+data.image_Src+'" style="width: 200px">');
+	            td.eq(1).text(data.name);
+	            td.eq(2).text(data_type);
+	            td.eq(3).text(data.what_Image);
+	            td.eq(4).text(data.price);
+	            td.eq(5).text(data.cal);
+	            td.eq(6).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
+	    				'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteIng('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteing">');
+	            
+/* 	            //해당 테이블 로우 삭제
+	            var deleteRow= "tr"+data.seq;
+	            deleteTableRow(deleteRow); */
 	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
 	            //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
+/* 	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
 				'<td><img alt="재료사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
 				'<td>'+data.name+'</td>'+
-				'<c:choose><c:when test="'
-				    +data.types+
-				    '"><td>번</td></c:when><c:when test="'
-				    +data.types+
-				    '"><td>패티</td></c:when><c:when test="'+
-				    data.types+
-				    '"><td>채소</td></c:when>	<c:otherwise><td>기타</td></c:otherwise></c:choose>'+
+				'<td>'+data_type+'</td>'+
 				'<td>'+data.what_Image+'</td>'+
 				'<td>'+data.price+'</td>'+
 				'<td>'+data.cal+'</td>'+
-				'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
+				'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
 				'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteIng('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteing"></td>'+
-				'</tr>');
+				'</tr>'); */
 
 	        },
 	        error : function(req, status, error) {
@@ -569,8 +614,9 @@ function registerIngClick() {
   			success:function(data){
  				alert(data.msg);
  				
- 				var deleteRowId = "tr"+$("#deleteseq").val();
- 				deleteTableRow(deleteRowId);
+ 				var deleteRowId =	"td_seq"+$("#deleteseq").val();
+				 console.log(deleteRowId);
+				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 재료입니다.</p>');   
   					
   			},
   			error:function(req, status, error){

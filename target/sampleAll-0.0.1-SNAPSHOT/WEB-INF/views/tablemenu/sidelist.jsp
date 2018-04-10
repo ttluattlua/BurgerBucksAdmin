@@ -38,11 +38,11 @@
 						<!--===========================사이드테이블 ===================================-->
                         <table id="myTable" class="table table-bordered table-striped">
                         	<colgroup>
-                        	<col width="150px">
-                        	<col width="200px">
-                        	<col width="200px">
-                        	<col width="200px">
-                        	<col width="200px">
+                        	<col width="20%">
+                        	<col width="20%">
+                        	<col width="20%">
+                        	<col width="20%">
+                        	<col width="40%">
                         	</colgroup>
                             <thead>
                                 <tr>
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                             	<c:forEach var="bsdto" items="${sideList}">
-                            	<c:if test="${bsdto.del == 0}">
+                            	
                                 <tr id="tr${bsdto.seq}">
                                 	<td>
                                 	<img alt="사이드사진" src="${bsdto.image_Src}" style="width: 200px">
@@ -63,13 +63,18 @@
                                     <td>${bsdto.name }</td>
                                     <td>${bsdto.price }</td>
                                     <td>${bsdto.cal }</td>
-          							<td>
+          							<td id="td_seq${bsdto.seq}">
+          							<c:if test="${bsdto.del == 0}">
                                      <input type="button" id="${bsdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateSide(${bsdto.seq }, ${bsdto.image_Seq}, '${bsdto.image_Src}')" data-toggle="modal" data-target="#updateside"> 
                                     <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteSide(${bsdto.seq }, ${bsdto.image_Seq})" data-toggle="modal" data-target="#deleteside">
+                                    </c:if>
+                                    <c:if test="${bsdto.del == 1}">
+                                   		<p style="color: #a33b2b">삭제된 사이드입니다.</p>
+                                    </c:if>
                                     </td>
                                     
                                 </tr>
-                                </c:if>
+                                
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -85,174 +90,174 @@
                 
                 
 		                
-		<!--==========================사이드 등록 모달창======================================= -->
-		 <!-- The Modal -->
-		  <div class="modal fade" id="addside">
-		    <div class="modal-dialog modal-lg">
-		      <div class="modal-content">
-		      
-		        <!-- Modal body -->
-		        <div class="modal-body">
-			         <div class="card card-outline-primary">
-				           <div class="card-header">
-				               <h4 class="m-b-0 text-white">사이드 등록</h4>
-				           </div>
-				           <div class="card-body">
-				               <form action="registerSide.do" method="post" enctype="multipart/form-data" id="fileForm">
-				                   <div class="form-body">
-				                       <hr>
-				                       <div class="row p-t-20">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <label class="control-label">사이드명</label>
-				                                   <input type="text" name="name" id="name" class="form-control" placeholder="사이드명" required="required">
-				                                   <small class="form-control-feedback"></small></div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-				                               <div class="form-group has-danger">
-				                                   <label class="control-label">가격</label>
-				                                   <input type="number" min="0" name="price" id="price" class="form-control form-control-danger" placeholder="가격" required="required">
-				                                   <small class="form-control-feedback"></small> </div>
-				                           </div>
-				                           <!--/span-->
-				                       </div>
-				                       <!--/row-->
+<!--==========================사이드 등록 모달창======================================= -->
+<!-- The Modal -->
+ <div class="modal fade" id="addside">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+     
+       <!-- Modal body -->
+       <div class="modal-body">
+         <div class="card card-outline-primary">
+	           <div class="card-header">
+	               <h4 class="m-b-0 text-white">사이드 등록</h4>
+	           </div>
+	           <div class="card-body">
+	               <form action="registerSide.do" method="post" enctype="multipart/form-data" id="fileForm">
+	                   <div class="form-body">
+	                       <hr>
+	                       <div class="row p-t-20">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <label class="control-label">사이드명</label>
+	                                   <input type="text" name="name" id="name" class="form-control" placeholder="사이드명" required="required">
+	                                   <small class="form-control-feedback"></small></div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+	                               <div class="form-group has-danger">
+	                                   <label class="control-label">가격</label>
+	                                   <input type="number" min="0" name="price" id="price" class="form-control form-control-danger" placeholder="가격" required="required">
+	                                   <small class="form-control-feedback"></small> </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
 
-				
-				                        <div class="row">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <label>칼로리</label>
-				                                   <input type="number" min="0" name="cal"  class="form-control" id="cal" placeholder="칼로리" required="required">
-				                               </div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-					                          <div class="form-group">
-                                                   <label class="control-label">이미지 타입</label>
-                                                   <select name="what_Image" id="what_Image"  class="form-control custom-select" data-placeholder="이미지 타입을 선택해주세요" tabindex="1" style="height: 40px;">
-                                                       <option value="실물사진">실물사진</option>
-                                                      <!--  <option value="일러스트">일러스트</option> -->
-                                                   </select>
-	                                           </div>
-				                           </div>
-				                           <!--/span-->
-				                       </div>
-				                       <!--/row-->
-				                       
-				                       <div class="row">
-				                           <div class="col-md-12 ">
-				                               <div class="form-group">
-				                                   <label>사진등록</label>
-				                                    <input type="file" id="image_src" name="image_src" class="form-control"/>
-				                               </div>
-				                           </div>
-				                       </div>
-				         			  
-				
-				                   </div>
-				                   <div class="form-actions" align="right">
-				                       <button type="button" class="btn btn-success" id="registerSideBtn" onclick="registerSideClick()"> <i class="fa fa-check"></i> 등록</button>
-				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
-				                   </div>
-				               </form>
-				           </div>
-			           </div>
-		        </div>	
-		      </div>
-		    </div>
-		  </div>
-		  
-		  
-		                
-		<!--==========================사이드 수정 모달창======================================= -->
-		 <!-- The Modal -->
-		  <div class="modal fade" id="updateside">
-		    <div class="modal-dialog modal-lg">
-		      <div class="modal-content">
-		      
-		        <!-- Modal body -->
-		        <div class="modal-body">
-			         <div class="card card-outline-primary">
-				           <div class="card-header">
-				               <h4 class="m-b-0 text-white">사이드 수정</h4>
-				           </div>
-				           <div class="card-body">
-				               <form action="updateSideAf.do" method="post" enctype="multipart/form-data" id="update_fileForm">
-				                   <input type="hidden" name="image_Seq" id="update_image_Seq">
-				                   <input type="hidden" name="seq" id="update_Seq">
-				                   <input type="hidden" name="image_Src" id="original_image">
-				                   <div class="form-body">
-				                       <hr>
-				                       <div class="row p-t-20">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <label class="control-label">사이드명</label>
-				                                   <input type="text" name="name" id="updatename" class="form-control" placeholder="사이드명" required="required">
-				                                   <small class="form-control-feedback"></small></div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-				                               <div class="form-group has-danger">
-				                                   <label class="control-label">가격</label>
-				                                   <input type="number" min="0" name="price" id="updateprice" class="form-control form-control-danger" placeholder="가격" required="required">
-				                                   <small class="form-control-feedback"></small> </div>
-				                           </div>
-				                           <!--/span-->
-				                       </div>
-				                       <!--/row-->
+	
+	                        <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <label>칼로리</label>
+	                                   <input type="number" min="0" name="cal"  class="form-control" id="cal" placeholder="칼로리" required="required">
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                                <label class="control-label">이미지 타입</label>
+                                                <select name="what_Image" id="what_Image"  class="form-control custom-select" data-placeholder="이미지 타입을 선택해주세요" tabindex="1" style="height: 40px;">
+                                                    <option value="실물사진">실물사진</option>
+                                                   <!--  <option value="일러스트">일러스트</option> -->
+                                                </select>
+                                         </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
+	                       
+	                       <div class="row">
+	                           <div class="col-md-12 ">
+	                               <div class="form-group">
+	                                   <label>사진등록</label>
+	                                    <input type="file" id="image_src" name="image_src" class="form-control"/>
+	                               </div>
+	                           </div>
+	                       </div>
+	         			  
+	
+	                   </div>
+	                   <div class="form-actions" align="right">
+	                       <button type="button" class="btn btn-success" id="registerSideBtn" onclick="registerSideClick()"> <i class="fa fa-check"></i> 등록</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                   </div>
+	               </form>
+	           </div>
+           </div>
+       </div>	
+     </div>
+   </div>
+ </div>
+ 
+ 
+               
+<!--==========================사이드 수정 모달창======================================= -->
+<!-- The Modal -->
+ <div class="modal fade" id="updateside">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+     
+       <!-- Modal body -->
+       <div class="modal-body">
+         <div class="card card-outline-primary">
+	           <div class="card-header">
+	               <h4 class="m-b-0 text-white">사이드 수정</h4>
+	           </div>
+	           <div class="card-body">
+	               <form action="updateSideAf.do" method="post" enctype="multipart/form-data" id="update_fileForm">
+	                   <input type="hidden" name="image_Seq" id="update_image_Seq">
+	                   <input type="hidden" name="seq" id="update_Seq">
+	                   <input type="hidden" name="image_Src" id="original_image">
+	                   <div class="form-body">
+	                       <hr>
+	                       <div class="row p-t-20">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <label class="control-label">사이드명</label>
+	                                   <input type="text" name="name" id="updatename" class="form-control" placeholder="사이드명" required="required">
+	                                   <small class="form-control-feedback"></small></div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+	                               <div class="form-group has-danger">
+	                                   <label class="control-label">가격</label>
+	                                   <input type="number" min="0" name="price" id="updateprice" class="form-control form-control-danger" placeholder="가격" required="required">
+	                                   <small class="form-control-feedback"></small> </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
 
-				
-				                        <div class="row">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <label>칼로리</label>
-				                                   <input type="number" min="0" name="cal"  class="form-control" id="updatecal" placeholder="칼로리" required="required">
-				                               </div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-					                          <div class="form-group">
-                                                   <label class="control-label">이미지 타입</label>
-                                                   <select name="what_Image" id="update_what_Image"  class="form-control custom-select" data-placeholder="이미지 타입을 선택해주세요" tabindex="1" style="height: 40px;">
-                                                       <option value="실물사진">실물사진</option>
-                                                   </select>
-	                                           </div>
-				                           </div>
-				                           <!--/span-->
-				                       </div>
-				                       <!--/row-->
-				                       
-				                       <div class="row">
-				                           <div class="col-md-6">
-				                               <div class="form-group">
-				                                   <img alt="현재사진" src="" id="update_current_image" style="width: 200px; height: 200px;" >
-				                               </div>
-				                           </div>
-				                           <!--/span-->
-				                           <div class="col-md-6">
-					                          <div class="form-group">
-                                                   <label class="control-label">사진수정</label>
-                                                    <input type="file" id="update_image_src" name="image_src" class="form-control"/>
-	                                           </div>
-				                           </div>
-				                           <!--/span-->
-				         			  
-										</div>
-				                   </div>
-				                   <div class="form-actions" align="right">
-				                       <button type="button" class="btn btn-success" id="updateSideBtn" onclick="updateSideAf()"> <i class="fa fa-check"></i> 등록</button>
-				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
-				                   </div>
-				               </form>
-				           </div>
-			           </div>
-		        </div>	
-		      </div>
-		    </div>
-		  </div>
-		  
+	
+	                        <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <label>칼로리</label>
+	                                   <input type="number" min="0" name="cal"  class="form-control" id="updatecal" placeholder="칼로리" required="required">
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                                <label class="control-label">이미지 타입</label>
+                                                <select name="what_Image" id="update_what_Image"  class="form-control custom-select" data-placeholder="이미지 타입을 선택해주세요" tabindex="1" style="height: 40px;">
+                                                    <option value="실물사진">실물사진</option>
+                                                </select>
+                                         </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
+	                       <!--/row-->
+	                       
+	                       <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <img alt="현재사진" src="" id="update_current_image" style="width: 200px; height: 200px;" >
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                                <label class="control-label">사진수정</label>
+                                                 <input type="file" id="update_image_src" name="image_src" class="form-control"/>
+                                         </div>
+	                           </div>
+	                           <!--/span-->
+	         			  
+							</div>
+	                   </div>
+	                   <div class="form-actions" align="right">
+	                       <button type="button" class="btn btn-success" id="updateSideBtn" onclick="updateSideAf()"> <i class="fa fa-check"></i> 등록</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                   </div>
+	               </form>
+	           </div>
+           </div>
+       </div>	
+     </div>
+   </div>
+ </div>
+ 
 		  
    
 <!--==========================삭제 모달창======================================= -->
@@ -271,8 +276,8 @@
 	           <div class="card-body">
 	               <form action="deleteSide.do" method="post">
 	                   <div class="form-body">
-						   <input type="hidden" id="deleteseq" name="seq">
-						 
+						   <input type="hidden" id="deleteseq" name="del_seq">
+						   <input type="hidden" id="delete_image_Seq" name="del_image_seq">
 	                       <hr>
 	                       <div class="row p-t-20">
 	                           <div class="col-md-6">
@@ -306,6 +311,10 @@
 
 <script type="text/javascript">
 
+
+/*---------------------------------------------------------------------------------------------
+ * 재료등록
+ *----------------------------------------------------------------------------------------------*/
 function registerSideClick() {
 	alert("클릭");
     var formData = new FormData($("#fileForm")[0]);
@@ -323,16 +332,18 @@ function registerSideClick() {
             console.log(data.price);
             console.log(data.cal);
             console.log(data.del);
-            
+            var imageurl = "'"+data.image_Src+"'";
           //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
  			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
 			'<td><img alt="사이드사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
 			'<td>'+data.name+'</td>'+
 					'<td>'+data.price+'</td>'+
 					'<td>'+data.cal+'</td>'+
-					'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+data.image_Src+')" data-toggle="modal" data-target="#updateside">'+
+					'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
 					'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside"></td>'+
 					'</tr>');
+ 		//모달 숨기기
+         /*  $('#addside').modal('hide'); */
 
         },
         error : function(req, status, error) {
@@ -386,9 +397,10 @@ function registerSideClick() {
  			success:function(data){
  				
 				console.log(data);
-				$("#updatename").attr("value", data.name);
-				$("#updateprice").attr("value", data.price);
-				$("#updatecal").attr("value", data.cal);
+				document.getElementById('updatename').value = data.name;
+				document.getElementById('updateprice').value = data.price;
+				document.getElementById('updatecal').value = data.cal;
+				
  				
  			},
  			error:function(req, status, error){
@@ -424,8 +436,23 @@ function registerSideClick() {
 	            console.log(data.cal);
 	            console.log(data.del);
 	            
+	            var imageurl = "'"+data.image_Src+"'";
+	            
+	            var deleteRow= "tr"+data.seq;
+	            var tr = $("#"+deleteRow);
+	            var td = tr.children();
+	            
+	            
+	          //해당 테이블 로우 수정
+	            td.eq(0).html('<img alt="사이드사진" src="'+data.image_Src+'" style="width: 200px">');
+	            td.eq(1).text(data.name);
+	            td.eq(2).text(data.price);
+	            td.eq(3).text(data.cal);
+	            td.eq(4).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
+						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside">');
+	            
 	            //해당 테이블 로우 삭제
-	            var deleteRow= "tr"+$("#update_Seq").attr("value", seq);
+/* 	            var deleteRow= "tr"+data.seq;
 	            deleteTableRow(deleteRow);
 	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
 	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
@@ -433,9 +460,11 @@ function registerSideClick() {
 				'<td>'+data.name+'</td>'+
 						'<td>'+data.price+'</td>'+
 						'<td>'+data.cal+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#updateside">'+
+						'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside"></td>'+
-						'</tr>');
+						'</tr>'); */
+	 	 		//모달 숨기기
+	 	         /*  $('#updateside').modal().hide(); */
 
 	        },
 	        error : function(req, status, error) {
@@ -459,8 +488,10 @@ function registerSideClick() {
  function deleteSide(seq, imageSeq) {	
 
  	 
- 	 
+ 	 	$("#delete_image_Seq").attr("value", imageSeq);
+ 	 	console.log("seq:"+seq);
  		$("#deleteseq").attr("value", seq);
+ 		console.log("imageSeq:"+imageSeq);
  		/* alert($("#deleteseq").val());	 */
  		
   			
@@ -473,11 +504,11 @@ function registerSideClick() {
  function deleteSideAf() {	
   		 
   	 	
-  	    /* alert("스토어  삭제 완료"); */
+  	    /* alert("사이드  삭제 완료"); */
   		var data = {};
 
   		data["seq"]= $("#deleteseq").val();
-
+  		data["image_Seq"]= $("#delete_image_Seq").val();
   		$.ajax({
   			contentType:'application/json',
   			dataType:'json',
@@ -485,11 +516,12 @@ function registerSideClick() {
   			url:"deleteSide.do",			// store
   			type:'POST',
   			success:function(data){
-  				alert("스토어  삭제 완료");
  				alert(data.msg);
  				
- 				var deleteRowId = "tr"+$("#deleteseq").val();
- 				deleteTableRow(deleteRowId);
+ 				var deleteRowId =	"td_seq"+$("#deleteseq").val();
+				 console.log(deleteRowId);
+				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 사이드입니다.</p>');   
+ 					
   					
   			},
   			error:function(req, status, error){

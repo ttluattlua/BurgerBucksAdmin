@@ -30,7 +30,7 @@
 
 <!--재료 게시 판/ 재료 리스트 뽑아오기 -->
 <select resultType="bba.com.a.model.Bb_IngredientDto" id="getIngList"> 
-SELECT SEQ, NAME,TYPES,PRICE ,CAL, DEL FROM BB_INGREDIENT WHERE DEL=0 ORDER BY SEQ
+SELECT SEQ, NAME,TYPES,PRICE ,CAL, DEL FROM BB_INGREDIENT ORDER BY SEQ
 </select>
 
 
@@ -67,7 +67,14 @@ WHERE SEQ=#{seq}
 <!--이미지 수정-->
 <update id="updateIngImageAf" parameterType="bba.com.a.model.Bb_ImageDto">
 UPDATE BB_IMAGE
-SET IMAGE_SRC=#{image_Src}, WHAT_IMAGE=#{what_Image}
+  <choose>
+    <when test="image_Src!= null and !image_Src.equals('')">
+      SET IMAGE_SRC=#{image_Src}, WHAT_IMAGE=#{what_Image}
+    </when>
+    <otherwise>
+      SET WHAT_IMAGE=#{what_Image}
+    </otherwise>
+  </choose>
 WHERE SEQ=#{seq}
 </update>
 

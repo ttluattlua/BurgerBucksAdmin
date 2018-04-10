@@ -8,8 +8,53 @@
   
 <mapper namespace="BBAMenu">
 
+<!--메뉴리스트 뽑아오기-->
+<select id="getMenuList" resultType="bba.com.a.model.Bb_MenuDto">
+SELECT A.SEQ, A.BURGER  AS BURGER_SEQ, C.NAME AS BURGER_NAME, A.SIDE  AS SIDE_SEQ, D.NAME AS SIDE_NAME, A.BEVERAGE  AS BEVERAGE_SEQ ,E.NAME AS BEVERAGE_NAME,A.NAME, A.CREATOR, A.PRICE, A.CAL,A.DEL, B.ID AS creatorID
+FROM BB_MENU A, BB_MEMBER B, BB_BURGER C, BB_SIDE D, BB_BEVERAGE E
+WHERE A.CREATOR = B.SEQ(+)
+AND A.BURGER = C.SEQ(+)
+AND A.SIDE = D.SEQ(+)
+AND A.BEVERAGE = E.SEQ(+)
+ORDER BY SEQ
+
+</select>
+
+<!--메뉴 디테일 버거 뽑아오기-->
+<select id="getDetailBurger" resultType="bba.com.a.model.Bb_SideDto" parameterType="java.lang.Integer">
+SELECT A.SEQ, A.NAME, A.PRICE, A.CAL, A.DEL, A.CREATOR, NVL(C.NAME, 'admin') CREATORID ,B.IMAGE_SRC,
+A.BREAD, A.INGREDIENT01, A.INGREDIENT02, A.INGREDIENT03,A.INGREDIENT04,A.INGREDIENT05,
+A.INGREDIENT06,A.INGREDIENT07,A.INGREDIENT08,A.INGREDIENT09
+FROM BB_BURGER A, (SELECT * FROM BB_IMAGE WHERE TABLE_NAME='BB_BURGER') B, BB_MEMBER C
+WHERE A.SEQ = B.REF_SEQ(+)
+AND A.CREATOR=C.SEQ(+)
+AND A.SEQ=#{seq}
+
+</select>
+
+<!--메뉴 디테일 사이드 뽑아오기-->
+<select id="getDetailSide" resultType="bba.com.a.model.Bb_SideDto" parameterType="java.lang.Integer">
+SELECT A.SEQ, A.NAME, A.PRICE , A.CAL, A.DEL, B.IMAGE_SRC 
+FROM BB_SIDE A, (SELECT * FROM BB_IMAGE WHERE TABLE_NAME='BB_SIDE') B
+WHERE A.SEQ = B.REF_SEQ(+)
+AND A.SEQ=#{seq}
+</select>
+
+<!--메뉴 디테일 음료 뽑아오기-->
+<select id="getDetailBeverage" resultType="bba.com.a.model.Bb_BeverageDto" parameterType="java.lang.Integer">
+SELECT A.SEQ, A.NAME, A.PRICE , A.CAL, A.DEL, B.IMAGE_SRC 
+FROM BB_BEVERAGE A, (SELECT * FROM BB_IMAGE WHERE TABLE_NAME='BB_BEVERAGE') B
+WHERE A.SEQ = B.REF_SEQ(+)
+AND A.SEQ=#{seq}
+</select>
 
 
+<!--메뉴삭제-->
+<update id="deleteMenu">
+UPDATE BB_MENU
+SET DEL=1
+WHERE SEQ=#{seq}
+</update>
 
 
 

@@ -9,6 +9,94 @@
 
 
 
+<!--재료 등록 -->
+<insert id="registerIng" parameterType="bba.com.a.model.Bb_IngredientDto">
+ INSERT INTO BB_INGREDIENT(SEQ, NAME,TYPES,PRICE ,CAL, DEL) 
+ VALUES(BB_INGREDIENT_SEQ.NEXTVAL, #{name},#{types} ,#{price}, #{cal}, 0)
+ <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_INGREDIENT_SEQ.CURRVAL FROM dual 
+ </selectKey>
+</insert>
+
+<!--재료 이미지 -->
+<insert id="registerIngImage" parameterType="bba.com.a.model.Bb_ImageDto">
+ INSERT INTO BB_IMAGE(SEQ, TABLE_NAME ,WHAT_IMAGE ,IMAGE_SRC, REF_SEQ, DEL) 
+ VALUES(BB_IMAGE_SEQ.NEXTVAL, #{table_Name}, #{what_Image}, #{image_Src}, #{ref_Seq}, 0)
+  <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_IMAGE_SEQ.CURRVAL FROM dual 
+ </selectKey>
+</insert>
+
+
+<!--재료 게시 판/ 재료 리스트 뽑아오기 -->
+<select resultType="bba.com.a.model.Bb_IngredientDto" id="getIngList"> 
+SELECT SEQ, NAME,TYPES,PRICE ,CAL, DEL FROM BB_INGREDIENT ORDER BY SEQ
+</select>
+
+
+<!--재료 게시판/재료 이미지 뽑아오기  -->
+<!--재료 리스트들의  재료 이미지 리스트 뽑기(겹치는 국가 방지위해 group by해서 뽑아주기)-->
+
+<select parameterType="java.util.HashMap" resultType="bba.com.a.model.Bb_ImageDto" id="getIngImageList">
+SELECT SEQ, TABLE_NAME ,WHAT_IMAGE ,IMAGE_SRC, REF_SEQ, DEL FROM (SELECT * FROM BB_IMAGE WHERE TABLE_NAME='BB_INGREDIENT')
+<choose>
+<when test="list.size != 0">
+WHERE REF_SEQ IN 
+<foreach close=")" open="(" separator="," index="index" item="item" collection="list"> #{item} </foreach>
+</when>
+</choose>
+ORDER BY REF_SEQ
+</select>
+
+
+
+
+<!--=================재료 수정 위해 재료 디테일 뽑아오기=====================-->
+<select id="getIngDetail" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_IngredientDto">
+SELECT SEQ, NAME,TYPES,PRICE, CAL, DEL FROM BB_INGREDIENT WHERE SEQ=#{seq}
+</select>
+
+<!--재료 수정-->
+<update id="updateIngAf" parameterType="bba.com.a.model.Bb_IngredientDto">
+UPDATE BB_INGREDIENT
+SET NAME=#{name},PRICE=#{price},CAL=#{cal}, TYPES=#{types}
+WHERE SEQ=#{seq}
+</update>
+
+
+<!--이미지 수정-->
+<update id="updateIngImageAf" parameterType="bba.com.a.model.Bb_ImageDto">
+UPDATE BB_IMAGE
+  <choose>
+    <when test="image_Src!= null and !image_Src.equals('')">
+      SET IMAGE_SRC=#{image_Src}, WHAT_IMAGE=#{what_Image}
+    </when>
+    <otherwise>
+      SET WHAT_IMAGE=#{what_Image}
+    </otherwise>
+  </choose>
+WHERE SEQ=#{seq}
+</update>
+
+
+<!--재료 삭제-->
+<update id="deleteIng" parameterType="java.lang.Integer">
+UPDATE BB_INGREDIENT
+SET DEL=1
+WHERE SEQ=#{seq}
+</update>
+
+
+<!--이미지 삭제-->
+<update id="deleteIngImage" parameterType="java.lang.Integer">
+UPDATE BB_IMAGE
+SET DEL=1
+WHERE SEQ=#{image_Seq}
+</update>
+
+
+
+
 
 
 

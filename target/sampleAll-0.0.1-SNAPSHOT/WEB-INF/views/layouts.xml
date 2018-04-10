@@ -4,11 +4,18 @@
 
 <tiles-definitions>
 
+<!-- 로그인 화면 (첫화면) -->
 <definition name="login.tiles" template="/WEB-INF/views/login/login.jsp">
 </definition>
 
+<!-- 로그인 후 메인화면 -->
 <definition name="loginAf.tiles" template="/WEB-INF/views/home/main.jsp">
 </definition>
+
+<!-- 메인 화면으로 돌아가기 -->
+<definition name="main.tiles" template="/WEB-INF/views/home/main.jsp">
+</definition>
+
 
 <!--글목록-->
 <definition name="home.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
@@ -72,6 +79,10 @@
 <put-attribute name="main" value="/WEB-INF/views/tablemenu/beveragelist.jsp"/>
 </definition>
 
+<!--주문관리로 이동 -->
+<definition name="orderlist.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/ordermenu/orderlist.jsp"/>
+</definition>
 
 </tiles-definitions>
 

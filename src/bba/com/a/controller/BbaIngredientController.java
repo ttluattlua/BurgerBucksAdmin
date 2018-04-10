@@ -159,6 +159,8 @@ public class BbaIngredientController {
 		 	if(originalFile.equals("") || originalFile == null) {
 		 		System.out.println("파일수정안함");
 		 		bbaIngredientService.updateIngAf(bbdto);
+		 		Bb_ImageDto bidto = new Bb_ImageDto(bbdto.getImage_Seq(), "BB_INGREDIENT", bbdto.getWhat_Image(), null, 0, 0);
+		 		bbaIngredientService.updateIngImageAf(bidto);
 		 	}else{
 		 		System.out.println("파일수정");
 		 		newFileName = FileUploadMethod.FileUpload(multi, uploadPath);

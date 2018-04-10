@@ -5,6 +5,12 @@
   
 <mapper namespace="BBAMember">
 
+	<!-- 사원 로그인 / 비밀번호 아이디 일치 -->
+	<select id="loginAdminIdPw" resultType="bba.com.a.model.Bb_AdminDto" parameterType="bba.com.a.model.Bb_AdminDto">
+		SELECT SEQ, ID, PASSWORD, NAME, PHONE, STORE_SEQ, DEL
+		FROM BB_ADMIN
+		WHERE ID=#{id} AND PASSWORD=#{password}
+	</select>
 	
 
 	<!-- 사원 등록 -->
@@ -33,6 +39,13 @@
 	<update id="delAdmin" parameterType="java.lang.Integer">
 		UPDATE BB_ADMIN
 		SET DEL=1
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<!-- 사원 리스트에서 회복 -->
+	<update id="recoveryAdmin" parameterType="java.lang.Integer">
+		UPDATE BB_ADMIN
+		SET DEL=0
 		WHERE SEQ=#{seq}
 	</update>
 	

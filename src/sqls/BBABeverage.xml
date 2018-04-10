@@ -30,7 +30,7 @@
 
 <!--음료 게시 판/ 음료 리스트 뽑아오기 -->
 <select resultType="bba.com.a.model.Bb_BeverageDto" id="getBevList"> 
-SELECT SEQ, NAME ,PRICE ,CAL, DEL FROM BB_BEVERAGE WHERE DEL=0 ORDER BY SEQ
+SELECT SEQ, NAME ,PRICE ,CAL, DEL FROM BB_BEVERAGE ORDER BY SEQ
 </select>
 
 

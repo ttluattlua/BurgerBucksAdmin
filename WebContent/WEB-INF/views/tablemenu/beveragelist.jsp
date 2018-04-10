@@ -55,21 +55,26 @@
                             </thead>
                             <tbody>
                             	<c:forEach var="bbdto" items="${BevList}">
-                            	<c:if test="${bbdto.del == 0}">
+                            	
                                 <tr id="tr${bbdto.seq}">
                                 	<td>
-                                	<img alt="사이드사진" src="${bbdto.image_Src}" style="width: 200px">
+                                	<img alt="음료사진" src="${bbdto.image_Src}" style="width: 200px">
                                 	</td>
                                     <td>${bbdto.name }</td>
                                     <td>${bbdto.price }</td>
                                     <td>${bbdto.cal }</td>
-          							<td>
-                                     <input type="button" id="${bbdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateBev(${bbdto.seq }, ${bbdto.image_Seq}, '${bbdto.image_Src}')" data-toggle="modal" data-target="#updatebev"> 
-                                    <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteBev(${bbdto.seq }, ${bbdto.image_Seq})" data-toggle="modal" data-target="#deletebev">
+          							<td id="td_seq${bbdto.seq}">
+	          							<c:if test="${bbdto.del == 0}">
+	                                     <input type="button" id="${bbdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateBev(${bbdto.seq }, ${bbdto.image_Seq}, '${bbdto.image_Src}')" data-toggle="modal" data-target="#updatebev"> 
+	                                    <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteBev(${bbdto.seq }, ${bbdto.image_Seq})" data-toggle="modal" data-target="#deletebev">
+	                                    </c:if>
+	                                    <c:if test="${bbdto.del == 1}">
+	                                   		<p style="color: #a33b2b">삭제된 음료입니다.</p>
+	                                    </c:if>
                                     </td>
                                     
                                 </tr>
-                                </c:if>
+                                
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -330,7 +335,7 @@ function registerBevClick() {
 			'<td>'+data.name+'</td>'+
 					'<td>'+data.price+'</td>'+
 					'<td>'+data.cal+'</td>'+
-					'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
+					'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
 					'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteBev('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deletebev"></td>'+
 					'</tr>');
 
@@ -361,6 +366,8 @@ function registerBevClick() {
  }
  
  
+
+ 
  /*---------------------------------------------------------------------------------------------
   * 음료 수정 Ajax 
   *----------------------------------------------------------------------------------------------*/
@@ -386,9 +393,9 @@ function registerBevClick() {
  			success:function(data){
  				
 				console.log(data);
-				$("#updatename").attr("value", data.name);
-				$("#updateprice").attr("value", data.price);
-				$("#updatecal").attr("value", data.cal);
+				document.getElementById('updatename').value = data.name;
+				document.getElementById('updateprice').value = data.price;
+				document.getElementById('updatecal').value = data.cal;
  				
  			},
  			error:function(req, status, error){
@@ -425,18 +432,29 @@ function registerBevClick() {
 	            console.log(data.del);
 	            
 	            var imageurl = "'"+data.image_Src+"'";
-	            //해당 테이블 로우 삭제
+	            
 	            var deleteRow= "tr"+data.seq;
-	            deleteTableRow(deleteRow);
+	            var tr = $("#"+deleteRow);
+	            var td = tr.children();
+	            
+	          //해당 테이블 로우 수정
+	            td.eq(0).html('<img alt="사이드사진" src="'+data.image_Src+'" style="width: 200px">');
+	            td.eq(1).text(data.name);
+	            td.eq(2).text(data.price);
+	            td.eq(3).text(data.cal);
+	            td.eq(4).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
+						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteBev('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deletebev">');
+	            
+	           /*  deleteTableRow(deleteRow); */
 	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
+/* 	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
 				'<td><img alt="사이드사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
 				'<td>'+data.name+'</td>'+
 						'<td>'+data.price+'</td>'+
 						'<td>'+data.cal+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
+						'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteBev('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deletebev"></td>'+
-						'</tr>');
+						'</tr>'); */
 
 	        },
 	        error : function(req, status, error) {
@@ -489,10 +507,10 @@ function registerBevClick() {
   			type:'POST',
   			success:function(data){
  				alert(data.msg);
- 				
- 				var deleteRowId = "tr"+$("#deleteseq").val();
- 				deleteTableRow(deleteRowId);
-  					
+ 				console.log($("#deleteseq").val());
+				var deleteRowId =	"td_seq"+$("#deleteseq").val();
+ 				 console.log(deleteRowId);
+ 				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 음료입니다.</p>');   					
   			},
   			error:function(req, status, error){
   				alert("error");

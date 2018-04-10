@@ -24,15 +24,15 @@ public class Bb_BurgerDto implements Serializable {
 	
 	
 	private int bread;				//빵종류
-	private int ingredients1;	//재료1
-	private int ingredients2;		//재료2
-	private int ingredients3;		//재료3
-	private int ingredients4;		//재료4
-	private int ingredients5;		//재료5
-	private int ingredients6;		//재료6
-	private int ingredients7;		//재료7
-	private int ingredients8;		//재료8
-	private int ingredients9;		//재료9
+	private int ingredients01;	//재료1
+	private int ingredients02;		//재료2
+	private int ingredients03;		//재료3
+	private int ingredients04;		//재료4
+	private int ingredients05;		//재료5
+	private int ingredients06;		//재료6
+	private int ingredients07;		//재료7
+	private int ingredients08;		//재료8
+	private int ingredients09;		//재료9
 	private int creator;			//만든이(고객이만들었을때는 해당사람 seq번호, admin이 만들었을경우 0)
 	private int price;				//버거가격
 	private int cal;				//칼로리
@@ -40,6 +40,7 @@ public class Bb_BurgerDto implements Serializable {
 	
 	//이미지
 	////이미지테이블 
+	private String creatorID;
 	private String what_Image;
 	private String image_Src;
 	private int image_Seq;
@@ -53,10 +54,10 @@ public class Bb_BurgerDto implements Serializable {
 	public Bb_BurgerDto(int seq, String name, Bb_IngredientDto breadCls, Bb_IngredientDto ingredientsCls1,
 			Bb_IngredientDto ingredientsCls2, Bb_IngredientDto ingredientsCls3, Bb_IngredientDto ingredientsCls4,
 			Bb_IngredientDto ingredientsCls5, Bb_IngredientDto ingredientsCls6, Bb_IngredientDto ingredientsCls7,
-			Bb_IngredientDto ingredientsCls8, Bb_IngredientDto ingredientsCls9, int bread, int ingredients1,
-			int ingredients2, int ingredients3, int ingredients4, int ingredients5, int ingredients6, int ingredients7,
-			int ingredients8, int ingredients9, int creator, int price, int cal, int del, String what_Image,
-			String image_Src, int image_Seq) {
+			Bb_IngredientDto ingredientsCls8, Bb_IngredientDto ingredientsCls9, int bread, int ingredients01,
+			int ingredients02, int ingredients03, int ingredients04, int ingredients05, int ingredients06,
+			int ingredients07, int ingredients08, int ingredients09, int creator, int price, int cal, int del,
+			String creatorID, String what_Image, String image_Src, int image_Seq) {
 		super();
 		this.seq = seq;
 		this.name = name;
@@ -71,19 +72,20 @@ public class Bb_BurgerDto implements Serializable {
 		this.ingredientsCls8 = ingredientsCls8;
 		this.ingredientsCls9 = ingredientsCls9;
 		this.bread = bread;
-		this.ingredients1 = ingredients1;
-		this.ingredients2 = ingredients2;
-		this.ingredients3 = ingredients3;
-		this.ingredients4 = ingredients4;
-		this.ingredients5 = ingredients5;
-		this.ingredients6 = ingredients6;
-		this.ingredients7 = ingredients7;
-		this.ingredients8 = ingredients8;
-		this.ingredients9 = ingredients9;
+		this.ingredients01 = ingredients01;
+		this.ingredients02 = ingredients02;
+		this.ingredients03 = ingredients03;
+		this.ingredients04 = ingredients04;
+		this.ingredients05 = ingredients05;
+		this.ingredients06 = ingredients06;
+		this.ingredients07 = ingredients07;
+		this.ingredients08 = ingredients08;
+		this.ingredients09 = ingredients09;
 		this.creator = creator;
 		this.price = price;
 		this.cal = cal;
 		this.del = del;
+		this.creatorID = creatorID;
 		this.what_Image = what_Image;
 		this.image_Src = image_Src;
 		this.image_Seq = image_Seq;
@@ -247,110 +249,110 @@ public class Bb_BurgerDto implements Serializable {
 
 
 
-	public int getIngredients1() {
-		return ingredients1;
+	public int getIngredients01() {
+		return ingredients01;
 	}
 
 
 
-	public void setIngredients1(int ingredients1) {
-		this.ingredients1 = ingredients1;
+	public void setIngredients01(int ingredients01) {
+		this.ingredients01 = ingredients01;
 	}
 
 
 
-	public int getIngredients2() {
-		return ingredients2;
+	public int getIngredients02() {
+		return ingredients02;
 	}
 
 
 
-	public void setIngredients2(int ingredients2) {
-		this.ingredients2 = ingredients2;
+	public void setIngredients02(int ingredients02) {
+		this.ingredients02 = ingredients02;
 	}
 
 
 
-	public int getIngredients3() {
-		return ingredients3;
+	public int getIngredients03() {
+		return ingredients03;
 	}
 
 
 
-	public void setIngredients3(int ingredients3) {
-		this.ingredients3 = ingredients3;
+	public void setIngredients03(int ingredients03) {
+		this.ingredients03 = ingredients03;
 	}
 
 
 
-	public int getIngredients4() {
-		return ingredients4;
+	public int getIngredients04() {
+		return ingredients04;
 	}
 
 
 
-	public void setIngredients4(int ingredients4) {
-		this.ingredients4 = ingredients4;
+	public void setIngredients04(int ingredients04) {
+		this.ingredients04 = ingredients04;
 	}
 
 
 
-	public int getIngredients5() {
-		return ingredients5;
+	public int getIngredients05() {
+		return ingredients05;
 	}
 
 
 
-	public void setIngredients5(int ingredients5) {
-		this.ingredients5 = ingredients5;
+	public void setIngredients05(int ingredients05) {
+		this.ingredients05 = ingredients05;
 	}
 
 
 
-	public int getIngredients6() {
-		return ingredients6;
+	public int getIngredients06() {
+		return ingredients06;
 	}
 
 
 
-	public void setIngredients6(int ingredients6) {
-		this.ingredients6 = ingredients6;
+	public void setIngredients06(int ingredients06) {
+		this.ingredients06 = ingredients06;
 	}
 
 
 
-	public int getIngredients7() {
-		return ingredients7;
+	public int getIngredients07() {
+		return ingredients07;
 	}
 
 
 
-	public void setIngredients7(int ingredients7) {
-		this.ingredients7 = ingredients7;
+	public void setIngredients07(int ingredients07) {
+		this.ingredients07 = ingredients07;
 	}
 
 
 
-	public int getIngredients8() {
-		return ingredients8;
+	public int getIngredients08() {
+		return ingredients08;
 	}
 
 
 
-	public void setIngredients8(int ingredients8) {
-		this.ingredients8 = ingredients8;
+	public void setIngredients08(int ingredients08) {
+		this.ingredients08 = ingredients08;
 	}
 
 
 
-	public int getIngredients9() {
-		return ingredients9;
+	public int getIngredients09() {
+		return ingredients09;
 	}
 
 
 
-	public void setIngredients9(int ingredients9) {
-		this.ingredients9 = ingredients9;
+	public void setIngredients09(int ingredients09) {
+		this.ingredients09 = ingredients09;
 	}
 
 
@@ -403,6 +405,18 @@ public class Bb_BurgerDto implements Serializable {
 
 
 
+	public String getCreatorID() {
+		return creatorID;
+	}
+
+
+
+	public void setCreatorID(String creatorID) {
+		this.creatorID = creatorID;
+	}
+
+
+
 	public String getWhat_Image() {
 		return what_Image;
 	}
@@ -445,13 +459,15 @@ public class Bb_BurgerDto implements Serializable {
 				+ ingredientsCls1 + ", ingredientsCls2=" + ingredientsCls2 + ", ingredientsCls3=" + ingredientsCls3
 				+ ", ingredientsCls4=" + ingredientsCls4 + ", ingredientsCls5=" + ingredientsCls5 + ", ingredientsCls6="
 				+ ingredientsCls6 + ", ingredientsCls7=" + ingredientsCls7 + ", ingredientsCls8=" + ingredientsCls8
-				+ ", ingredientsCls9=" + ingredientsCls9 + ", bread=" + bread + ", ingredients1=" + ingredients1
-				+ ", ingredients2=" + ingredients2 + ", ingredients3=" + ingredients3 + ", ingredients4=" + ingredients4
-				+ ", ingredients5=" + ingredients5 + ", ingredients6=" + ingredients6 + ", ingredients7=" + ingredients7
-				+ ", ingredients8=" + ingredients8 + ", ingredients9=" + ingredients9 + ", creator=" + creator
-				+ ", price=" + price + ", cal=" + cal + ", del=" + del + ", what_Image=" + what_Image + ", image_Src="
-				+ image_Src + ", image_Seq=" + image_Seq + "]";
+				+ ", ingredientsCls9=" + ingredientsCls9 + ", bread=" + bread + ", ingredients01=" + ingredients01
+				+ ", ingredients02=" + ingredients02 + ", ingredients03=" + ingredients03 + ", ingredients04="
+				+ ingredients04 + ", ingredients05=" + ingredients05 + ", ingredients06=" + ingredients06
+				+ ", ingredients07=" + ingredients07 + ", ingredients08=" + ingredients08 + ", ingredients09="
+				+ ingredients09 + ", creator=" + creator + ", price=" + price + ", cal=" + cal + ", del=" + del
+				+ ", creatorID=" + creatorID + ", what_Image=" + what_Image + ", image_Src=" + image_Src
+				+ ", image_Seq=" + image_Seq + "]";
 	}
+
 
 	
 	

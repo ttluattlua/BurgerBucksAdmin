@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                             	<c:forEach var="bsdto" items="${sideList}">
-                            	<c:if test="${bsdto.del == 0}">
+                            	
                                 <tr id="tr${bsdto.seq}">
                                 	<td>
                                 	<img alt="사이드사진" src="${bsdto.image_Src}" style="width: 200px">
@@ -63,13 +63,18 @@
                                     <td>${bsdto.name }</td>
                                     <td>${bsdto.price }</td>
                                     <td>${bsdto.cal }</td>
-          							<td>
+          							<td id="td_seq${bsdto.seq}">
+          							<c:if test="${bsdto.del == 0}">
                                      <input type="button" id="${bsdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateSide(${bsdto.seq }, ${bsdto.image_Seq}, '${bsdto.image_Src}')" data-toggle="modal" data-target="#updateside"> 
                                     <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteSide(${bsdto.seq }, ${bsdto.image_Seq})" data-toggle="modal" data-target="#deleteside">
+                                    </c:if>
+                                    <c:if test="${bsdto.del == 1}">
+                                   		<p style="color: #a33b2b">삭제된 사이드입니다.</p>
+                                    </c:if>
                                     </td>
                                     
                                 </tr>
-                                </c:if>
+                                
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -334,7 +339,7 @@ function registerSideClick() {
 			'<td>'+data.name+'</td>'+
 					'<td>'+data.price+'</td>'+
 					'<td>'+data.cal+'</td>'+
-					'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
+					'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
 					'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside"></td>'+
 					'</tr>');
  		//모달 숨기기
@@ -392,9 +397,9 @@ function registerSideClick() {
  			success:function(data){
  				
 				console.log(data);
-				$("#updatename").attr("value", data.name);
-				$("#updateprice").attr("value", data.price);
-				$("#updatecal").attr("value", data.cal);
+				document.getElementById('updatename').value = data.name;
+				document.getElementById('updateprice').value = data.price;
+				document.getElementById('updatecal').value = data.cal;
 				
  				
  			},
@@ -432,8 +437,22 @@ function registerSideClick() {
 	            console.log(data.del);
 	            
 	            var imageurl = "'"+data.image_Src+"'";
-	            //해당 테이블 로우 삭제
+	            
 	            var deleteRow= "tr"+data.seq;
+	            var tr = $("#"+deleteRow);
+	            var td = tr.children();
+	            
+	            
+	          //해당 테이블 로우 수정
+	            td.eq(0).html('<img alt="사이드사진" src="'+data.image_Src+'" style="width: 200px">');
+	            td.eq(1).text(data.name);
+	            td.eq(2).text(data.price);
+	            td.eq(3).text(data.cal);
+	            td.eq(4).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
+						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside">');
+	            
+	            //해당 테이블 로우 삭제
+/* 	            var deleteRow= "tr"+data.seq;
 	            deleteTableRow(deleteRow);
 	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
 	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
@@ -441,9 +460,9 @@ function registerSideClick() {
 				'<td>'+data.name+'</td>'+
 						'<td>'+data.price+'</td>'+
 						'<td>'+data.cal+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
+						'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside"></td>'+
-						'</tr>');
+						'</tr>'); */
 	 	 		//모달 숨기기
 	 	         /*  $('#updateside').modal().hide(); */
 
@@ -499,10 +518,10 @@ function registerSideClick() {
   			success:function(data){
  				alert(data.msg);
  				
- 				var deleteRowId = "tr"+$("#deleteseq").val();
- 				deleteTableRow(deleteRowId);
- 				//모달숨기기
- 				/* $('#deleteside').modal().hide(); */
+ 				var deleteRowId =	"td_seq"+$("#deleteseq").val();
+				 console.log(deleteRowId);
+				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 사이드입니다.</p>');   
+ 					
   					
   			},
   			error:function(req, status, error){
