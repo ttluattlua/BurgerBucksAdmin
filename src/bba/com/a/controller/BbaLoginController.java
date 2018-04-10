@@ -55,13 +55,14 @@ public class BbaLoginController {
 		
 		
 		
-		
+		int StoreCount = bbaStatisticService.getStoreCounts();
+		int memCount = bbaStatisticService.getMemberCounts();
 		System.out.println("로그인 시 id : " + adminDto.getId());
 		System.out.println("로그인 시 password : " + adminDto.getPassword());
 		
 		HttpSession session = request.getSession(true);
 
-		session.setAttribute("imagePath", "http://192.168.110.88:8090/upload/");
+		session.setAttribute("imagePath", "http://192.168.10.30:8090/upload/");
 
 		
 		//언니 여기다가 이미지 경로 좀 session에다 저장해 놓을게요 지우지말아주세용 ㅋㅋ
@@ -96,7 +97,8 @@ public class BbaLoginController {
 			
 			session.setAttribute("loginedId", admin.getId()) ;
 			session.setMaxInactiveInterval(60*60);
-			
+			model.addAttribute("StoreCount", StoreCount);
+			model.addAttribute("memCount", memCount);
 			model.addAttribute("msg", admin.getId()+" login 완료"); 
 		    
 			return "home.tiles";
@@ -109,6 +111,13 @@ public class BbaLoginController {
 	@RequestMapping(value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) {
 		logger.info("BbaMemberController login");
+		
+
+		int StoreCount = bbaStatisticService.getStoreCounts();
+		int memCount = bbaStatisticService.getMemberCounts();
+		
+		model.addAttribute("StoreCount", StoreCount);
+		model.addAttribute("memCount", memCount);
 		return "home.tiles";
 	}
 	

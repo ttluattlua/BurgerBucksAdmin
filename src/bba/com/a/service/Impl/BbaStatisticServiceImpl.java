@@ -8,7 +8,7 @@ import bba.com.a.service.BbaStatisticService;
 
 @Service
 public class BbaStatisticServiceImpl implements BbaStatisticService {
-	/*
+
 	@Autowired
 	BbaStatisticDao bbaStatisticDao;
 
@@ -22,7 +22,7 @@ public class BbaStatisticServiceImpl implements BbaStatisticService {
 	public int getStoreCounts() {
 		// TODO Auto-generated method stub
 		return bbaStatisticDao.getStoreCounts();
-	}*/
+	}
 	
 	
 	

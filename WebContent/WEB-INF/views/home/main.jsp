@@ -55,7 +55,7 @@
                                     <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>25</h2>
+                                    <h2>${StoreCount}</h2>
                                     <p class="m-b-0">Stores</p>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                     <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>847</h2>
+                                    <h2>${memCount}</h2>
                                     <p class="m-b-0">Customer</p>
                                 </div>
                             </div>
