@@ -59,9 +59,35 @@
 		FROM BB_STORE
 		WHERE SEQ=#{store_seq}
 	</select>
+	
+	
+	<!-- 주문 상세 불러오기 -->
+	
+	<!-- 
+	SELECT SEQ, ORDER_SEQ, MENU_SEQ, QUANTITY, DEL
+	FROM BB_ORDERMENU
+	WHERE ORDER_SEQ = 1; -->
+	
+	<select id="getOrderMenuList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_OrderMenuDto">
+		SELECT SEQ, ORDER_SEQ, MENU_SEQ, QUANTITY, DEL
+		FROM BB_ORDERMENU
+		WHERE ORDER_SEQ=#{seq}
+	</select>
 
 
-
+	<!-- 메뉴 불러오기 -->
+	
+	<!-- 
+	SELECT SEQ, BURGER, SIDE, BEVERAGE, NAME, CREATOR, PRICE, CAL, DEL
+	FROM BB_MENU
+	WHERE SEQ=25; -->
+	
+	<select id="getMenuList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_MenuDto">
+		SELECT SEQ, BURGER, SIDE, BEVERAGE, NAME, CREATOR, PRICE, CAL, DEL
+		FROM BB_MENU
+		WHERE SEQ=#{seq}
+	</select>
+	
 
 
 

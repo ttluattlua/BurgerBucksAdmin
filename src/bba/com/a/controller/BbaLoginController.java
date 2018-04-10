@@ -27,9 +27,10 @@ public class BbaLoginController {
 	
 	@Autowired
 	BbaMemberSerivce bbMemberService;
-	
+
 	@Autowired
 	BbaStatisticService bbaStatisticService;
+
 	
 	/*--------------------------------------------------------------------------------------------
 	 * 로그인 화면 (첫화면)
@@ -59,7 +60,12 @@ public class BbaLoginController {
 		System.out.println("로그인 시 password : " + adminDto.getPassword());
 		
 		HttpSession session = request.getSession(true);
+
 		session.setAttribute("imagePath", "http://192.168.110.88:8090/upload/");
+
+		
+		//언니 여기다가 이미지 경로 좀 session에다 저장해 놓을게요 지우지말아주세용 ㅋㅋ
+		//여기다 저장한 후에 컴퓨터 서버 바뀌면 여기만 수정해줄 수 있게 바꿔놓으려구용
 
 	    /*// 요청 URI로 1depth path를 구한다.
 		String reqUri = request.getRequestURI();
@@ -74,6 +80,7 @@ public class BbaLoginController {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out;
 			try {
+				
 				//실패시 창 띄우기
 				out = response.getWriter();
 				out.println("<script>alert('아이디/ 비밀번호를 확인하세요.'); history.go(-1);</script>");
