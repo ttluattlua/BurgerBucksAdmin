@@ -6,7 +6,8 @@ import java.util.List;
 public class Bb_OrderMenuDto implements Serializable {
 
   private int seq;
-  private int orderSeq;
+  private int order_seq;
+  private int menu_seq;
   private Bb_MenuTableDto menu;
   private int quantity;
   private int price;
@@ -20,25 +21,38 @@ public class Bb_OrderMenuDto implements Serializable {
     super();
   }
 
-  public Bb_OrderMenuDto(int orderSeq, Bb_MenuTableDto menu, int quantity, int price) {
+  public Bb_OrderMenuDto(int order_seq, Bb_MenuTableDto menu, int quantity, int price) {
     super();
-    this.orderSeq = orderSeq;
+    this.order_seq = order_seq;
     this.menu = menu;
     this.quantity = quantity;
     this.price = price;
   }
 
-  public Bb_OrderMenuDto(int seq, int orderSeq, Bb_MenuTableDto menu, int quantity, int price, boolean del) {
+  public Bb_OrderMenuDto(int seq, int order_seq, int menu_seq, Bb_MenuTableDto menu, int quantity, int price, boolean del) {
     super();
     this.seq = seq;
-    this.orderSeq = orderSeq;
+    this.order_seq = order_seq;
+    this.menu_seq = menu_seq;
     this.menu = menu;
     this.quantity = quantity;
     this.price = price;
     this.del = del;
   }
+  
+  
 
-  /*---------------------------------------------------------------------------------------
+  public Bb_OrderMenuDto(int seq, int order_seq, int menu_seq, int quantity, int price, boolean del) {
+	super();
+	this.seq = seq;
+	this.order_seq = order_seq;
+	this.menu_seq = menu_seq;
+	this.quantity = quantity;
+	this.price = price;
+	this.del = del;
+}
+
+/*---------------------------------------------------------------------------------------
   Getter & Setter
   --------------------------------------------------------------------------------------- */
   
@@ -50,12 +64,12 @@ public class Bb_OrderMenuDto implements Serializable {
     this.seq = seq;
   }
 
-  public int getOrderSeq() {
-    return orderSeq;
+  public int getOrder_seq() {
+    return order_seq;
   }
 
-  public void setOrderSeq(int orderSeq) {
-    this.orderSeq = orderSeq;
+  public void setOrder_seq(int order_seq) {
+    this.order_seq = order_seq;
   }
 
   public Bb_MenuTableDto getMenu() {
@@ -89,6 +103,22 @@ public class Bb_OrderMenuDto implements Serializable {
   public void setDel(boolean del) {
     this.del = del;
   }
+
+public int getMenu_seq() {
+	return menu_seq;
+}
+
+public void setMenu_seq(int menu_seq) {
+	this.menu_seq = menu_seq;
+}
+
+@Override
+public String toString() {
+	return "Bb_OrderMenuDto [seq=" + seq + ", order_seq=" + order_seq + ", menu_seq=" + menu_seq + ", menu=" + menu
+			+ ", quantity=" + quantity + ", price=" + price + ", del=" + del + "]";
+}
+  
+  
   
   
   

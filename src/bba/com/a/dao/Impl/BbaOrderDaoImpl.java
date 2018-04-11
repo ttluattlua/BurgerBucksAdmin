@@ -9,10 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import bba.com.a.dao.BbaOrderDao;
 import bba.com.a.model.Bb_AddrDto;
+import bba.com.a.model.Bb_BeverageDto;
+import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
 import bba.com.a.model.Bb_OrderMenuDto;
+import bba.com.a.model.Bb_SideDto;
 import bba.com.a.model.Bb_StoreDto;
 
 @Repository
@@ -75,7 +78,7 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 	@Override
 	public List<Bb_OrderMenuDto> getOrderMenuList(int seq) throws Exception {
 		List<Bb_OrderMenuDto> list = new ArrayList<Bb_OrderMenuDto>();
-		list = sqlSession.selectList(namespace + "getStoreList", seq);
+		list = sqlSession.selectList(namespace + "getOrderMenuList", seq);
 		return list;
 	}
 
@@ -87,6 +90,40 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 	public List<Bb_MenuTableDto> getMenuList(int seq) throws Exception {
 		List<Bb_MenuTableDto> list = new ArrayList<Bb_MenuTableDto>();
 		list = sqlSession.selectList(namespace + "getMenuList", seq);
+		return list;
+	}
+	
+	
+	
+	
+	
+	/*------------------------------------------------------------------------------
+	* 버거 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_BurgerDto> getBurgerList() throws Exception {
+		List<Bb_BurgerDto> list = new ArrayList<Bb_BurgerDto>();
+		list = sqlSession.selectList(namespace + "getBurgerList");
+		return list;
+	}
+	
+	/*------------------------------------------------------------------------------
+	* 음료 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_BeverageDto> getBeverageList() throws Exception {
+		List<Bb_BeverageDto> list = new ArrayList<Bb_BeverageDto>();
+		list = sqlSession.selectList(namespace + "getBeverageList");
+		return list;
+	}
+
+	/*------------------------------------------------------------------------------
+	* 사이드 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_SideDto> getSideList() throws Exception {
+		List<Bb_SideDto> list = new ArrayList<Bb_SideDto>();
+		list = sqlSession.selectList(namespace + "getSideList");
 		return list;
 	}
 	
