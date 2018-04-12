@@ -75,6 +75,10 @@
             <th></th>
             <th class="none">배송지</th>
             <th class="none">배송지 메모</th>
+            <th class="none">주문번호</th>
+            <th class="none">메뉴 seq</th>
+            <th class="none">수량</th>
+            <th class="none">가격</th>
         </tr>
     </thead>
     <tfoot>
@@ -89,6 +93,11 @@
             <th></th>
             <th>배송지</th>
             <th>배송지 메모</th>
+            <th>주문번호</th>
+            <th>메뉴 seq</th>
+            <th>수량</th>
+            <th>가격</th>
+            
         </tr>
     </tfoot>
     <tbody>
@@ -120,9 +129,19 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 #{status.end}   for문의 끝 값
 #{status.step}  for문의 증가값 --%>
 	
+	<!-- order menu -->
+	<c:set var="orderMenuList" value="${orderMenuList }" />
+	
+	<!-- member list -->
 	<c:set var="memberList" value="${memberList }" />
+	
+	<!-- address list -->
 	<c:set var="addrList" value="${addrList }" />
+	
+	<!-- store list -->
 	<c:set var="storeList" value="${storeList }" />
+	
+	<!-- order list -->
     <c:forEach items="${olist}" var="order" varStatus="status">
    <c:set var="i" value="${status.index}" />
 
@@ -178,7 +197,11 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <!-- 상세정보 -->
             <td>${addrList[i].address }</td>
             <td>${addrList[i].memo }</td>
-            <hr>
+
+            <td>${orderMenuList[i].order_seq }</td>
+            <td>${orderMenuList[i].menu_seq }</td>
+            <td>${orderMenuList[i].quantity }</td>
+            <td>${orderMenuList[i].price }</td>
             
         </tr>
     </c:forEach>

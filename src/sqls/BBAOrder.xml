@@ -62,6 +62,7 @@
 	
 	
 	<!-- 주문 상세 불러오기 -->
+	<!-- order menu에 있는 menu_seq 를 가져와서  -->
 	
 	<!-- 
 	SELECT SEQ, ORDER_SEQ, MENU_SEQ, QUANTITY, DEL
@@ -78,15 +79,66 @@
 	<!-- 메뉴 불러오기 -->
 	
 	<!-- 
+	  private int seq;
+	  private Bb_BurgerDto burger;
+	  private Bb_SideDto side;
+	  private Bb_BeverageDto beverage;
+	  private String name;
+	  private int creator;
+	  private int price;
+	  private int cal;
+	  private int del;
+	  
 	SELECT SEQ, BURGER, SIDE, BEVERAGE, NAME, CREATOR, PRICE, CAL, DEL
 	FROM BB_MENU
 	WHERE SEQ=25; -->
 	
-	<select id="getMenuList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_MenuDto">
+	<select id="getMenuList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_MenuTableDto">
 		SELECT SEQ, BURGER, SIDE, BEVERAGE, NAME, CREATOR, PRICE, CAL, DEL
 		FROM BB_MENU
 		WHERE SEQ=#{seq}
 	</select>
+	
+	
+	<!-- 
+	INSERT INTO BB_BURGER(SEQ, NAME, BREAD, 
+	INGREDIENT01, INGREDIENT02, INGREDIENT03, INGREDIENT04, INGREDIENT05, 
+	INGREDIENT06, INGREDIENT07, INGREDIENT08, INGREDIENT09, CREATOR, PRICE, CAL, DEL)
+	VALUES (BB_BURGER_SEQ.NEXTVAL, '치킨버거',1,1,1,1,1,1,1,1,1,1,0,5000,5000,0) -->
+
+	<!-- 버거 불러오기 -->
+	<select id="getBurgerList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_BurgerDto">
+		SELECT SEQ, NAME, BREAD, 
+		INGREDIENT01, INGREDIENT02, INGREDIENT03, INGREDIENT04, INGREDIENT05, 
+		INGREDIENT06, INGREDIENT07, INGREDIENT08, INGREDIENT09, CREATOR, PRICE, CAL, DEL
+		FROM BB_BURGER
+	</select>
+	
+	
+	<!-- 
+		SELECT BB_BEVERAGE(SEQ, NAME, PRICE, CAL, DEL
+		FROM BB_BEVERAGE
+		WHERE SEQ=#{beverage}
+		 -->
+	
+	<!-- 음료 불러오기 -->
+	<select id="getBeverageList" resultType="bba.com.a.model.Bb_BeverageDto">
+		SELECT SEQ, NAME, PRICE, CAL, DEL
+		FROM BB_BEVERAGE
+	</select>
+	
+	
+	<!-- 
+	SELECT SEQ, NAME, PRICE, CAL, DEL
+	FROM BB_SIDE -->
+	
+	<!-- 사이드 불러오기 -->
+	<select id="getSideList" resultType="bba.com.a.model.Bb_SideDto">
+		SELECT SEQ, NAME, PRICE, CAL, DEL
+		FROM BB_SIDE
+	</select>
+	
+	
 	
 
 

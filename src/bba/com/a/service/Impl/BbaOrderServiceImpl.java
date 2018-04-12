@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 
 import bba.com.a.dao.BbaOrderDao;
 import bba.com.a.model.Bb_AddrDto;
+import bba.com.a.model.Bb_BeverageDto;
+import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
 import bba.com.a.model.Bb_OrderMenuDto;
+import bba.com.a.model.Bb_SideDto;
 import bba.com.a.model.Bb_StoreDto;
 import bba.com.a.service.BbaOrderService;
 
@@ -70,6 +73,37 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 		return bbaOrderDao.getMenuList(seq);
 	}
 
+	
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 버거 리스트 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_BurgerDto> getBurgerList() throws Exception {
+		return bbaOrderDao.getBurgerList();
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 음료 리스트 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_BeverageDto> getBeverageList() throws Exception {
+		return bbaOrderDao.getBeverageList();
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 사이드 리스트 가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_SideDto> getSideList() throws Exception {
+		return bbaOrderDao.getSideList();
+	}
+
+	
+	
+	
+	
 	
 	
 	

@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import bba.com.a.model.Bb_AddrDto;
+import bba.com.a.model.Bb_BeverageDto;
+import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
 import bba.com.a.model.Bb_OrderMenuDto;
+import bba.com.a.model.Bb_SideDto;
 import bba.com.a.model.Bb_StoreDto;
 
 
@@ -32,5 +35,17 @@ public interface BbaOrderService {
 	
 	//메뉴 리스트 가져오기
 	List<Bb_MenuTableDto> getMenuList(int seq) throws Exception;
+	
+	
+	
+	
+	//버거 불러오기
+	List<Bb_BurgerDto> getBurgerList() throws Exception;
+	
+	//음료 불러오기
+	List<Bb_BeverageDto> getBeverageList() throws Exception;
+	
+	//사이드 불러오기
+	List<Bb_SideDto> getSideList() throws Exception;
 		
 }
