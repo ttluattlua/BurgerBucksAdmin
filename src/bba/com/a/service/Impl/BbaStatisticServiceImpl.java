@@ -14,14 +14,25 @@ public class BbaStatisticServiceImpl implements BbaStatisticService {
 
 	@Override
 	public int getMemberCounts() {
-		// TODO Auto-generated method stub
+
 		return bbaStatisticDao.getMemberCounts();
 	}
 
 	@Override
 	public int getStoreCounts() {
-		// TODO Auto-generated method stub
 		return bbaStatisticDao.getStoreCounts();
+	}
+
+	@Override
+	public int getPreviousMonthProfit() {
+
+		return bbaStatisticDao.getPreviousMonthProfit();
+	}
+
+	@Override
+	public int getPreviousMonthOrderCounts() {
+
+		return bbaStatisticDao.getPreviousMonthOrderCounts();
 	}
 	
 	

@@ -689,6 +689,25 @@ function removeMarker(num) {
 		}
 		markersForMap2And3=[];
 	    alert("스토어등록클릭");
+	    
+	    
+		//입력란에 다 입력했는지 막아주기 
+		if($("#_name").val() == "" || $("#_name").val() == null){
+			alert("지점명을 입력해주세요");
+			return;
+		}else if($("#_phone").val() == "" || $("#_phone").val() == null){
+			alert("지점번호를 입력해주세요");
+			return;
+		}else if($("#register_postcode").val() == "" || $("#register_postcode").val() == null){
+			alert("우편번호를 입력해주세요");
+			return;
+		}else if($("#register_roadAddress").val() == "" || $("#register_roadAddress").val() == null){
+			alert("도로명주소를 입력해주세요");
+			return;
+		}else if($("#_detailAddress").val() == "" || $("#_detailAddress").val() == null){
+			alert("상세주소를 입력해주세요");
+			return;
+		}
 		var data = {};
 		
 		data["name"]= $("#_name").val();
@@ -801,6 +820,23 @@ function updateStoreAf() {
 		 
 	 	
 	    /* alert("스토어 수정완료클릭"); */
+		//입력란에 다 입력했는지 막아주기 
+		if($("#update_name").val() == "" || $("#update_name").val() == null){
+			alert("지점명을 입력해주세요");
+			return;
+		}else if($("#update_phone").val() == "" || $("#update_phone").val() == null){
+			alert("지점번호를 입력해주세요");
+			return;
+		}else if($("#update_postcode").val() == "" || $("#update_postcode").val() == null){
+			alert("우편번호를 입력해주세요");
+			return;
+		}else if($("#update_roadAddress").val() == "" || $("#update_roadAddress").val() == null){
+			alert("도로명주소를 입력해주세요");
+			return;
+		}else if($("#_update_detailAddress").val() == "" || $("#_update_detailAddress").val() == null){
+			alert("상세주소를 입력해주세요");
+			return;
+		}
 	    var data = {};
 		var seq = document.getElementById('updateseq').value;
 	    var name = document.getElementById('update_name').value;

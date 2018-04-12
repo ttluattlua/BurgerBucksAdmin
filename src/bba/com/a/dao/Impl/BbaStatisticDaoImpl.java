@@ -31,6 +31,26 @@ public class BbaStatisticDaoImpl implements BbaStatisticDao {
 		return sqlSession.selectOne(ns+"getStoreCounts");
 	}
 	
+	/*--------------------------------------------------------------------------------------------
+	 * 현재일을 기준으로 전달 총 매출  
+	 *-------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public int getPreviousMonthProfit() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"getPreviousMonthProfit");
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 현재일을 기준으로 전달 총 주문 개수 
+	 *-------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public int getPreviousMonthOrderCounts() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"getPreviousMonthOrderCounts");
+	}
+	
 	
 	
 }

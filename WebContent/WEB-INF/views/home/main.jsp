@@ -29,8 +29,8 @@
                                     <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>568120</h2>
-                                    <p class="m-b-0">Total Revenue</p>
+                                    <h2>${preProfit}</h2>
+                                    <p class="m-b-0">전 월 매출(원)</p>
                                 </div>
                             </div>
                         </div>
@@ -42,8 +42,8 @@
                                     <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>1178</h2>
-                                    <p class="m-b-0">Sales</p>
+                                    <h2>${preOrderCount}</h2>
+                                    <p class="m-b-0">전 월 주문량(개)</p>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="media-body media-text-right">
                                     <h2>${StoreCount}</h2>
-                                    <p class="m-b-0">Stores</p>
+                                    <p class="m-b-0">지점 수(명)</p>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="media-body media-text-right">
                                     <h2>${memCount}</h2>
-                                    <p class="m-b-0">Customer</p>
+                                    <p class="m-b-0">고객 수(명)</p>
                                 </div>
                             </div>
                         </div>
@@ -93,30 +93,30 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body browser">
-                                <p class="f-w-600">iMacs <span class="pull-right">85%</span></p>
+                                <p class="f-w-600">고객수 <span class="pull-right">85%</span></p>
                                 <div class="progress ">
                                     <div role="progressbar" style="width: 85%; height:8px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
                                 </div>
 
-                                <p class="m-t-30 f-w-600">iBooks<span class="pull-right">90%</span></p>
+                                <p class="m-t-30 f-w-600">전 월 매출<span class="pull-right">90%</span></p>
                                 <div class="progress">
                                     <div role="progressbar" style="width: 90%; height:8px;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
                                 </div>
 
-                                <p class="m-t-30 f-w-600">iPhone<span class="pull-right">65%</span></p>
+                                <p class="m-t-30 f-w-600">전 월 주문량<span class="pull-right">65%</span></p>
                                 <div class="progress">
                                     <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
                                 </div>
 
-                                <p class="m-t-30 f-w-600">Samsung<span class="pull-right">65%</span></p>
+                               <p class="m-t-30 f-w-600">지점 수<span class="pull-right">65%</span></p>
                                 <div class="progress">
                                     <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-warning wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
+                                </div> 
 
-								<p class="m-t-30 f-w-600">android<span class="pull-right">65%</span></p>
+								<!-- <p class="m-t-30 f-w-600">android<span class="pull-right">65%</span></p>
                                 <div class="progress m-b-30">
                                     <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

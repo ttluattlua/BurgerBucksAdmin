@@ -13,13 +13,19 @@ SELECT COUNT(SEQ) FROM BB_MEMBER WHERE DEL=0
 SELECT COUNT(SEQ) FROM BB_STORE WHERE DEL=0
 </select>
 
-<!-- <select id="getPreviousMonthProfit" resultType="java.lang.Integer">
-SELECT SUM(PRICE) FROM BB_ORDER WHERE ORDER_DATE BETWEEN AND B
-</select> -->
+<select id="getPreviousMonthProfit" resultType="java.lang.Integer">
+SELECT NVL(SUM(PRICE), 0) FROM BB_ORDER WHERE ORDER_DATE BETWEEN 
+(Select trunc(add_months(sysdate,-1)) - (to_number(to_char(add_months(sysdate,-1),'DD')) - 1) FROM dual)
+ AND 
+(SELECT add_months(trunc(add_months(sysdate,-1)) - (to_number(to_char(add_months(sysdate,-1),'DD')) - 1), 1) -1 FROM dual)
+</select> 
 
-<!-- <select id="getPreviousMonthOrderCounts" resultType="java.lang.Integer">
-SELECT COUNT(SEQ) FROM BB_ORDER WHERE ORDER_DATE BETWEEN AND B
-</select> -->
+<select id="getPreviousMonthOrderCounts" resultType="java.lang.Integer">
+SELECT COUNT(SEQ) FROM BB_ORDER WHERE ORDER_DATE BETWEEN 
+(Select trunc(add_months(sysdate,-1)) - (to_number(to_char(add_months(sysdate,-1),'DD')) - 1) FROM dual)
+ AND 
+(SELECT add_months(trunc(add_months(sysdate,-1)) - (to_number(to_char(add_months(sysdate,-1),'DD')) - 1), 1) -1 FROM dual)
+</select>
 
 
 </mapper>
