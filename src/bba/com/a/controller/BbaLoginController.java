@@ -65,7 +65,7 @@ public class BbaLoginController {
 		
 		HttpSession session = request.getSession(true);
 
-		session.setAttribute("imagePath", "http://192.168.50.79:8090/upload/");
+		session.setAttribute("imagePath", "http://192.168.219.110:8191/upload/");
 
 		
 		//언니 여기다가 이미지 경로 좀 session에다 저장해 놓을게요 지우지말아주세용 ㅋㅋ

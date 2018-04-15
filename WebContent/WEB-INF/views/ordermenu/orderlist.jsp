@@ -142,19 +142,30 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	<c:set var="storeList" value="${storeList }" />
 	
 	<!-- order list -->
+	
+	
+	<c:set var="i" value="0" />
     <c:forEach items="${olist}" var="order" varStatus="status">
-   <c:set var="i" value="${status.index}" />
+   
 
 
-        <tr>
+        <tr id="tr${order.seq}">
         	<!-- 기본 정보 -->
-            <td><c:out value="${status.count}" /></td>
+        	
+        	<!-- no -->
+            <td>${status.count}</td>
+            <!-- 점포명 -->
             <td>${storeList[i].name }</td>
+            <!-- 주문자 -->
             <td>${memberList[i].id }</td>
+            <!-- 연락처 -->
             <td>${memberList[i].phone }</td>
+            <!-- 주문일자 -->
             <td>${order.order_date }</td>
+            
+            
+			<!-- 현재 주문 상태 아이콘 -->
             <td>
-
 			<c:choose>
 
 		    <c:when test="${order.status eq '0'}">
@@ -179,19 +190,23 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 
 			</c:choose>
             </td>
-            <td>
             
-            <select class="form-control" onchange="document.getElementById('input_store').value = this.options[this.selectedIndex].value">
-		    <option selected value=''>선택하세요</option> 
-		      <option value='0'>장바구니</option>
-		      <option value='1'>주문완료</option>
-		      <option value='2'>준비중</option>
-		      <option value='3'>배달시작</option>
-		      <option value='4'>배달완료</option>
+            
+            <!-- 상태 변경하기 -->
+            <td>
+            <select name="oSelect" title="선택하세요" class="form-control">
+		    
+		      <option value='0' <c:if test="${order.status eq '0'}">selected</c:if>>장바구니</option>
+		      <option value='1' <c:if test="${order.status eq '1'}">selected</c:if>>주문완료</option>
+		      <option value='2' <c:if test="${order.status eq '2'}">selected</c:if>>준비중</option>
+		      <option value='3' <c:if test="${order.status eq '3'}">selected</c:if>>배달시작</option>
+		      <option value='4' <c:if test="${order.status eq '4'}">selected</c:if>>배달완료</option>
 		    </select>
 
 			</td>
-            <td style="text-align: right;"><button id="save" type="button" class="btn btn-inverse" >저장</button></td>
+            <td style="text-align: right;">
+            <button id="save" type="button" class="btn btn-inverse" onclick="saveOSelect(${order.seq})" >저장</button>
+            </td>
             
             
             <!-- 상세정보 -->
@@ -204,6 +219,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td>${orderMenuList[i].price }</td>
             
         </tr>
+        <c:set var="i" value="${i+1 }"></c:set>
     </c:forEach>
     </tbody>
 </table>
@@ -240,131 +256,17 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 
    
    
-   
-
-
-
-<!--==========================Admin 수정 모달창======================================= -->
- <!-- The Modal -->
-  <div class="modal fade" id="updateAdmin">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-      
-<!-- Modal body -->
-<div class="modal-body">
-	<div class="row">
-   <div class="col-lg-12">
-    <div class="card card-outline-primary">
-       <div class="card-header">
-           <h4 class="m-b-0 text-white">사원 수정</h4>
-       </div>
-       <div class="card-body">
-           <form action="updateAdminAf.do" method="post">
-               <div class="form-body">
-	   <input type="hidden" id="updateseq" name="seq">
-	   
-                  <hr>
-                  
-                  <!-- 개인 정보 -->
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label class="control-label">이름</label>
-                              <input type="text" name="updatename" id="_updatename" class="form-control" placeholder="이름" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      </div>
-                      
-                      <div class="row">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="control-label">아이디</label>
-                              <input type="text" name="updateid" id="_updateid" class="form-control" placeholder="아이디" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="control-label">비밀번호</label>
-                              <input type="text" name="updatepassword" id="_updatepassword" class="form-control" placeholder="비밀번호" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      </div>
-                  
-                      
-                  <hr>
-                  
-                  <!-- 지점 정보 -->
-                   <div class="row p-t-20">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="control-label">지점명</label>
-                              <input type="text" name="updatestorename" id="_updatestorename" class="form-control" placeholder="지점명" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="control-label">지점코드</label>
-                              <input type="text" name="updatestorecode" id="_updatestorecode" class="form-control" placeholder="지점코드" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      </div>
-                      
-                      <div class="row">
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label class="control-label">전화번호</label>
-                              <input type="text" name="updatephone" id="_updatephone" class="form-control" placeholder="전화번호" required="required">
-                              <small class="form-control-feedback"></small></div>
-                      </div>
-                      </div>
- 
-                    
-<!-- 
-                   <div class="row">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label>Post Code</label>
-                              <input type="text" name="postcode" class="form-control" id="update_postcode" placeholder="우편번호" readonly="readonly" required="required">
-                          </div>
-                      </div>
-                      /span
-                      <div class="col-md-6">
-                          <div class="form-group">
-				<input type="button" onclick="DaumPostcode(1)" value="우편번호 찾기" class="btn btn-inverse" style="margin-top: 30px;">
-                          </div>
-                      </div>
-                      /span
-                  </div> -->
-                  
-              </div>
-              <div class="form-actions" align="right">
-                  <button type="button" class="btn btn-success" id="updateAdminAfBtn" onclick="updateAdminAf()" data-target="#CompanyProfile"> <i class="fa fa-check"></i> 수정</button>
-                  <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
-              </div>
-          </form>
-      </div>
-     </div>
-    </div> <!--왼쪽 사이드 -->
-  </div><!-- ROW -->
-</div>
-      </div>
-    </div>
-  </div>
-  
- 
   
 <script type="text/javascript">
 /*---------------------------------------------------------------------------------------------
- * 테이블 리스트에서 삭제 클릭
+ * 상태 변경 클릭
  *----------------------------------------------------------------------------------------------*/
 
-	function ListDelete(seq){
-		alert("삭제 클릭");
+	function saveOSelect(seq){
+		alert("상태 수정 클릭");
 		
 		$.ajax({
-            url : "deladmin.do",
+            url : "changeOrder.do",
             type: "get",
             data : { "seq" : seq },
             dataType: 'json',

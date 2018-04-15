@@ -3,6 +3,7 @@ package bba.com.a.controller;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,11 +55,9 @@ public class BbaOrderController {
 		logger.info("Welcome BbaOrderController orderlist! "+ new Date());
 		
 		List<Bb_OrderDto> olist = bbaOrderService.getOrderList();
+		System.out.println("olist (order) : " + olist.toString());
 		
-		for (int i = 0; i < olist.size(); i++) {
-			System.out.println("olist에 있는 seq : " + olist.get(i).getSeq());
-		}
-		
+				
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -74,29 +73,20 @@ public class BbaOrderController {
 				
 		
 		//주문 상세 가져오기 (ordermenu)
-		Bb_OrderMenuDto orderMenuDto = null;
-		List<Bb_OrderMenuDto> orderMenuList=null;
+		List<Bb_OrderMenuDto> orderMenuList = new ArrayList<Bb_OrderMenuDto>();
 		for (int i = 0; i < olist.size(); i++) {
-			orderMenuList = bbaOrderService.getOrderMenuList(olist.get(i).getSeq());
-		}
-		
-		for (int i = 0; i < orderMenuList.size(); i++) {
-			System.out.println("ordeMenuList에 있는 seq : " + orderMenuList.get(i).getSeq());
-			System.out.println("ordeMenuList에 있는 order_seq : " + orderMenuList.get(i).getOrder_seq());
-			System.out.println("ordeMenuList에 있는 menu_seq : " + orderMenuList.get(i).getMenu_seq());
-
-			
+			orderMenuList.add(bbaOrderService.getOrderMenuList(olist.get(i).getSeq()));
+			System.out.println("orderMenuList (OrderMenu) : " + orderMenuList.get(i).toString());
 		}
 		
 		
 		//주문 상세에 있는 메뉴 시퀀스를 이용해서 메뉴 테이블 가져오기
-		List<Bb_MenuTableDto> menuList=null;
+		List<Bb_MenuTableDto> menuList= new ArrayList<Bb_MenuTableDto>();
 		for (int i = 0; i < orderMenuList.size(); i++) {
-			menuList = bbaOrderService.getMenuList(orderMenuList.get(i).getMenu_seq());
+			menuList.add(bbaOrderService.getMenuList(orderMenuList.get(i).getMenu_seq()));
 		}
 		
-	
-		
+
 		//Bb_OrderMenuDto에 있는 Bb_MenuTableDto menu; 부분 DTO로 넣기
 		for (int i = 0; i < orderMenuList.size(); i++) {
 			orderMenuList.get(i).setMenu(new Bb_MenuTableDto(
@@ -113,29 +103,31 @@ public class BbaOrderController {
 					));
 		}
 		
-		System.out.println("메뉴에 있는 name : " + menuList.get(0).getName());
 
+		for (int i = 0; i < olist.size(); i++) {
+			System.out.println("orderMenuList (OrderMenu) : " + orderMenuList.get(i).toString());
+		}
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		
 		
 		//멤버 dto 가져오기
-		List<Bb_MemberDto> memberList=null;
+		List<Bb_MemberDto> memberList = new ArrayList<Bb_MemberDto>();
 		for (int i = 0; i < olist.size(); i++) {
-			memberList = bbaOrderService.getMemberList(olist.get(i).getMember_seq());
+			memberList.add(bbaOrderService.getMemberList(olist.get(i).getMember_seq()));
 		}
 		
 		//주소 상세 가져오기
-		List<Bb_AddrDto> addrList=null;
+		List<Bb_AddrDto> addrList = new ArrayList<Bb_AddrDto>();
 		for (int i = 0; i < olist.size(); i++) {
-			addrList = bbaOrderService.getAddrList(olist.get(i).getMember_addr());
+			addrList.add(bbaOrderService.getAddrList(olist.get(i).getMember_addr()));
 		}
 		
 		//점포 dto 가져오기
-		List<Bb_StoreDto> storeList=null;
+		List<Bb_StoreDto> storeList = new ArrayList<Bb_StoreDto>();
 		for (int i = 0; i < olist.size(); i++) {
-			storeList = bbaOrderService.getStoreList(olist.get(i).getStore_seq());
+			storeList.add(bbaOrderService.getStoreList(olist.get(i).getStore_seq()));
 		}
 		
 		
@@ -154,8 +146,24 @@ public class BbaOrderController {
 	}
 	
 	
+	
 	/*--------------------------------------------------------------------------------------------
-	 * 주문 OrderMenu 가져오기 (버거, 사이드, 음료 DTO에 저장)
+	 * 주문 상태 변경
+	 *-------------------------------------------------------------------------------------------*/
+	@RequestMapping(value = "changeOrder.do", 
+			method = {RequestMethod.POST,RequestMethod.GET})
+	public String changeOrder(HttpServletRequest request, Model model) throws Exception {
+		logger.info("Welcome BbaOrderController changeOrder! "+ new Date());
+		
+		
+		
+		return null;
+	}
+	
+	
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 주문 상세 OrderMenu 가져오기 (버거, 사이드, 음료 DTO에 저장)
 	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "orderMenulist.do", 
 			method = {RequestMethod.POST,RequestMethod.GET})
@@ -173,100 +181,12 @@ public class BbaOrderController {
 		List<Bb_SideDto> sideList = bbaOrderService.getSideList();
 		
 				
-		
-		
-		//order 가져오기
-		List<Bb_OrderDto> olist = bbaOrderService.getOrderList();
-		
-		for (int i = 0; i < olist.size(); i++) {
-			System.out.println("olist에 있는 seq : " + olist.get(i).getSeq());
-		}
-		
-		//주문 상세 가져오기 (ordermenu)
-		Bb_OrderMenuDto orderMenuDto = null;
-		List<Bb_OrderMenuDto> orderMenuList=null;
-		for (int i = 0; i < olist.size(); i++) {
-			orderMenuList = bbaOrderService.getOrderMenuList(olist.get(i).getSeq());
-		}
-		
-		for (int i = 0; i < orderMenuList.size(); i++) {
-			System.out.println("ordeMenuList에 있는 seq : " + orderMenuList.get(i).getSeq());
-			System.out.println("ordeMenuList에 있는 order_seq : " + orderMenuList.get(i).getOrder_seq());
-			System.out.println("ordeMenuList에 있는 menu_seq : " + orderMenuList.get(i).getMenu_seq());
 
-			
-		}
-		
-		
-		//주문 상세에 있는 메뉴 시퀀스를 이용해서 메뉴 테이블 가져오기
-		List<Bb_MenuTableDto> menuList=null;
-		for (int i = 0; i < orderMenuList.size(); i++) {
-			menuList = bbaOrderService.getMenuList(orderMenuList.get(i).getMenu_seq());
-		}
-		
-		
-		//Bb_OrderMenuDto에 있는 Bb_MenuTableDto menu; 부분 DTO로 넣기
-		for (int i = 0; i < orderMenuList.size(); i++) {
-			orderMenuList.get(i).setMenu(new Bb_MenuTableDto(
-						orderMenuList.get(i).getSeq(),	//int seq;
-						menuList.get(i).getBurger(),	//** Bb_BurgerDto burger;
-						menuList.get(i).getSide(),		//** Bb_SideDto side;
-						menuList.get(i).getBeverage(),	//** Bb_BeverageDto beverage;
-						menuList.get(i).getName(),		//String name;
-						menuList.get(i).getCreator(),	//int creator;
-						menuList.get(i).getPrice(),		//int price;
-						menuList.get(i).getCal(),		//int cal;
-						menuList.get(i).getDel()		//int del;
-					));
-		}
-		
-
-
-		
-		
-		
-		
-		 /* Bb_MenuTableDto 
-		   
-		  private int seq;
-		  private Bb_BurgerDto burger;
-		  private Bb_SideDto side;
-		  private Bb_BeverageDto beverage;
-		  private String name;
-		  private int creator;
-		  private int price;
-		  private int cal;
-		  private int del;*/
-		
-		
-		
-		
-		
-	/*	
-		
-		//음료 seq (key, value)
-		HashMap<String , Integer> beverageSeqList = new HashMap<String , Integer>();
-		for (int i = 0; i < menuList.size(); i++) {
-			beverageSeqList.put("beverageSeq", menuList.get(i).getSide().getSeq());
-		}
-		
-		//사이드 seq
-		HashMap<String , Integer> sideSeqList = new HashMap<String , Integer>();
-		
-		//버거 seq
-		HashMap<String , Integer> burgerSeqList = new HashMap<String , Integer>();
-		
-		
-		
-		//메뉴 테이블을 이용해서 음료 가져오기
-		HashMap<Bb_BeverageDto , Object> beverage = new HashMap<Bb_BeverageDto , Object>();
-
-		*/
-		
-		
 		
 		return null;
 	}
+	
+
 
 }
 

@@ -19,20 +19,21 @@ public interface BbaOrderDao {
 	List<Bb_OrderDto> getOrderList() throws Exception;
 	
 	//멤버 리스트 불러오기
-	List<Bb_MemberDto> getMemberList(int member_seq) throws Exception;
+	Bb_MemberDto getMemberList(int member_seq) throws Exception;
 	
 	//주소 리스트 불러오기
-	List<Bb_AddrDto> getAddrList(int member_addr) throws Exception;
+	Bb_AddrDto getAddrList(int member_addr) throws Exception;
 	
 	//점포 리스트 불러오기
-	List<Bb_StoreDto> getStoreList(int store_seq) throws Exception;
+	Bb_StoreDto getStoreList(int store_seq) throws Exception;
+	
 	
 	//주문 상세 가져오기 (ordermenu)
-	List<Bb_OrderMenuDto> getOrderMenuList(int seq) throws Exception;
+	Bb_OrderMenuDto getOrderMenuList(int seq) throws Exception;
 	
 	
 	//메뉴 리스트 가져오기
-	List<Bb_MenuTableDto> getMenuList(int seq) throws Exception;
+	Bb_MenuTableDto getMenuList(int seq) throws Exception;
 	
 	
 	

@@ -36,7 +36,7 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 멤버 리스트 불러오기
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_MemberDto> getMemberList(int member_addr) throws Exception {
+	public Bb_MemberDto getMemberList(int member_addr) throws Exception {
 		return bbaOrderDao.getMemberList(member_addr);
 	}
 
@@ -45,7 +45,7 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 주소 리스트 불러오기
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_AddrDto> getAddrList(int member_addr) throws Exception {
+	public Bb_AddrDto getAddrList(int member_addr) throws Exception {
 		return bbaOrderDao.getAddrList(member_addr);
 	}
 
@@ -53,7 +53,7 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 점포 리스트 불러오기
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_StoreDto> getStoreList(int store_seq) throws Exception {
+	public Bb_StoreDto getStoreList(int store_seq) throws Exception {
 		return bbaOrderDao.getStoreList(store_seq);
 	}
 
@@ -61,7 +61,7 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 주문 상세 가져오기 (orderMenu)
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_OrderMenuDto> getOrderMenuList(int seq) throws Exception {
+	public Bb_OrderMenuDto getOrderMenuList(int seq) throws Exception {
 		return bbaOrderDao.getOrderMenuList(seq);
 	}
 
@@ -69,7 +69,7 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 메뉴 리스트 가져오기
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_MenuTableDto> getMenuList(int seq) throws Exception {
+	public Bb_MenuTableDto getMenuList(int seq) throws Exception {
 		return bbaOrderDao.getMenuList(seq);
 	}
 
