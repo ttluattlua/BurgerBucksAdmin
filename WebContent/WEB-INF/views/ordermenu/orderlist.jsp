@@ -74,11 +74,9 @@
             <th>상태변경</th>
             <th></th>
             <th class="none">배송지</th>
-            <th class="none">배송지 메모</th>
             <th class="none">주문번호</th>
             <th class="none">메뉴 seq</th>
-            <th class="none">수량</th>
-            <th class="none">가격</th>
+            
         </tr>
     </thead>
     <tfoot>
@@ -92,11 +90,9 @@
             <th>상태변경</th>
             <th></th>
             <th>배송지</th>
-            <th>배송지 메모</th>
             <th>주문번호</th>
             <th>메뉴 seq</th>
-            <th>수량</th>
-            <th>가격</th>
+            
             
         </tr>
     </tfoot>
@@ -207,17 +203,30 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td style="text-align: right;">
             <button id="save" type="button" class="btn btn-inverse" onclick="saveOSelect(${order.seq})" >저장</button>
             </td>
+            <c:set var="oAddMemo">${addrList[i].address } / <b>배송메모</b> : ${addrList[i].memo }</c:set>
+            <c:set var="orderNoQP">${orderMenuList[i].order_seq } / <b>수량</b> : ${orderMenuList[i].quantity } / <b>가격</b> : ${orderMenuList[i].price }</c:set>
             
-            
-            <!-- 상세정보 -->
-            <td>${addrList[i].address }</td>
-            <td>${addrList[i].memo }</td>
+   			 <!-- 상세정보 -->
+   			 <!-- 배송지 / 배송메모 -->
+            <td>${oAddMemo } </td>
 
-            <td>${orderMenuList[i].order_seq }</td>
-            <td>${orderMenuList[i].menu_seq }</td>
-            <td>${orderMenuList[i].quantity }</td>
-            <td>${orderMenuList[i].price }</td>
+			<!-- 주문번호 / 수량 / 가격 -->
+            <td>${orderNoQP }</td>
             
+            <!-- 메뉴 시퀀스 -->
+            <td>${orderMenuList[i].menu_seq }</td>
+            
+            <%-- 
+            <!-- 버거 시퀀스 -->
+            <td>${orderMenuList[i].menu.burger }</td>
+            <!-- 사이드 시퀀스 -->
+            <td>${orderMenuList[i].menu.side }</td>
+            <!-- 음료 시퀀스 -->
+            <td>${orderMenuList[i].menu.beverage }</td>
+            <!-- 세트 이름 -->
+            <td>${orderMenuList[i].menu.name }</td> --%>
+ 
+ 
         </tr>
         <c:set var="i" value="${i+1 }"></c:set>
     </c:forEach>

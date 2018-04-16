@@ -138,8 +138,14 @@
 		FROM BB_SIDE
 	</select>
 	
-	
-	
+<!-- 	
+	주문 상태 변경
+	<update id="changeOrder" parameterType="bba.com.a.model.Bb_orderDto" >
+		UPDATE BB_ORDER
+		SET STATUS=#{status}
+		WHERE SEQ=#{seq}
+	</update>
+	 -->
 
 
 
