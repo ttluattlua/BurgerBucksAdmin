@@ -21,7 +21,7 @@
 
 	<!-- 주문 리스트 불러오기 -->
 	<select id="getOrderList" resultType="bba.com.a.model.Bb_OrderDto">
-		SELECT SEQ, MEMBER_SEQ, MEMBER_ADDR, STORE_SEQ, ORDER_DATE, STATUS, DEL
+		SELECT SEQ, MEMBER_SEQ, MEMBER_ADDR, STORE_SEQ, ORDER_DATE, STATUS, PRICE, DEL
 		FROM BB_ORDER
 		ORDER BY SEQ DESC
 	</select>
@@ -68,11 +68,10 @@
 	SELECT SEQ, ORDER_SEQ, MENU_SEQ, QUANTITY, DEL
 	FROM BB_ORDERMENU
 	WHERE ORDER_SEQ = 1; -->
-	
-	<select id="getOrderMenuList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_OrderMenuDto">
-		SELECT SEQ, ORDER_SEQ, MENU_SEQ, QUANTITY, DEL
+	<select id="getOrderMenuList" resultType="bba.com.a.model.Bb_OrderMenuDto">
+		SELECT SEQ, ORDER_SEQ, MENU_SEQ, QUANTITY, PRICE, DEL
 		FROM BB_ORDERMENU
-		WHERE ORDER_SEQ=#{seq}
+		ORDER BY ORDER_SEQ DESC
 	</select>
 
 

@@ -65,6 +65,7 @@ public class BbaLoginController {
 		
 		HttpSession session = request.getSession(true);
 
+		//혜진 집  http://192.168.219.110:8191/upload/
 		session.setAttribute("imagePath", "http://192.168.219.110:8191/upload/");
 
 		

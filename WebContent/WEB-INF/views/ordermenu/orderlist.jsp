@@ -73,29 +73,19 @@
             <th>현재상태</th>
             <th>상태변경</th>
             <th></th>
+            <c:set var="thOrderMenu" value="${orderMenuList } " />
+            <c:forEach items="${olist }" var="thOList" varStatus="status">
+            <c:set var="j" value="${status.current}" />
+            <c:if test="${thOList[j].seq eq thOrderMenu[j].order_seq}">
             <th class="none">배송지</th>
             <th class="none">주문번호</th>
             <th class="none">메뉴 seq</th>
+            </c:if>
+            </c:forEach>
             
         </tr>
     </thead>
-    <tfoot>
-        <tr>
-            <th>No</th>
-            <th>점포명</th>
-            <th>주문자</th>
-            <th>연락처</th>
-            <th>주문일자</th>
-            <th>현재상태</th>
-            <th>상태변경</th>
-            <th></th>
-            <th>배송지</th>
-            <th>주문번호</th>
-            <th>메뉴 seq</th>
-            
-            
-        </tr>
-    </tfoot>
+    
     <tbody>
     
     <!-- private int seq;
@@ -124,11 +114,12 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 #{status.begin} for문의 시작 값
 #{status.end}   for문의 끝 값
 #{status.step}  for문의 증가값 --%>
-	
+	<%-- 
 	<!-- order menu -->
 	<c:set var="orderMenuList" value="${orderMenuList }" />
 	
-	<!-- member list -->
+ --%>	
+ <!-- member list -->
 	<c:set var="memberList" value="${memberList }" />
 	
 	<!-- address list -->
@@ -204,7 +195,12 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <button id="save" type="button" class="btn btn-inverse" onclick="saveOSelect(${order.seq})" >저장</button>
             </td>
             <c:set var="oAddMemo">${addrList[i].address } / <b>배송메모</b> : ${addrList[i].memo }</c:set>
-            <c:set var="orderNoQP">${orderMenuList[i].order_seq } / <b>수량</b> : ${orderMenuList[i].quantity } / <b>가격</b> : ${orderMenuList[i].price }</c:set>
+            
+            <!-- order seq가 같은 ordermenu 불러오기 -->
+            <c:forEach items="${orderMenuList}" var="orderMenu" varStatus="status">
+            <c:if test="${order.seq eq orderMenu.order_seq}">
+
+            <c:set var="orderNoQP">${orderMenu.order_seq } / <b>수량</b> : ${orderMenu.quantity } / <b>가격</b> : ${orderMenu.price }</c:set>
             
    			 <!-- 상세정보 -->
    			 <!-- 배송지 / 배송메모 -->
@@ -214,8 +210,10 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td>${orderNoQP }</td>
             
             <!-- 메뉴 시퀀스 -->
-            <td>${orderMenuList[i].menu_seq }</td>
+            <td>${orderMenu.menu_seq }</td>
             
+            </c:if>
+            </c:forEach>
             <%-- 
             <!-- 버거 시퀀스 -->
             <td>${orderMenuList[i].menu.burger }</td>
