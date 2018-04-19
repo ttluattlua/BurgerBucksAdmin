@@ -1,9 +1,21 @@
+<%@page import="bba.com.a.model.Bb_AdminDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:requestEncoding value="utf-8"/>   
+<%
+String id="";
+int store=-1;
+Bb_AdminDto admin = new Bb_AdminDto();
+
+if(session.getAttribute("login") != null){	
+	admin = (Bb_AdminDto)session.getAttribute("login");
+	id = admin.getId();
+	store = admin.getStore_seq();
+}
+%>
 
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">

@@ -1,9 +1,22 @@
+<%@page import="bba.com.a.model.Bb_AdminDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="utf-8"/> 
+
+<%
+String id="";
+int store=-1;
+Bb_AdminDto admin = new Bb_AdminDto();
+
+if(session.getAttribute("login") != null){	
+	admin = (Bb_AdminDto)session.getAttribute("login");
+	id = admin.getId();
+	store = admin.getStore_seq();
+}
+%>
 
 <!-- icon 불러오기 -->
 <!--core first + styles last-->
@@ -43,22 +56,26 @@
                            <th>Password</th>
                            <th>Name</th>
                            <th>Grade</th>
+                           <%if(store==0){ %>
                            <th></th>
+                           <%} %>
                        </tr>
                    </thead>
                    <tbody>
                    <c:forEach items="${cList }" var="custom" varStatus="vs">
                    <c:if test="${custom.del eq '0'}">
                     <tr id="tr${custom.seq }">
-                    	<td></td>
+                    	<td> ${vs.count}</td>
                         <td>${custom.id }</td>
                         <td>${custom.password }</td>
                         <td>${custom.name }</td>
                         <td>${custom.grade }</td>
+                        <%if(store==0){ %>
                         <td>
 							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
 						</td>
+						<%} %>
                     </tr>
                     </c:if>
                     
@@ -69,10 +86,12 @@
                         <td>${custom.password }</td>
                         <td>${custom.name }</td>
                         <td>${custom.grade }</td>
+                        <%if(store==0){ %>
                         <td>
 							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
 						</td>
+						<%} %>
                     </tr>
                     </c:if>
                    </c:forEach>

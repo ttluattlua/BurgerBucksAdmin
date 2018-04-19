@@ -1,3 +1,4 @@
+<%@page import="bba.com.a.model.Bb_AdminDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -6,6 +7,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/> 
 
+<%
+String id="";
+int store=-1;
+Bb_AdminDto admin = new Bb_AdminDto();
+
+if(session.getAttribute("login") != null){	
+	admin = (Bb_AdminDto)session.getAttribute("login");
+	id = admin.getId();
+	store = admin.getStore_seq();
+}
+%>
 
 
 <!-- icon 불러오기 -->
@@ -92,20 +104,6 @@
     
     <tbody>
     
-    <!-- private int seq;
-	private int member_seq;
-	private int member_addr;
-	private int store_seq;
-	private String date;
-	private int status;
-	private int del; -->
-    
-   <!--  model.addAttribute("olist", olist);
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("addrList", addrList);
-		model.addAttribute("storeList", storeList); -->
-	
-	
 <%-- 	JSTL 문법의 for문 사용법
 <c:forEach items="${리스트가 받아올 배열이름}" var=$"{for문안에서 사용할 변수}" varStatus="status">
 status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
@@ -118,12 +116,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 #{status.begin} for문의 시작 값
 #{status.end}   for문의 끝 값
 #{status.step}  for문의 증가값 --%>
-	<%-- 
-	<!-- order menu -->
-	<c:set var="orderMenuList" value="${orderMenuList }" />
-	
- --%>	
- 
+
  	<!-- member list -->
 	<c:set var="memberList" value="${memberList }" />
 	
@@ -133,11 +126,15 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	<!-- store list -->
 	<c:set var="storeList" value="${storeList }" />
 	
+	<!-- 접속한 점포 코드 -->
+	<c:set var="storeCode" value="<%=store %>"></c:set>
+	
 	<!-- order list -->
 	<c:set var="i" value="0" />
     <c:forEach items="${olist}" var="order" varStatus="status">
-   
-
+    
+    <!-- 본사 직원 로그인 시 -->
+   	<c:if test="${storeCode eq '0' }">
 
         <tr id="tr${order.seq}">
         	<!-- 기본 정보 -->
@@ -203,40 +200,84 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <button  id="detailBtn" type="button" class="btn btn-inverse" value="0" onclick="orderDetail(${order.seq})" >주문상세</button>
             </td>
 
-            <%-- 
-            
-            <c:set var="oAddMemo">${addrList[i].address } / <b>배송메모</b> : ${addrList[i].memo }</c:set>
-            
-            <!-- order seq가 같은 ordermenu 불러오기 -->
-            <c:forEach items="${orderMenuList}" var="orderMenu" varStatus="status">
-            <c:if test="${order.seq eq orderMenu.order_seq}">
-
-            <c:set var="orderNoQP">${orderMenu.order_seq } / <b>수량</b> : ${orderMenu.quantity } / <b>가격</b> : ${orderMenu.price }</c:set>
-            
-   			 <!-- 상세정보 -->
-   			 <!-- 배송지 / 배송메모 -->
-            <td>${oAddMemo } </td>
-
-			<!-- 주문번호 / 수량 / 가격 -->
-            <td>${orderNoQP }</td>
-            
-            <!-- 메뉴 시퀀스 -->
-            <td>${orderMenu.menu_seq }</td>
-            
-            </c:if>
-            </c:forEach>
-             --%>
-            <%-- 
-            <!-- 버거 시퀀스 -->
-            <td>${orderMenuList[i].menu.burger }</td>
-            <!-- 사이드 시퀀스 -->
-            <td>${orderMenuList[i].menu.side }</td>
-            <!-- 음료 시퀀스 -->
-            <td>${orderMenuList[i].menu.beverage }</td>
-            <!-- 세트 이름 -->
-            <td>${orderMenuList[i].menu.name }</td> --%>
- 
         </tr>
+        </c:if>
+        
+        
+        <!-- 점포 매니저 로그인 시 -->
+        <c:set var="s" value="1" />
+        <c:if test="${storeCode eq storeList[i].seq }">
+
+        <tr id="tr${order.seq}">
+        	<!-- 기본 정보 -->
+        	
+        	<!-- no -->
+            <td> ${s}</td>
+            <!-- 점포명 -->
+            <td>${storeList[i].name }</td>
+            <!-- 주문자 -->
+            <td>${memberList[i].id }</td>
+            <!-- 연락처 -->
+            <td>${memberList[i].phone }</td>
+            <!-- 주문일자 -->
+            <td>${order.order_date }</td>
+            
+            
+			<!-- 현재 주문 상태 아이콘 -->
+            <td>
+			<c:choose>
+
+		    <c:when test="${order.status eq '0'}">
+            <i class="material-icons">shopping_cart</i>
+		    </c:when>
+
+		    <c:when test="${order.status eq '1'}">
+            <i class="material-icons">payment</i>
+		    </c:when>
+		    
+		    <c:when test="${order.status eq '2'}">
+            <i class="material-icons">room_service</i>
+		    </c:when>
+		    
+		    <c:when test="${order.status eq '3'}">
+            <i class="material-icons">directions_bike</i>
+		    </c:when>
+		   
+		    <c:otherwise>
+            <i class="material-icons">assignment_turned_in</i>
+		    </c:otherwise>
+
+			</c:choose>
+            </td>
+            
+            
+            <!-- 상태 변경하기 -->
+            <td>
+            <select name="oSelect" title="선택하세요" class="form-control">
+		      <option value='0' <c:if test="${order.status eq '0'}">selected</c:if>>장바구니</option>
+		      <option value='1' <c:if test="${order.status eq '1'}">selected</c:if>>주문완료</option>
+		      <option value='2' <c:if test="${order.status eq '2'}">selected</c:if>>준비중</option>
+		      <option value='3' <c:if test="${order.status eq '3'}">selected</c:if>>배달시작</option>
+		      <option value='4' <c:if test="${order.status eq '4'}">selected</c:if>>배달완료</option>
+		    </select>
+			</td>
+			
+			<!-- 상태 저장 버튼 -->
+            <td style="text-align: right;">
+            <button id="save" type="button" class="btn btn-inverse" onclick="saveOSelect(${order.seq})" >저장</button>
+            </td>
+            
+            <!-- 상세보기 버튼 -->
+            <td style="text-align: right;">
+            <button  id="detailBtn" type="button" class="btn btn-inverse" value="0" onclick="orderDetail(${order.seq})" >주문상세</button>
+            </td>
+		<c:set var="ss" value="${s+1 }"></c:set>
+        </tr>
+        </c:if>
+        
+        
+        
+        
         <c:set var="i" value="${i+1 }"></c:set>
     </c:forEach>
     

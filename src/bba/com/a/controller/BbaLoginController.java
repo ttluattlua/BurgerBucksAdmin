@@ -41,7 +41,7 @@ public class BbaLoginController {
 		
 		//세션 초기화
 		HttpSession session = request.getSession();
-		session.removeAttribute("loginedId");
+		session.removeAttribute("login");
 		
 		return "login.tiles";
 	}
@@ -80,7 +80,6 @@ public class BbaLoginController {
 		
 		Bb_AdminDto admin = bbMemberService.loginAdminIdPw(adminDto);
 		if(admin==null) {
-			
 
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out;
@@ -99,8 +98,10 @@ public class BbaLoginController {
 			return "redirect:/login.do";
 		}else {
 			
-			session.setAttribute("loginedId", admin.getId()) ;
+			//세션 설정
+			session.setAttribute("login", admin) ;
 			session.setMaxInactiveInterval(60*60);
+			
 			model.addAttribute("StoreCount", StoreCount);
 			model.addAttribute("memCount", memCount);
 			model.addAttribute("preProfit", preProfit);

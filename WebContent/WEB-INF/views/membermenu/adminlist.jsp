@@ -1,9 +1,22 @@
+<%@page import="bba.com.a.model.Bb_AdminDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="utf-8"/> 
+
+<%
+String id="";
+int store=-1;
+Bb_AdminDto admin = new Bb_AdminDto();
+
+if(session.getAttribute("login") != null){	
+	admin = (Bb_AdminDto)session.getAttribute("login");
+	id = admin.getId();
+	store = admin.getStore_seq();
+}
+%>
 
 <!-- icon 불러오기 -->
 <!--core first + styles last-->
@@ -38,13 +51,14 @@
                <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>
                    <thead>
                     <tr>
-                    	
-                    	<th>Store Code</th>
-                        <th>ID</th>
-                        <th>Password</th>
-                        <th>Name</th>
-                        <th>Phone</th>
+                    	<th>점포코드</th>
+                        <th>아이디</th>
+                        <th>비밀번호</th>
+                        <th>사원명</th>
+                        <th>연락처</th>
+                        <%if(store==0){ %>
                         <th></th>
+                        <%} %>
                     </tr>
 	                </thead>
 	                <tbody>
@@ -55,15 +69,17 @@
 					  <tr id="tr${admin.seq}">
                     	
                     	
-                        <td>삭제된 회원</td>
+                        <td>삭제된 사원</td>
                         <td>${admin.id }</td>
                         <td>${admin.password }</td>
                         <td>${admin.name }</td>
                         <td>${admin.phone }</td>
+                        <%if(store==0){ %>
                         <td>
 							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
                             <input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery(${admin.seq})">
 						</td>
+						<%} %>
                     </tr>
 					</c:if>
 					
@@ -75,10 +91,12 @@
                         <td>${admin.password }</td>
                         <td>${admin.name }</td>
                         <td>${admin.phone }</td>
+                        <%if(store==0){ %>
                         <td>
 							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
 						</td>
+						<%} %>
                     </tr>
                     </c:if>
                     </c:forEach>
@@ -190,22 +208,7 @@ $(document).ready(function() {
                       </div>
  
                     
-<!-- 
-                   <div class="row">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label>Post Code</label>
-                              <input type="text" name="postcode" class="form-control" id="update_postcode" placeholder="우편번호" readonly="readonly" required="required">
-                          </div>
-                      </div>
-                      /span
-                      <div class="col-md-6">
-                          <div class="form-group">
-				<input type="button" onclick="DaumPostcode(1)" value="우편번호 찾기" class="btn btn-inverse" style="margin-top: 30px;">
-                          </div>
-                      </div>
-                      /span
-                  </div> -->
+
                   
               </div>
               <div class="form-actions" align="right">
