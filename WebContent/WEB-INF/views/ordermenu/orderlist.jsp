@@ -73,16 +73,20 @@
             <th>현재상태</th>
             <th>상태변경</th>
             <th></th>
-            <c:set var="thOrderMenu" value="${orderMenuList } " />
-            <c:forEach items="${olist }" var="thOList" varStatus="status">
-            <c:set var="j" value="${status.current}" />
-            <c:if test="${thOList[j].seq eq thOrderMenu[j].order_seq}">
+            <th></th>
+
+            
+            <%-- 
+            <c:forEach items="${olist}" var="chorder" varStatus="status">
+            <c:forEach items="${orderMenuList}" var="chorderMenu" varStatus="status">
+            <c:if test="${chorder.seq eq chorderMenu.order_seq}">
             <th class="none">배송지</th>
             <th class="none">주문번호</th>
             <th class="none">메뉴 seq</th>
             </c:if>
             </c:forEach>
-            
+            </c:forEach>
+             --%>
         </tr>
     </thead>
     
@@ -119,7 +123,8 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	<c:set var="orderMenuList" value="${orderMenuList }" />
 	
  --%>	
- <!-- member list -->
+ 
+ 	<!-- member list -->
 	<c:set var="memberList" value="${memberList }" />
 	
 	<!-- address list -->
@@ -129,8 +134,6 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	<c:set var="storeList" value="${storeList }" />
 	
 	<!-- order list -->
-	
-	
 	<c:set var="i" value="0" />
     <c:forEach items="${olist}" var="order" varStatus="status">
    
@@ -140,7 +143,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
         	<!-- 기본 정보 -->
         	
         	<!-- no -->
-            <td>${status.count}</td>
+            <td> ${status.count}</td>
             <!-- 점포명 -->
             <td>${storeList[i].name }</td>
             <!-- 주문자 -->
@@ -182,18 +185,26 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <!-- 상태 변경하기 -->
             <td>
             <select name="oSelect" title="선택하세요" class="form-control">
-		    
 		      <option value='0' <c:if test="${order.status eq '0'}">selected</c:if>>장바구니</option>
 		      <option value='1' <c:if test="${order.status eq '1'}">selected</c:if>>주문완료</option>
 		      <option value='2' <c:if test="${order.status eq '2'}">selected</c:if>>준비중</option>
 		      <option value='3' <c:if test="${order.status eq '3'}">selected</c:if>>배달시작</option>
 		      <option value='4' <c:if test="${order.status eq '4'}">selected</c:if>>배달완료</option>
 		    </select>
-
 			</td>
+			
+			<!-- 상태 저장 버튼 -->
             <td style="text-align: right;">
             <button id="save" type="button" class="btn btn-inverse" onclick="saveOSelect(${order.seq})" >저장</button>
             </td>
+            
+            <!-- 상세보기 버튼 -->
+            <td style="text-align: right;">
+            <button  id="detailBtn" type="button" class="btn btn-inverse" value="0" onclick="orderDetail(${order.seq})" >주문상세</button>
+            </td>
+
+            <%-- 
+            
             <c:set var="oAddMemo">${addrList[i].address } / <b>배송메모</b> : ${addrList[i].memo }</c:set>
             
             <!-- order seq가 같은 ordermenu 불러오기 -->
@@ -214,6 +225,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             
             </c:if>
             </c:forEach>
+             --%>
             <%-- 
             <!-- 버거 시퀀스 -->
             <td>${orderMenuList[i].menu.burger }</td>
@@ -224,10 +236,11 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <!-- 세트 이름 -->
             <td>${orderMenuList[i].menu.name }</td> --%>
  
- 
         </tr>
         <c:set var="i" value="${i+1 }"></c:set>
     </c:forEach>
+    
+
     </tbody>
 </table>
            </div>
@@ -241,7 +254,6 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
    
 
    <script>
-   
    $(document).ready(function (){
 	    var table = $('#orderTable').DataTable({
 	        'responsive': true
@@ -260,11 +272,15 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	    });
 	});
    </script>
+   
 
-   
-   
+
+
   
 <script type="text/javascript">
+   
+   
+   
 /*---------------------------------------------------------------------------------------------
  * 상태 변경 클릭
  *----------------------------------------------------------------------------------------------*/
@@ -341,81 +357,74 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	}
 	 
 	 
-	/*---------------------------------------------------------------------------------------------
-	 * 테이블 리스트에서 회복 클릭
-	 *----------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * 주문상세 클릭
+ *----------------------------------------------------------------------------------------------*/
 
-		function ListRecovery(seq){
-			alert("회복 클릭");
-			
-			$.ajax({
-	            url : "recoveryAdmin.do",
-	            type: "get",
-	            data : { "seq" : seq },
-	            dataType: 'json',
-	    		contentType : "application; charset=utf-8",
-	    		traditional : true,
-	            success : function(data){
-	                //$("#ajax").remove();
-	                
-	                alert(JSON.stringify(data));
-	                //alert("성공" + data);
-	                alert("길이 : " +data.length);
-	                alert(data[0].id);
-	                if(!data){
-	                    alert("존재하지 않는 ID입니다");
-	                    return false;
-	                }
-	                
-	                var div = document.querySelector('#myTable');
-	                var html = '<table>';
-	                html += '<col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>';
-	                html += '<thead><tr><th>Store Code</th><th>ID</th><th>Password</th><th>Name</th><th>Phone</th><th>SET/DEL</th></tr></thead>';
-	                html += '<tbody>';
-	                
-	                for(var i=0; i<data.length; i++){
-	                    if(data[i].del==0){
-			               	html += '<tr>';
-			                html += '<td>'+data[i].store_seq+'</td>';
-			                html += '<td>'+data[i].id+'</td>';
-			                html += '<td>'+data[i].password+'</td>';
-			                html += '<td>'+data[i].name+'</td>';
-			                html += '<td>'+data[i].phone+'</td>';
-			                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
-							html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
-			                html += '</tr>';
-	                    }else{
-	                    	html += '<tr>';
-			                html += '<td>'+"삭제된 회원"+'</td>';
-			                html += '<td>'+data[i].id+'</td>';
-			                html += '<td>'+data[i].password+'</td>';
-			                html += '<td>'+data[i].name+'</td>';
-			                html += '<td>'+data[i].phone+'</td>';
-			                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
-							html += '<input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery('+data[i].seq+')">';
-			                html += '</tr>';
-	                    }
-	                }
-	                
-	                html += '</tbody></table>';
-	                
-	                div.innerHTML = html;
-	                //$(".container-fluid").after(html);
-
-	            
-	                $(document).ready(function() {
-	                	  $.fn.DataTable.ext.pager.numbers_length = 5;
-	                	    $('#myTable').DataTable( {
-	                	       "pagingType":"full_numbers",
-	                	    } );  
-	                	} );
-	                
-	            },error : function(request,status,error){
-	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-	        });
-		}
-		 	
+	function orderDetail(seq){
+		alert("상세 보기 클릭");
+		
+		$.ajax({
+            url : "orderDetail.do",
+            type: "get",
+            data : { "seq" : seq },
+            dataType: 'json',
+    		contentType : "application; charset=utf-8",
+    		traditional : true,
+            success : function(data){
+                //$("#ajax").remove();
+                
+                alert(JSON.stringify(data));
+                alert("길이 : " +data.length);
+                
+                /* 
+             private int order_seq;				//주문 시퀀스
+           	 
+           	 private int orderMenu_price;		//가격
+           	 private int orderMenu_quantity;	//수량
+           	 
+           	 private int menu_seq;				//주문 메뉴 seq
+           	 private String menu_name;			//-주문 메뉴 이름
+           	 
+           	 private int burger_seq;			//-버거 seq
+           	 private String burger_name;		//--버거명
+           	 private String burger_Ingredient;	//--버거 재료 순서
+           	 
+           	 private String beverage_name;		//-음료
+           	 private String side_name;			//-사이드 */
+           	 
+           		var x = document.getElementById("detailBtn").value;
+           	 
+           	 	
+                for(var i=0; i<data.length; i++){
+                
+                	if(x==0){
+                	
+	                	$( '#tr'+seq ).after( 
+	                		'<tr class="trtr'+seq+'"><td colspan="9">'+
+	                		'<b>주문번호 : </b> '+data[i].order_seq+ '&nbsp&nbsp&nbsp&nbsp<b>메뉴명 : </b>'+data[i].menu_name+'&nbsp&nbsp&nbsp&nbsp<b>가격 : </b>'+data[i].orderMenu_price+ '&nbsp&nbsp&nbsp&nbsp<b>수량 : </b> '+data[i].orderMenu_quantity +
+	                		'<br><b>버거 : </b>'+data[i].burger_name+'&nbsp&nbsp&nbsp&nbsp<b>음료 : </b>'+data[i].beverage_name+'&nbsp&nbsp&nbsp&nbsp<b>사이드 : </b>'+data[i].side_name+
+	                		'<br><br>'+
+	                		'<b>버거 만들기</b>'+
+	                		'<br>랄랄라'+
+	                		'</tr></td>'
+	                	);
+	                	
+	                	document.getElementById("detailBtn").value = "1";
+                	}else if(x==1){
+                		$( '.trtr'+seq ).remove();
+                		document.getElementById("detailBtn").value = "0";
+                	}
+                
+                	
+                }
+                
+            },error : function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+	}
+	 	
 	
 
 
