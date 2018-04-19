@@ -88,6 +88,16 @@
                                             <li><a href="orderlist.do"><img alt="" src="./icons/menuicon/order-food.png"> 주문관리</a></li>                                    
                                         </ul>
                                     </li>
+                                                            
+			                        <li class="nav-label">고객서비스관리</li>   
+			                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/order-food-24px.png"><span class="hide-menu"></span></a>
+			                            <ul aria-expanded="false" class="collapse">
+			                                <li><a href="faq.do">FAQ</a></li>
+			                            </ul>
+			                            <ul aria-expanded="false" class="collapse">
+			                                <li><a href="customer_inquiry.do">고객문의답변</a></li>
+			                            </ul>
+			                        </li>     
                                 </ul>
                             </div>
                         </li>

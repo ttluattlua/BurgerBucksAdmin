@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="BBAInquiry">
+
+<select id="getInquiryList" resultType="bba.com.a.model.Bb_InquiryDto">
+SELECT SEQ, TITLE, EMAIL, TO_CHAR(REGDATE, 'yyyy-mm-dd') AS REGDATE, CONTENT, STATUS
+FROM BB_INQUIRY 
+ORDER BY STATUS DESC, SEQ DESC
+</select>
+
+
+</mapper>  
+
+
+
+
+
