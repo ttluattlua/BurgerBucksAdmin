@@ -84,6 +84,17 @@
 <put-attribute name="main" value="/WEB-INF/views/ordermenu/orderlist.jsp"/>
 </definition>
 
+<!--FAQ로 이동 -->
+<definition name="faq.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/customerservice/FAQ.jsp"/>
+</definition>
+
+<!--고객문의내역으로 이동 -->
+<definition name="inquiry.tiles" extends="home.tiles">
+<put-attribute name="main" value="/WEB-INF/views/customerservice/customer_inquiry.jsp"/>
+</definition>
+
+
 </tiles-definitions>
 
 

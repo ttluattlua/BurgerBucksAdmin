@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="BBAFaq">
+
+<!-- faq등록 -->
+<insert id="registerFaq" parameterType="bba.com.a.model.Bb_FaqDto">
+INSERT INTO BB_FAQ(SEQ, TITLE, CONTENTS, CATEGORIES, READCOUNT, STEP, GROUPS, STATUS, REGDATE, DEL)
+VALUES(BB_FAQ_SEQ.NEXTVAL, #{title}, #{contents}, #{categories}, 0, 0, (SELECT NVL(MAX(GROUPS)+1,1) FROM BB_FAQ), 0, SYSDATE, 0)
+ <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_FAQ_SEQ.CURRVAL as seq FROM dual 
+ </selectKey>
+</insert>
+
+<!-- faq 답글 등록 -->
+<insert id="registerAnswerFaq" parameterType="bba.com.a.model.Bb_FaqDto">
+INSERT INTO BB_FAQ(SEQ, TITLE, CONTENTS, CATEGORIES, READCOUNT, STEP, GROUPS, STATUS, REGDATE, DEL)
+VALUES(BB_FAQ_SEQ.NEXTVAL, #{title}, #{contents}, #{categories}, 0, #{step}, #{groups}, 0, SYSDATE, 0)
+ <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
+ SELECT BB_FAQ_SEQ.CURRVAL as seq FROM dual 
+ </selectKey>
+</insert>
+
+<!-- 답글 등록 후 원래글 stutus 1로 바꾸기  -->
+<update id="updateFaqForAnswer" parameterType="Integer">
+UPDATE BB_FAQ
+SET STATUS=1
+WHERE SEQ=#{seq}
+</update>
+
+
+<!-- faq가져오기 -->
+<select id="getFaqDetail" parameterType="Integer" resultType="bba.com.a.model.Bb_FaqDto">
+SELECT SEQ, TITLE, CONTENTS, CATEGORIES, READCOUNT, STEP, GROUPS, STATUS, REGDATE, DEL
+FROM BB_FAQ
+WHERE SEQ=#{seq}
+</select>
+
+<!-- FAQ리스트 가져오기 -->
+
+<select id="getFaqList" resultType="bba.com.a.model.Bb_FaqDto">
+SELECT * FROM BB_FAQ
+ORDER BY GROUPS ASC, STEP ASC
+</select>
+
+
+<!-- 수정하기-->
+<update id="faqUpdateAf" parameterType="bba.com.a.model.Bb_FaqDto">
+UPDATE BB_FAQ
+SET TITLE=#{title}, CONTENTS=#{contents},CATEGORIES=#{categories}
+WHERE SEQ=#{seq}
+</update>
+
+<!--수정된 글의 답글 카테고리 수정하기-->
+<update id="faqAnswerUpdateAf" parameterType="bba.com.a.model.Bb_FaqDto">
+UPDATE BB_FAQ
+SET CATEGORIES=#{categories},TITLE=#{title}
+WHERE GROUPS=#{groups} AND STEP=1
+</update>
+
+<!--수정된 글의 답글 카테고리 수정하기-->
+<update id="deleteFaq" parameterType="bba.com.a.model.Bb_FaqDto">
+UPDATE BB_FAQ
+SET DEL=1
+WHERE SEQ=#{seq} OR GROUPS=#{groups}
+</update>
+
+
+
+</mapper>  
+
+
+
+
+
