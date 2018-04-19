@@ -241,7 +241,7 @@ if(session.getAttribute("login") != null){
                       
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label class="control-label">가입일자</label>
+                              <label class="control-label">생년월일</label>
                               <input type="date" name="updatebday" id="_updatebday" value="" class="form-control" placeholder="가입일자" required="required">
                               <small class="form-control-feedback"></small></div>
                       </div>

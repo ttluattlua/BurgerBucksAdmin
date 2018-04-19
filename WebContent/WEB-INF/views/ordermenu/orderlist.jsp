@@ -82,6 +82,8 @@ if(session.getAttribute("login") != null){
             <th>주문자</th>
             <th>연락처</th>
             <th>주문일자</th>
+            <th>배송지</th>
+            <th>배송메모</th>
             <th>현재상태</th>
             <th>상태변경</th>
             <th></th>
@@ -150,6 +152,11 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <!-- 주문일자 -->
             <td>${order.order_date }</td>
             
+            <!-- 배송지 -->
+            <td>${addrList[i].addr }</td>
+            <!-- 배송메모 -->
+            <td>${addrList[i].memo }</td>
+            
             
 			<!-- 현재 주문 상태 아이콘 -->
             <td>
@@ -177,6 +184,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 
 			</c:choose>
             </td>
+            
             
             
             <!-- 상태 변경하기 -->
@@ -221,6 +229,11 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td>${memberList[i].phone }</td>
             <!-- 주문일자 -->
             <td>${order.order_date }</td>
+            
+            <!-- 배송지 -->
+            <td>${addrList[i].addr }</td>
+            <!-- 배송메모 -->
+            <td>${addrList[i].memo }</td>
             
             
 			<!-- 현재 주문 상태 아이콘 -->
@@ -423,6 +436,9 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
            	 
            	 private int orderMenu_price;		//가격
            	 private int orderMenu_quantity;	//수량
+           	 
+           	private String addr_address;		//배송주소
+       	 	private String addr_memo;			//배송메모
            	 
            	 private int menu_seq;				//주문 메뉴 seq
            	 private String menu_name;			//-주문 메뉴 이름

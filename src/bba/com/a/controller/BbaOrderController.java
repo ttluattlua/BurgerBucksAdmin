@@ -97,9 +97,10 @@ public class BbaOrderController {
 	/*--------------------------------------------------------------------------------------------
 	 * 주문 상태 변경
 	 *-------------------------------------------------------------------------------------------*/
+	@ResponseBody
 	@RequestMapping(value = "changeOrder.do", 
 			method = {RequestMethod.POST,RequestMethod.GET})
-	public String changeOrder(HttpServletRequest request, Model model) throws Exception {
+	public String changeOrder(@RequestParam("seq") int seq, HttpServletRequest request, Model model) throws Exception {
 		logger.info("Welcome BbaOrderController changeOrder! "+ new Date());
 		
 		

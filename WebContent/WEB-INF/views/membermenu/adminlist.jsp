@@ -181,7 +181,24 @@ $(document).ready(function() {
                       
                   <hr>
                   
-                  <!-- 지점 정보 -->
+                 <div class="row">
+                           <div class="col-md-12 ">
+                               <div class="form-group">
+								<label for="exampleFormControlSelect1">지점명</label>
+								    <select class="form-control" onchange="document.getElementById('_updatestorecode').value = this.options[this.selectedIndex].value">
+								    <option selected value=''>선택하세요</option> 
+								    <c:forEach var="bsdto" items="${bslist}">
+								      <option value='${bsdto.seq }'>${bsdto.name }</option>
+								      </c:forEach>
+								    </select>
+                                   <input type="text" value="" name="updatestorecode" id="_updatestorecode" class="form-control" readonly="readonly">
+                               
+                               </div>
+                            </div>
+                      </div>
+                       
+                  <!-- 
+                  지점 정보
                    <div class="row p-t-20">
                       <div class="col-md-6">
                           <div class="form-group">
@@ -197,7 +214,9 @@ $(document).ready(function() {
                               <small class="form-control-feedback"></small></div>
                       </div>
                       </div>
-                      
+                       -->
+                       
+                       <!-- 연락처 -->
                       <div class="row">
                       <div class="col-md-12">
                           <div class="form-group">
