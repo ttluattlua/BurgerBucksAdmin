@@ -74,8 +74,9 @@ public class BbaOrderController {
 		
 		//주문 상세 가져오기 (ordermenu)
 		List<Bb_OrderMenuDto> orderMenuList = new ArrayList<Bb_OrderMenuDto>();
-		for (int i = 0; i < olist.size(); i++) {
-			orderMenuList.add(bbaOrderService.getOrderMenuList(olist.get(i).getSeq()));
+		orderMenuList = bbaOrderService.getOrderMenuList();
+		
+		for (int i = 0; i < orderMenuList.size(); i++) {
 			System.out.println("orderMenuList (OrderMenu) : " + orderMenuList.get(i).toString());
 		}
 		

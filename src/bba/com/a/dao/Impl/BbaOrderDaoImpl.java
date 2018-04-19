@@ -69,8 +69,10 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 	* 주문 상세 가져오기 (ordermenu)
 	* -----------------------------------------------------------------------------*/
 	@Override
-	public Bb_OrderMenuDto getOrderMenuList(int seq) throws Exception {
-		return sqlSession.selectOne(namespace + "getOrderMenuList", seq);
+	public List<Bb_OrderMenuDto> getOrderMenuList() throws Exception {
+		List<Bb_OrderMenuDto> orderMenuDtoList = new ArrayList<Bb_OrderMenuDto>();
+		orderMenuDtoList = sqlSession.selectList(namespace + "getOrderMenuList");
+		return orderMenuDtoList;
 	}
 
 	

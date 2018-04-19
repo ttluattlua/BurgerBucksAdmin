@@ -29,7 +29,7 @@ public interface BbaOrderDao {
 	
 	
 	//주문 상세 가져오기 (ordermenu)
-	Bb_OrderMenuDto getOrderMenuList(int seq) throws Exception;
+	List<Bb_OrderMenuDto> getOrderMenuList() throws Exception;
 	
 	
 	//메뉴 리스트 가져오기

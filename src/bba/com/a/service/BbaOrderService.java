@@ -30,7 +30,7 @@ public interface BbaOrderService {
 	Bb_StoreDto getStoreList(int store_seq) throws Exception;
 	
 	//주문 상세 가져오기 (orderMenu)
-	Bb_OrderMenuDto getOrderMenuList(int seq) throws Exception;
+	List<Bb_OrderMenuDto> getOrderMenuList() throws Exception;
 	
 	
 	//메뉴 리스트 가져오기

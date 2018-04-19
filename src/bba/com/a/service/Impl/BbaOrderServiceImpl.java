@@ -61,8 +61,8 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 주문 상세 가져오기 (orderMenu)
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public Bb_OrderMenuDto getOrderMenuList(int seq) throws Exception {
-		return bbaOrderDao.getOrderMenuList(seq);
+	public List<Bb_OrderMenuDto> getOrderMenuList() throws Exception {
+		return bbaOrderDao.getOrderMenuList();
 	}
 
 	/*--------------------------------------------------------------------------------------------
