@@ -1,10 +1,21 @@
+<%@page import="bba.com.a.model.Bb_AdminDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="utf-8"/> 
+<%
+String id="";
+int store=-1;
+Bb_AdminDto admin = new Bb_AdminDto();
 
+if(session.getAttribute("login") != null){	
+	admin = (Bb_AdminDto)session.getAttribute("login");
+	id = admin.getId();
+	store = admin.getStore_seq();
+}
+%>
 <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
@@ -30,9 +41,11 @@
                                 <div class="table-responsive m-t-40">
                                 	<!--=========================스토어 등록을 위한 모달 버튼==========================-->
                                     <div align="right"> 
+                                    <%if(store==0){ %>
 	                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addstore">
 	                                    	스토어 등록
 										</button>
+									<%} %>
 									</div>
 									<div id="map" style="height: 400px;width: 100%;"></div>
                                 </div>
@@ -52,7 +65,9 @@
                                                 <th>지점명</th>
                                                 <th>주소</th>
                                                 <th>전화번호</th>
+                                                <%if(store==0){ %>
                                                 <th>--</th>
+	                                            <%} %>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,10 +78,12 @@
                                                 <td>${bsdto.name }</td>
                                                 <td>${bsdto.address }</td>
                                                 <td>${bsdto.phone }</td>
+                                                <%if(store==0){ %>
                                                 <td>
                                                 <input type="button" id="${bsdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateStore(${bsdto.seq })" data-toggle="modal" data-target="#updatestore"> 
                                                 <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteStore(${bsdto.seq })" data-toggle="modal" data-target="#deletestore">
                                                 </td>
+                                                <%} %>
                                                 
                                             </tr>
                                             </c:if>

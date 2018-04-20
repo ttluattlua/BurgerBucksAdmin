@@ -1,10 +1,25 @@
+<%@page import="bba.com.a.model.Bb_AdminDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:requestEncoding value="utf-8"/>    
+<fmt:requestEncoding value="utf-8"/>
+
+<%
+String id="";
+int store=-1;
+Bb_AdminDto admin = new Bb_AdminDto();
+
+if(session.getAttribute("login") != null){	
+	admin = (Bb_AdminDto)session.getAttribute("login");
+	id = admin.getId();
+	store = admin.getStore_seq();
+}
+%>
+
+    
  <!-- Preloader - style you can find in spinners.css -->
  <div class="preloader">
      <svg class="circular" viewBox="25 25 50 50">
@@ -55,11 +70,18 @@
                                         <h4 class="m-b-20"><img alt="" src="./icons/menuicon/users.png"></h4>
                                         <!-- 회원관리 메뉴/사원등록/사원관리/고객관리 -->
                                         <ul class="list-style-none">
+                                        <!-- 본사(store==0)이면 전부 보여주기-->
+                                        <%if(store==0){ %>
                                             <li><a href="adminplus.do"><img alt="" src="./icons/menuicon/userplus.png"> 사원 등록</a></li>
                                             <li><a href="adminlist.do"><img alt="" src="./icons/menuicon/worker.png"> 사원 관리</a></li>
                                             <li><a href="customerlist.do"><img alt="" src="./icons/menuicon/customer.png"> 고객 관리</a></li>
+                                        <%}else{ %>
+                                        	<li><a href="adminlist.do"><img alt="" src="./icons/menuicon/worker.png"> 사원 관리</a></li>
+                                            <li><a href="customerlist.do"><img alt="" src="./icons/menuicon/customer.png"> 고객 관리</a></li>
+                                        <%} %>
                                         </ul>
                                     </li>
+                                    <%if(store==0){ %>
                                     <!--버거/재료/음료/사이드/메뉴 관리 바-->
                                     <li class="col-lg-3 col-xlg-3 m-b-30">
                                         <h4 class="m-b-20"><img alt="" src="./icons/menuicon/fast-food.png"></h4>
@@ -72,6 +94,7 @@
                                             <li><a href="menulist.do"><img alt="" src="./icons/menuicon/menu.png"> 메뉴관리</a></li>
                                         </ul>
                                     </li>
+                                    <%} %>
                                     <!--스토어 수정/등록-->
                                     <li class="col-lg-3 col-xlg-3 m-b-30">
                                         <h4 class="m-b-20"><img alt="" src="./icons/menuicon/store.png"></h4>
@@ -103,11 +126,15 @@
                         </li>
                         <!-- End Messages -->
                     </ul>
+                    
+                    <li style="display:inline-block; text-align: center;"><%=id %> 님</li>
+                    
                     <!-- User profile and search  유저 프로필과 검색 부분 -->
                     <ul class="navbar-nav my-lg-0">
-     
+     				
                         <!-- 프로필 이미지 부분 -->
                         <li class="nav-item dropdown">
+                        	
                             <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./images/userimage.jpg" alt="user" class="profile-pic" /></a>
                             <!-- 프로필 이미지 드롭다운 메뉴 -->
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">

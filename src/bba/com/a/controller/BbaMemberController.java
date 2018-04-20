@@ -217,7 +217,7 @@ public class BbaMemberController {
 	 *-------------------------------------------------------------------------------------------*/
 	@ResponseBody
 	@RequestMapping(value="updateAdmin.do", method={RequestMethod.GET, RequestMethod.POST})
-	public Map<String, Object> updateAdmin(@RequestBody Map<String, Object> map) {
+	public Map<String, Object> updateAdmin(@RequestBody Map<String, Object> map, Model model) {
 		logger.info("BbaMemberController updateAdmin");
 		System.out.println("BbaMemberController updateAdmin");
 
@@ -236,6 +236,15 @@ public class BbaMemberController {
 		STORE_SEQ NUMBER(10) NOT NULL,
 		DEL NUMBER(1) NOT NULL*/
 		
+		List<Bb_StoreDto> bslist = bbaStoreService.GetStoreList();
+		
+		String store_name ="";
+		for(int i=0; i<bslist.size(); i++) {
+			if(bslist.get(i).getSeq()==admindto.getStore_seq()) {
+				store_name = bslist.get(i).getName();
+			}
+		}
+		
 		//view로 보내기 
 		map.put("seq", admindto.getSeq());
 		map.put("id", admindto.getId());
@@ -243,10 +252,14 @@ public class BbaMemberController {
 		map.put("name", admindto.getName());
 		map.put("phone", admindto.getPhone());
 		map.put("store_seq", admindto.getStore_seq());
+		map.put("store_name", store_name);
+		map.put("store_list", bslist);
 		map.put("del", admindto.getDel());
 		
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		rmap.put("map",map);
+		
+		model.addAttribute("bslist", bslist);
 		
 		return rmap;
 	}

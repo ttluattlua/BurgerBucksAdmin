@@ -9,13 +9,17 @@ public class Bb_MenuDto implements Serializable {
 
 	  private int burger_seq;	//버거 시퀀스
 	  private String burger_name;	//버거 네임
+	  
 	  private int side_seq;			//사이드 시퀀스
 	  private String side_name;		//사이드 네임
+	  
 	  private int beverage_seq;		//음료 시퀀스
 	  private String beverage_name;		//음료 네임
+	  
 	  private Bb_BurgerDto burger;		//버거 클래스
 	  private Bb_SideDto side;			//사이드 클래스
 	  private Bb_BeverageDto beverage;  //음료 클래스
+	  
 	  private String name;			//메뉴명
 	  private int creator;			//멤버 시퀀스
 	  private String creatorID;		//멤버 아이디
