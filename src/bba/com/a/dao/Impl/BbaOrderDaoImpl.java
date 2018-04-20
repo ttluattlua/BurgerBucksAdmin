@@ -40,6 +40,15 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 						
 		return list;
 	}
+	
+	/*------------------------------------------------------------------------------
+	* 주문 리스트 받아오기 (seq)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_OrderDto getOrder(int seq) throws Exception {
+		Bb_OrderDto orderDto = sqlSession.selectOne(namespace + "getOrder", seq);
+		return orderDto;
+	}
 
 	/*------------------------------------------------------------------------------
 	* 멤버 리스트 불러오기
@@ -85,9 +94,6 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 	}
 	
 	
-	
-	
-	
 	/*------------------------------------------------------------------------------
 	* 버거 리스트 가져오기
 	* -----------------------------------------------------------------------------*/
@@ -117,12 +123,16 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 		list = sqlSession.selectList(namespace + "getSideList");
 		return list;
 	}
+
 	
-	
-	
-	
-	
-	
+	/*------------------------------------------------------------------------------
+	* 주문 상태 변경하기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void changeOrder(Bb_OrderDto orderDto) throws Exception {
+		sqlSession.update(namespace + "changeOrder" , orderDto);
+	}
+
 	
 	
 	

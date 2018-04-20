@@ -20,6 +20,9 @@ public interface BbaOrderService {
 	//주문 리스트 불러오기
 	List<Bb_OrderDto> getOrderList() throws Exception;
 	
+	//주문 내역 SEQ 불러오기
+	Bb_OrderDto getOrder(int seq) throws Exception;
+	
 	//멤버 리스트 가져오기
 	Bb_MemberDto getMemberList(int member_addr) throws Exception;
 	
@@ -47,5 +50,9 @@ public interface BbaOrderService {
 	
 	//사이드 불러오기
 	List<Bb_SideDto> getSideList() throws Exception;
+	
+	
+	//주문 상태 변경
+	public void changeOrder(Bb_OrderDto orderDto) throws Exception;
 		
 }

@@ -46,7 +46,6 @@ public class BbaOrderController {
 	@Autowired
 	BbaOrderService bbaOrderService;
 
-	
 	/*--------------------------------------------------------------------------------------------
 	 * 주문 리스트로 이동 ( 주문리스트에 맞춰서 멤버, 주소, 점포 상세 리스트 가져오기 )
 	 *-------------------------------------------------------------------------------------------*/
@@ -57,7 +56,6 @@ public class BbaOrderController {
 		
 		List<Bb_OrderDto> olist = bbaOrderService.getOrderList();
 		System.out.println("olist (order) : " + olist.toString());
-				
 		
 		//멤버 dto 가져오기
 		List<Bb_MemberDto> memberList = new ArrayList<Bb_MemberDto>();
@@ -77,10 +75,7 @@ public class BbaOrderController {
 			storeList.add(bbaOrderService.getStoreList(olist.get(i).getStore_seq()));
 		}
 		
-		
 		model.addAttribute("olist", olist); 			//order list
-		/*model.addAttribute("orderMenuList", orderMenuList); 			//order menu list
-*/		
 		model.addAttribute("memberList", memberList);	//member list
 		model.addAttribute("addrList", addrList);		//address list
 		model.addAttribute("storeList", storeList);		//store list
@@ -100,12 +95,20 @@ public class BbaOrderController {
 	@ResponseBody
 	@RequestMapping(value = "changeOrder.do", 
 			method = {RequestMethod.POST,RequestMethod.GET})
-	public String changeOrder(@RequestParam("seq") int seq, HttpServletRequest request, Model model) throws Exception {
+	public Bb_OrderDto changeOrder(@RequestParam("seq") int seq, @RequestParam("status") int status, 
+			HttpServletRequest request, Model model) throws Exception {
 		logger.info("Welcome BbaOrderController changeOrder! "+ new Date());
 		
+		Bb_OrderDto orderDto = new Bb_OrderDto();
+		orderDto.setSeq(seq);
+		orderDto.setStatus(status);
+		System.out.println("orderDto changeOrder로 들어온 것 : "+orderDto.toString());
+		
+		bbaOrderService.changeOrder(orderDto);
 		
 		
-		return null;
+		
+		return bbaOrderService.getOrder(seq);
 	}
 	
 	
@@ -238,20 +241,5 @@ public class BbaOrderController {
 		
 		return odList;
 	}
-	
-	
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

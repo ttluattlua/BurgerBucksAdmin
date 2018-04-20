@@ -100,6 +100,22 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 		return bbaOrderDao.getSideList();
 	}
 
+	/*--------------------------------------------------------------------------------------------
+	 * 주문 상태 변경하기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void changeOrder(Bb_OrderDto orderDto) throws Exception {
+		bbaOrderDao.changeOrder(orderDto);
+	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 주문 내역 SEQ 불러오기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public Bb_OrderDto getOrder(int seq) throws Exception {
+		return bbaOrderDao.getOrder(seq);
+	}
+
 	
 	
 	
