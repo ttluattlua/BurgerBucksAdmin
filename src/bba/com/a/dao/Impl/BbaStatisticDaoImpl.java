@@ -1,10 +1,13 @@
 package bba.com.a.dao.Impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import bba.com.a.dao.BbaStatisticDao;
+import bba.com.a.model.Bb_OrderStatisticDto;
 
 @Repository
 public class BbaStatisticDaoImpl implements BbaStatisticDao {
@@ -49,6 +52,14 @@ public class BbaStatisticDaoImpl implements BbaStatisticDao {
 	public int getPreviousMonthOrderCounts() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(ns+"getPreviousMonthOrderCounts");
+	}
+	/*--------------------------------------------------------------------------------------------
+	 * 7년간 매출이익들
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_OrderStatisticDto> getOrderStatisticList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"getOrderStatisticList");
 	}
 	
 	

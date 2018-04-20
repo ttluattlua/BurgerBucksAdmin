@@ -21,5 +21,14 @@ public class BbaInquiryDaoImpl implements BbaInquiryDao {
 	 *-------------------------------------------------------------------------------------------*/
 	public List<Bb_InquiryDto> getInquiryList(){
 		return sqlSession.selectList(ns+"getInquiryList");
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 메일보내기 
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void sendMail(Bb_InquiryDto bidto) {
+		int count = sqlSession.update(ns+"sendMail", bidto);
+		
 	}	
 }

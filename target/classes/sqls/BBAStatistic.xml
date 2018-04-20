@@ -28,4 +28,27 @@ SELECT COUNT(SEQ) FROM BB_ORDER WHERE ORDER_DATE BETWEEN
 </select>
 
 
+<!--7년간 매출 -->
+<select id="getOrderStatisticList" resultType="bba.com.a.model.Bb_OrderStatisticDto">
+SELECT PERIOD, PROFIT
+FROM(
+SELECT 
+    TO_CHAR(ORDER_DATE, 'YYYY') PERIOD,
+    SUM(PRICE) PROFIT
+FROM BB_ORDER
+GROUP BY  TO_CHAR(ORDER_DATE, 'YYYY')
+ORDER BY  TO_CHAR(ORDER_DATE, 'YYYY') ASC
+)
+WHERE PERIOD IN(
+(SELECT to_char(trunc(add_months(sysdate, -12), 'dd'),'yyyy') FROM dual),     
+(SELECT to_char(trunc(add_months(sysdate, -24), 'dd'),'yyyy') FROM dual),
+(SELECT to_char(trunc(add_months(sysdate, -36), 'dd'),'yyyy') FROM dual), 
+(SELECT to_char(trunc(add_months(sysdate, -48), 'dd'),'yyyy') FROM dual), 
+(SELECT to_char(trunc(add_months(sysdate, -60), 'dd'),'yyyy') FROM dual), 
+(SELECT to_char(trunc(add_months(sysdate, -72), 'dd'),'yyyy') FROM dual),
+(SELECT to_char(trunc(add_months(sysdate, -84), 'dd'),'yyyy') FROM dual)
+)
+</select>
+
+
 </mapper>

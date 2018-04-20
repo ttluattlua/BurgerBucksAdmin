@@ -1,5 +1,9 @@
 package bba.com.a.dao;
 
+import java.util.List;
+
+import bba.com.a.model.Bb_OrderStatisticDto;
+
 public interface BbaStatisticDao {
 	
 	/*--------------------------------------------------------------------------------------------
@@ -23,4 +27,10 @@ public interface BbaStatisticDao {
 	 *-------------------------------------------------------------------------------------------*/
 	
 	public int getPreviousMonthOrderCounts();
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 7년간 매출이익들
+	 *-------------------------------------------------------------------------------------------*/
+	
+	public List<Bb_OrderStatisticDto> getOrderStatisticList();
 }

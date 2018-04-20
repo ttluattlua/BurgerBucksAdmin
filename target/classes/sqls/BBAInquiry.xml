@@ -11,6 +11,12 @@ FROM BB_INQUIRY
 ORDER BY STATUS DESC, SEQ DESC
 </select>
 
+<update id="sendMail" parameterType="bba.com.a.model.Bb_InquiryDto">
+UPDATE BB_INQUIRY
+SET STATUS=1
+WHERE SEQ=#{seq}
+</update>
+
 
 </mapper>  
 

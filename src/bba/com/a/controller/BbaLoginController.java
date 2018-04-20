@@ -3,6 +3,7 @@ package bba.com.a.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import bba.com.a.model.Bb_AdminDto;
+import bba.com.a.model.Bb_OrderStatisticDto;
 import bba.com.a.service.BbaMemberSerivce;
 import bba.com.a.service.BbaStatisticService;
 import bba.com.a.service.BbaStoreSerivce;
@@ -59,7 +61,17 @@ public class BbaLoginController {
 		int memCount = bbaStatisticService.getMemberCounts();
 		int preProfit = bbaStatisticService.getPreviousMonthProfit();
 		int preOrderCount = bbaStatisticService.getPreviousMonthOrderCounts();
-		
+		List<Bb_OrderStatisticDto> osList = bbaStatisticService.getOrderStatisticList();
+
+		String osListStr="";
+		for (int i = 0; i < osList.size(); i++) {
+			if(i!=osList.size()-1) {
+				osListStr += osList.get(i).toString()+",";
+			}else {
+				osListStr += osList.get(i).toString();
+			}
+		}
+		System.out.println("osListStr"+osListStr);
 		System.out.println("로그인 시 id : " + adminDto.getId());
 		System.out.println("로그인 시 password : " + adminDto.getPassword());
 		
@@ -105,6 +117,7 @@ public class BbaLoginController {
 			model.addAttribute("memCount", memCount);
 			model.addAttribute("preProfit", preProfit);
 			model.addAttribute("preOrderCount", preOrderCount);
+			model.addAttribute("osListStr", osListStr);
 			model.addAttribute("msg", admin.getId()+" login 완료"); 
 		    
 			return "home.tiles";
@@ -123,11 +136,21 @@ public class BbaLoginController {
 		int memCount = bbaStatisticService.getMemberCounts();
 		int preProfit = bbaStatisticService.getPreviousMonthProfit();
 		int preOrderCount = bbaStatisticService.getPreviousMonthOrderCounts();
-		
+		List<Bb_OrderStatisticDto> osList = bbaStatisticService.getOrderStatisticList();
+
+		String osListStr="";
+		for (int i = 0; i < osList.size(); i++) {
+			if(i!=osList.size()-1) {
+				osListStr += osList.get(i).toString()+",";
+			}else {
+				osListStr += osList.get(i).toString();
+			}
+		}
 		model.addAttribute("StoreCount", StoreCount);
 		model.addAttribute("memCount", memCount);
 		model.addAttribute("preProfit", preProfit);
 		model.addAttribute("preOrderCount", preOrderCount);
+		model.addAttribute("osListStr", osListStr);
 		return "home.tiles";
 	}
 	

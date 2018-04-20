@@ -23,6 +23,14 @@ public class BbaInquiryServiceImpl implements BbaInquiryService {
 	public List<Bb_InquiryDto> getInquiryList() {
 		return bbaInquiryDao.getInquiryList();
 	}
+
+	/*--------------------------------------------------------------------------------------------
+	 * 메세지 보내고 status 1로 바꾸기
+	 *-------------------------------------------------------------------------------------------*/
+	@Override
+	public void sendMail(Bb_InquiryDto bidto) {
+		bbaInquiryDao.sendMail(bidto);	
+	}
 	
 
 }

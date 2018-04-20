@@ -316,7 +316,22 @@
  * 재료등록
  *----------------------------------------------------------------------------------------------*/
 function registerSideClick() {
-	alert("클릭");
+	
+	//입력란에 다 입력했는지 막아주기 
+	if($("#name").val() == "" || $("#name").val() == null){
+		alert("사이드명 입력해주세요");
+		return;
+	}else if($("#price").val() == "" || $("#price").val() == null){
+		alert("가격을 입력해주세요");
+		return;
+	}else if($("#cal").val() == "" || $("#cal").val() == null){
+		alert("칼로리를 입력해주세요");
+		return;
+	}else if(document.getElementById("image_src").files.length == 0){
+		alert("사이드사진을 선택해주세요");
+		return;
+	}
+	
     var formData = new FormData($("#fileForm")[0]);
     $.ajax({
         type : 'post',
@@ -419,7 +434,16 @@ function registerSideClick() {
   *----------------------------------------------------------------------------------------------*/
  function updateSideAf() {	
  		 
-		alert("클릭");
+		if($("#updatename").val() == "" || $("#updatename").val() == null){
+			alert("사이드명을 입력해주세요");
+			return;
+		}else if($("#updateprice").val() == "" || $("#updateprice").val() == null){
+			alert("가격을 입력해주세요");
+			return;
+		}else if($("#updatecal").val() == "" || $("#updatecal").val() == null){
+			alert("칼로리를 입력해주세요");
+			return;
+		}
 	    var formData = new FormData($("#update_fileForm")[0]);
 	    $.ajax({
 	        type : 'post',

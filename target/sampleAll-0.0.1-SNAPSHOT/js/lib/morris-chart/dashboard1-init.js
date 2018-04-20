@@ -8,61 +8,54 @@ $( function () {
 		element: 'extra-area-chart',
 		data: [ {
 				period: '2001',
-				iphone: 0,
-				imac: 0,
-				ibook: 90,
-				samsung: 0,
-				android: 0
+				고객수: 100,
+				매출: 0,
+				주문량: 90,
+				지점수: 0
         }, {
 				period: '2002',
-				iphone: 10,
-				imac: 60,
-				ibook: 40,
-				samsung: 80,
-				android: 120
+				고객수: 10,
+				매출: 60,
+				주문량: 40,
+				지점수: 80
+
         }, {
 				period: '2003',
-				iphone: 120,
-				imac: 10,
-				ibook: 90,
-				samsung: 30,
-				android: 50
+				고객수: 120,
+				매출: 10,
+				주문량: 90,
+				지점수: 30
         }, {
 				period: '2004',
-				iphone: 0,
-				imac: 0,
-				ibook: 120,
-				samsung: 0,
-				android: 0
+				고객수: 0,
+				매출: 0,
+				주문량: 120,
+				지점수: 0
         }, {
-				period: '2005',
-				iphone: 0,
-				imac: 0,
-				ibook: 0,
-				samsung: 150,
-				android: 0
+        		고객수: '2005',
+        		매출: 0,
+        		주문량: 0,
+        		지점수: 0
         }, {
 				period: '2006',
-				iphone: 160,
-				imac: 75,
-				ibook: 30,
-				samsung: 60,
-				android: 90
+				고객수: 160,
+				매출: 75,
+				주문량: 30,
+				지점수: 60
         }, {
 				period: '2007',
-				iphone: 10,
-				imac: 120,
-				ibook: 40,
-				samsung: 60,
-				android: 30
+				고객수: 10,
+				매출: 120,
+				주문량: 40,
+				지점수: 60
         }
 
 
         ],
-		lineColors: [ '#26DAD2', '#fc6180', '#62d1f3', '#ffb64d', '#4680ff' ],
+		lineColors: [ '#26DAD2', '#fc6180', '#62d1f3', '#ffb64d'],
 		xkey: 'period',
-		ykeys: [ 'iphone', 'imac', 'ibook', 'samsung', 'android' ],
-		labels: [ 'iphone', 'imac', 'ibook', 'samsung', 'android' ],
+		ykeys: [ '고객수', '매출', '주문량', '지점수' ],
+		labels: [ '고객수', '매출', '주문량', '지점수'],
 		pointSize: 0,
 		lineWidth: 0,
 		resize: true,

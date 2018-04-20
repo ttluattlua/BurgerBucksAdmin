@@ -60,6 +60,25 @@
 		<property name="uploadTempDir" value="upload"/> 업로드 경로 
 	</bean> -->
 	
+	<!-- 이메일 관련 -->
+
+<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="burger0bucks@gmail.com" />
+    <property name="password" value="qjrjqjrtm" />
+    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.smtp.auth">true</prop>
+        </props>
+    </property>
+</bean>
+
+<bean id="mailService" class="bba.com.a.service.Impl.MailServiceImpl">		
+    <property name="javaMailSender" ref="javaMailSender" />	
+</bean>
 	
 
 	

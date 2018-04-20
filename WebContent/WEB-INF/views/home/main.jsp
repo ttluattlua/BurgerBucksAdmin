@@ -82,7 +82,7 @@
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Extra Area Chart</h4>
+                                <h4 class="card-title">연도별 매출이익</h4>
                                 <div id="extra-area-chart"></div>
                             </div>
                         </div>
@@ -93,11 +93,13 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body browser">
+  								<%-- <c:forEach var="sdto" items="${osListStr}" varStatus="status">
+  								</c:forEach> --%>
                                 <p class="f-w-600">고객수 <span class="pull-right">85%</span></p>
                                 <div class="progress ">
                                     <div role="progressbar" style="width: 85%; height:8px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
                                 </div>
-
+								
                                 <p class="m-t-30 f-w-600">전 월 매출<span class="pull-right">90%</span></p>
                                 <div class="progress">
                                     <div role="progressbar" style="width: 90%; height:8px;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
@@ -122,4 +124,35 @@
                     </div>
                     <!-- column -->
                 </div>
-              
+
+<script type="text/javascript">
+//Dashboard 1 Morris-chart
+$( function () {
+	"use strict";
+
+
+	// Extra chart
+	Morris.Area( {
+		element: 'extra-area-chart',
+		data: [
+			${osListStr}
+        ],
+		lineColors: [ '#26DAD2'],
+		xkey: 'period',
+		ykeys: ['profit'],
+		labels: [ '매출이익' ],
+		pointSize: 0,
+		lineWidth: 0,
+		resize: true,
+		fillOpacity: 0.8,
+		behaveLikeLine: true,
+		gridLineColor: '#e0e0e0',
+		hideHover: 'auto'
+
+	} );
+
+
+
+} );
+
+</script>
