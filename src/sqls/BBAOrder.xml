@@ -66,7 +66,7 @@
 	
 
 	<!-- 버거 불러오기 -->
-	<select id="getBurgerList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_BurgerDto">
+	<select id="getBurgerList" parameterType="java.lang.Integer" resultType="bba.com.a.model.Bb_BurgerTableDto">
 		SELECT SEQ, NAME, BREAD, 
 		INGREDIENT01, INGREDIENT02, INGREDIENT03, INGREDIENT04, INGREDIENT05, 
 		INGREDIENT06, INGREDIENT07, INGREDIENT08, INGREDIENT09, CREATOR, PRICE, CAL, DEL
@@ -86,6 +86,12 @@
 	<select id="getSideList" resultType="bba.com.a.model.Bb_SideDto">
 		SELECT SEQ, NAME, PRICE, CAL, DEL
 		FROM BB_SIDE
+	</select>
+	
+	<!-- 재료 불러오기 -->
+	<select id="getIngreList" resultType="bba.com.a.model.Bb_IngredientDto">
+		SELECT SEQ, NAME, TYPES, PRICE, CAL, DEL
+		FROM BB_INGREDIENT
 	</select>
 	
 	

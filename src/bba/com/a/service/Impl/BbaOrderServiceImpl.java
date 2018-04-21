@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import bba.com.a.dao.BbaOrderDao;
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_BeverageDto;
-import bba.com.a.model.Bb_BurgerDto;
+import bba.com.a.model.Bb_BurgerTableDto;
+import bba.com.a.model.Bb_IngredientDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
@@ -80,7 +81,7 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	 * 버거 리스트 가져오기
 	 *-------------------------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_BurgerDto> getBurgerList() throws Exception {
+	public List<Bb_BurgerTableDto> getBurgerList() throws Exception {
 		return bbaOrderDao.getBurgerList();
 	}
 
@@ -100,6 +101,15 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 		return bbaOrderDao.getSideList();
 	}
 
+	/*------------------------------------------------------------------------------
+	* 재료 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_IngredientDto> getIngreList() throws Exception {
+		return bbaOrderDao.getIngreList();
+	}
+	
+	
 	/*--------------------------------------------------------------------------------------------
 	 * 주문 상태 변경하기
 	 *-------------------------------------------------------------------------------------------*/
@@ -115,6 +125,8 @@ public class BbaOrderServiceImpl implements BbaOrderService {
 	public Bb_OrderDto getOrder(int seq) throws Exception {
 		return bbaOrderDao.getOrder(seq);
 	}
+
+	
 
 	
 	

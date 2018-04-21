@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_BeverageDto;
 import bba.com.a.model.Bb_BurgerDto;
+import bba.com.a.model.Bb_BurgerTableDto;
+import bba.com.a.model.Bb_IngredientDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
@@ -43,13 +45,17 @@ public interface BbaOrderService {
 	
 	
 	//버거 불러오기
-	List<Bb_BurgerDto> getBurgerList() throws Exception;
+	List<Bb_BurgerTableDto> getBurgerList() throws Exception;
 	
 	//음료 불러오기
 	List<Bb_BeverageDto> getBeverageList() throws Exception;
 	
 	//사이드 불러오기
 	List<Bb_SideDto> getSideList() throws Exception;
+	
+	//재료 불러오기
+	List<Bb_IngredientDto> getIngreList() throws Exception;
+	
 	
 	
 	//주문 상태 변경

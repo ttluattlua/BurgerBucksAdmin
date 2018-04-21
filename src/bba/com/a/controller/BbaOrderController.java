@@ -27,7 +27,8 @@ import bba.com.a.arrow.StoreMapParcing;
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_AdminDto;
 import bba.com.a.model.Bb_BeverageDto;
-import bba.com.a.model.Bb_BurgerDto;
+import bba.com.a.model.Bb_BurgerTableDto;
+import bba.com.a.model.Bb_IngredientDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDetailDto;
@@ -123,13 +124,16 @@ public class BbaOrderController {
 		logger.info("Welcome BbaOrderController orderDetail! "+ new Date());
 		
 		//버거 리스트 가져오기
-		List<Bb_BurgerDto> burgerList = bbaOrderService.getBurgerList();
+		List<Bb_BurgerTableDto> burgerList = bbaOrderService.getBurgerList();
 		
 		//음료 리스트 가져오기
 		List<Bb_BeverageDto> beverageList = bbaOrderService.getBeverageList();
 		
 		//음료 리스트 가져오기
 		List<Bb_SideDto> sideList = bbaOrderService.getSideList();
+		
+		//재료 리스트 가져오기
+		List<Bb_IngredientDto> ingreList = bbaOrderService.getIngreList();
 		
 				
 		
@@ -156,7 +160,7 @@ public class BbaOrderController {
 		//Bb_OrderMenuDto에 있는 Bb_MenuTableDto menu; 부분 DTO로 넣기
 		for (int i = 0; i < orderDetail.size(); i++) {
 			orderDetail.get(i).setMenu(new Bb_MenuTableDto(
-					orderDetail.get(i).getSeq(),	//int seq;
+						orderDetail.get(i).getSeq(),	//int seq;
 						
 						menuList.get(i).getBurger(),	//burger seq
 						menuList.get(i).getSide(),		//side seq
@@ -218,6 +222,54 @@ public class BbaOrderController {
 				}
 			}
 			
+			for(int z = 0; z < burgerList.size(); z++) {
+				System.out.println("burgerList : " + burgerList.get(z).toString());
+			}
+			//버거 재료 찾아 넣기
+			//버거 시퀀스
+			String burgerIngre = "";
+			for(int j = 0; j < burgerList.size(); j++) {
+				if(orderDetail.get(i).getMenu().getBurger() == burgerList.get(j).getSeq()) {
+					
+					burgerIngre += "번 : " ;
+					for(int z = 0; z < ingreList.size(); z++) {
+					
+						
+						if(burgerList.get(j).getBread() == ingreList.get(z).getSeq()) {
+							burgerIngre += ingreList.get(z).getName();
+						}
+					}
+		
+					burgerIngre += "  /  재료 : " ;
+					for(int z = 0; z < ingreList.size(); z++) {
+						
+						
+						
+						if(burgerList.get(j).getIngredient01() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient02() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient03() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient04() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient05() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient06() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient07() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient08() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}else if(burgerList.get(j).getIngredient09() == ingreList.get(z).getSeq()) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+						
+					}
+				}
+			}
+			
+				
 			odList.add(new Bb_OrderDetailDto(
 					orderDetail.get(i).getOrder_seq(),	//order_seq
 					orderDetail.get(i).getPrice(), 		//orderMenu_price 
@@ -226,7 +278,7 @@ public class BbaOrderController {
 					orderDetail.get(i).getMenu().getName(), //menu_name
 					orderDetail.get(i).getMenu().getBurger(), //burger_seq,
 					burgerName, //burger_name,
-					"", //재료
+					burgerIngre, //재료
 					beverageName, //beverage_name
 					sideName //side_name
 					));

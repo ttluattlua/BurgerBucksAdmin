@@ -59,8 +59,8 @@ if(session.getAttribute("login") != null){
            <div class="table-responsive m-t-40">
            <div>
            <hr>
-           	<button id="btn-show-all-children" type="button" class="btn btn-inverse" >Expand All</button>
-			<button id="btn-hide-all-children" type="button" class="btn btn-inverse" >Collapse All</button>
+           <!-- 	<button id="btn-show-all-children" type="button" class="btn btn-inverse" >Expand All</button>
+			<button id="btn-hide-all-children" type="button" class="btn btn-inverse" >Collapse All</button> -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div style="text-align: right;">
 			<i class="material-icons">shopping_cart</i> 장바구니 / 
@@ -235,7 +235,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td>${order.order_date }</td>
             
             <!-- 배송지 -->
-            <td>${addrList[i].addr }</td>
+            <td>${addrList[i].address }</td>
             <!-- 배송메모 -->
             <td>${addrList[i].memo }</td>
             
@@ -397,36 +397,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
                 
                 //alert(JSON.stringify(data));
                 //alert("길이 : " +data.length);
-                
-                $( '#tr'+seq ).after( 
-                		'<tr class="trtr'+seq+'"><td colspan="11">'+
-                		'<b>주문번호 : </b> '+data[i].order_seq+ '&nbsp&nbsp&nbsp&nbsp<b>메뉴명 : </b>'+data[i].menu_name+'&nbsp&nbsp&nbsp&nbsp<b>가격 : </b>'+data[i].orderMenu_price+ '&nbsp&nbsp&nbsp&nbsp<b>수량 : </b> '+data[i].orderMenu_quantity +
-                		'<br><b>버거 : </b>'+data[i].burger_name+'&nbsp&nbsp&nbsp&nbsp<b>음료 : </b>'+data[i].beverage_name+'&nbsp&nbsp&nbsp&nbsp<b>사이드 : </b>'+data[i].side_name+
-                		'<br><br>'+
-                		'<b>버거 만들기</b>'+
-                		'<br>랄랄라'+
-                		'</tr></td>'
-                	);
-                
-                /* 
-             private int order_seq;				//주문 시퀀스
-           	 
-           	 private int orderMenu_price;		//가격
-           	 private int orderMenu_quantity;	//수량
-           	 
-           	private String addr_address;		//배송주소
-       	 	private String addr_memo;			//배송메모
-           	 
-           	 private int menu_seq;				//주문 메뉴 seq
-           	 private String menu_name;			//-주문 메뉴 이름
-           	 
-           	 private int burger_seq;			//-버거 seq
-           	 private String burger_name;		//--버거명
-           	 private String burger_Ingredient;	//--버거 재료 순서
-           	 
-           	 private String beverage_name;		//-음료
-           	 private String side_name;			//-사이드 */
-           	 
+
            		var x = document.getElementById("detailBtn").value;
            	 
            	 	
@@ -440,7 +411,8 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	                		'<br><b>버거 : </b>'+data[i].burger_name+'&nbsp&nbsp&nbsp&nbsp<b>음료 : </b>'+data[i].beverage_name+'&nbsp&nbsp&nbsp&nbsp<b>사이드 : </b>'+data[i].side_name+
 	                		'<br><br>'+
 	                		'<b>버거 만들기</b>'+
-	                		'<br>랄랄라'+
+	                		'<br>'+
+	                		data[i].burger_Ingredient +
 	                		'</tr></td>'
 	                	);
 	                	
