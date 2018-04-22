@@ -38,12 +38,13 @@ public class BbaLoginController {
 	 * 로그인 화면 (첫화면)
 	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String login(HttpServletRequest request, Model model) {
+	public String login(HttpServletRequest request, HttpSession session,  Model model) {
 		logger.info("BbaMemberController login");
 		
 		//세션 초기화
-		HttpSession session = request.getSession();
 		session.removeAttribute("login");
+		//세션 모든 정보 삭제, 현재 세션 무효화
+		session.invalidate();
 		
 		return "login.tiles";
 	}
@@ -52,7 +53,9 @@ public class BbaLoginController {
 	 * 로그인후 메인
 	 *-------------------------------------------------------------------------------------------*/
 	@RequestMapping(value="loginAf.do", method=RequestMethod.POST)
-	public String loginAf(HttpServletRequest request, HttpServletResponse response,  Model model, Bb_AdminDto adminDto) {
+	public String loginAf(HttpServletRequest request, HttpSession session,
+			HttpServletResponse response,  Model model, 
+			Bb_AdminDto adminDto) {
 		logger.info("BbaMemberController login");
 		
 		
@@ -75,7 +78,6 @@ public class BbaLoginController {
 		System.out.println("로그인 시 id : " + adminDto.getId());
 		System.out.println("로그인 시 password : " + adminDto.getPassword());
 		
-		HttpSession session = request.getSession(true);
 
 		//혜진 집  http://192.168.219.110:8191/upload/
 		session.setAttribute("imagePath", "http://172.30.1.9:8090/upload/");
@@ -91,6 +93,8 @@ public class BbaLoginController {
 		firstPath = reqUris[1];*/
 		
 		Bb_AdminDto admin = bbMemberService.loginAdminIdPw(adminDto);
+		
+		
 		if(admin==null) {
 
             response.setContentType("text/html; charset=UTF-8");
@@ -121,6 +125,11 @@ public class BbaLoginController {
 			model.addAttribute("osListStr", osListStr);
 			model.addAttribute("msg", admin.getId()+" login 완료"); 
 		    
+			//저장된 세션 출력
+			/*
+			Bb_AdminDto chAdmin = (Bb_AdminDto) session.getAttribute("login");
+			System.out.println("세션 저장 id : " + chAdmin.getId());
+			*/
 			return "home.tiles";
 		}
 	}

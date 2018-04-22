@@ -48,14 +48,16 @@ if(session.getAttribute("login") != null){
            <h6 class="card-subtitle">Customer List</h6>
            <div class="table-responsive m-t-40">
                <table id="myTable" class="table table-bordered table-striped">
-               <col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>
                    <thead>
                        <tr>
                            <th></th>
                            <th>ID</th>
-                           <th>Password</th>
-                           <th>Name</th>
-                           <th>Grade</th>
+                           <th>비밀번호</th>
+                           <th>이름</th>
+                           <th>연락처</th>
+                           <th>등급</th>
+                           <th>마일리지</th>
+                           <th>가입일자</th>
                            <%if(store==0){ %>
                            <th></th>
                            <%} %>
@@ -69,7 +71,10 @@ if(session.getAttribute("login") != null){
                         <td>${custom.id }</td>
                         <td>${custom.password }</td>
                         <td>${custom.name }</td>
+                        <td>${custom.phone }</td>
                         <td>${custom.grade }</td>
+                        <td>${custom.mileage }</td>
+                        <td>${custom.bday }</td>
                         <%if(store==0){ %>
                         <td>
 							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
@@ -85,7 +90,10 @@ if(session.getAttribute("login") != null){
                         <td>${custom.id }</td>
                         <td>${custom.password }</td>
                         <td>${custom.name }</td>
+                        <td>${custom.phone }</td>
                         <td>${custom.grade }</td>
+                        <td>${custom.mileage }</td>
+                        <td>${custom.bday }</td>
                         <%if(store==0){ %>
                         <td>
 							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
@@ -241,7 +249,7 @@ if(session.getAttribute("login") != null){
                       
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label class="control-label">생년월일</label>
+                              <label class="control-label">가입일자</label>
                               <input type="date" name="updatebday" id="_updatebday" value="" class="form-control" placeholder="가입일자" required="required">
                               <small class="form-control-feedback"></small></div>
                       </div>
@@ -311,12 +319,12 @@ function ListSet(seq) {
 				
 				alert(data.map.id);
 				
-				var sex = "";
+				/* var sex = "";
 				if(data.map.sex==0){
 					sex="남자";
 				}else{
 					sex="여자";
-				}
+				} */
 				
 				var ddate = (data.map.bday).split("/");
 				var date = "20"+ddate[0]+"-"+ddate[1]+"-"+ddate[2];
@@ -324,7 +332,7 @@ function ListSet(seq) {
 				
 				document.getElementById('_updatename').value = data.map.name;
 				document.getElementById('_updateid').value = data.map.id;
-				document.getElementById('_updatesex').value = sex;
+				document.getElementById('_updatesex').value = data.map.sex;
 				document.getElementById('_updatepassword').value = data.map.password;
 				document.getElementById('_updatephone').value = data.map.phone;
 				document.getElementById('_updatebday').value = date;
@@ -355,19 +363,27 @@ function updateCustomerAf() {
 	    var id= document.getElementById('_updateid').value;
 	    var password= document.getElementById('_updatepassword').value;
 	    var phone= document.getElementById('_updatephone').value;
+	    var sex= document.getElementById('_updatesex').value;
 	    var bday= document.getElementById('_updatebday').value;
 	    var mileage= document.getElementById('_updatemileage').value;
 	    var grade = document.getElementById('_updategrade').value;
 	    var exp = document.getElementById('_updateexp').value;
+	    alert(bday);
 	    
+	    var ddate = bday.split("-");
+	    var year = ddate[0].substr(2,4);
+	    var month = ddate[1];
+	    var day = ddate[2];
 	    
+	    var ccbday = year+"/"+month+"/"+day;
 	    
 		data["seq"]=seq;
 		data["name"]=name;
 		data["id"]=id;
 		data["password"]=password;
 		data["phone"]=phone;
-		data["bday"]=bday;
+		data["sex"]=sex;
+		data["bday"]=ccbday;
 		data["mileage"]=mileage;
 		data["grade"]=grade;
 		data["exp"]=exp;
@@ -382,19 +398,24 @@ function updateCustomerAf() {
 			
 			success:function(data){
 				alert("수정완료");
+				
 				//해당 테이블 row일단 삭제
 				var deleteRowId = "tr"+$("#updateseq").val();
 				deleteTableRow(deleteRowId);
+				
 				//수정된걸로 다시생성
-
-                           
-				$('#myTable tr:last').after('<tr id="tr'+seq+'">'+
-						'<td>'+ID+'</td>'+
-						'<td>'+Password+'</td>'+
-						'<td>'+Name+'</td>'+
-						'<td>'+Grade+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+seq+')" data-toggle="modal" data-target="#updateCustomerModal">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+seq+')"></td>'+
-						'</tr>');
+				$('#myTable tr:last').after(
+						'<tr id="tr'+data.map.seq+'">'+
+						'<td>'+"수정"+'</td>'+
+						'<td>'+data.map.id+'</td>'+
+						'<td>'+data.map.password+'</td>'+
+						'<td>'+data.map.name+'</td>'+
+						'<td>'+data.map.phone+'</td>'+
+						'<td>'+data.map.grade+'</td>'+
+						'<td>'+data.map.mileage+'</td>'+
+						'<td>'+data.map.bday+'</td>'+
+						'<td style="text-align: right;"><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+data.map.seq+')" data-toggle="modal" data-target="#updateCustomerModal">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+data.map.seq+')"></td>'
+						+'</tr>');
 				
 				//$(".modal-fade").modal("hide");
 				//$(".modal-backdrop").remove();

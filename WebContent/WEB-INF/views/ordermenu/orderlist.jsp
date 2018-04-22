@@ -59,8 +59,8 @@ if(session.getAttribute("login") != null){
            <div class="table-responsive m-t-40">
            <div>
            <hr>
-           	<button id="btn-show-all-children" type="button" class="btn btn-inverse" >Expand All</button>
-			<button id="btn-hide-all-children" type="button" class="btn btn-inverse" >Collapse All</button>
+           <!-- 	<button id="btn-show-all-children" type="button" class="btn btn-inverse" >Expand All</button>
+			<button id="btn-hide-all-children" type="button" class="btn btn-inverse" >Collapse All</button> -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div style="text-align: right;">
 			<i class="material-icons">shopping_cart</i> 장바구니 / 
@@ -72,9 +72,11 @@ if(session.getAttribute("login") != null){
            </div>
 
 
-
+<!-- 점포 / 본사 구분 -->
+<input type="hidden" name="chStoreSeq" value="<%=store%>">
 
 <table id="orderTable" class="display" cellspacing="0" width="100%">
+
     <thead>
         <tr>
         	<th>No</th>
@@ -83,9 +85,9 @@ if(session.getAttribute("login") != null){
             <th>연락처</th>
             <th>주문일자</th>
             <th>배송지</th>
-            <th>배송메모</th>
-            <th>현재상태</th>
-            <th>상태변경</th>
+            <th>메모</th>
+            <th>상태</th>
+            <th>변경</th>
             <th></th>
             <th></th>
 
@@ -153,13 +155,13 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td>${order.order_date }</td>
             
             <!-- 배송지 -->
-            <td>${addrList[i].addr }</td>
+            <td>${addrList[i].address }</td>
             <!-- 배송메모 -->
             <td>${addrList[i].memo }</td>
             
             
 			<!-- 현재 주문 상태 아이콘 -->
-            <td>
+            <td id="tdPre${order.seq}">
 			<c:choose>
 
 		    <c:when test="${order.status eq '0'}">
@@ -188,8 +190,8 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             
             
             <!-- 상태 변경하기 -->
-            <td>
-            <select name="oSelect" title="선택하세요" class="form-control">
+            <td id="tdChPre${order.seq}">
+            <select name="${order.seq}oSelect1" title="선택하세요" class="form-control">
 		      <option value='0' <c:if test="${order.status eq '0'}">selected</c:if>>장바구니</option>
 		      <option value='1' <c:if test="${order.status eq '1'}">selected</c:if>>주문완료</option>
 		      <option value='2' <c:if test="${order.status eq '2'}">selected</c:if>>준비중</option>
@@ -197,6 +199,8 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 		      <option value='4' <c:if test="${order.status eq '4'}">selected</c:if>>배달완료</option>
 		    </select>
 			</td>
+			
+			
 			
 			<!-- 상태 저장 버튼 -->
             <td style="text-align: right;">
@@ -231,13 +235,13 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             <td>${order.order_date }</td>
             
             <!-- 배송지 -->
-            <td>${addrList[i].addr }</td>
+            <td>${addrList[i].address }</td>
             <!-- 배송메모 -->
             <td>${addrList[i].memo }</td>
             
             
 			<!-- 현재 주문 상태 아이콘 -->
-            <td>
+            <td id="tdPre${order.seq}" style="text-align: center;">
 			<c:choose>
 
 		    <c:when test="${order.status eq '0'}">
@@ -265,8 +269,8 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             
             
             <!-- 상태 변경하기 -->
-            <td>
-            <select name="oSelect" title="선택하세요" class="form-control">
+            <td id="tdChPre${order.seq}" style="text-align: center;">
+            <select name="${order.seq}oSelect2" title="선택하세요" class="form-control">
 		      <option value='0' <c:if test="${order.status eq '0'}">selected</c:if>>장바구니</option>
 		      <option value='1' <c:if test="${order.status eq '1'}">selected</c:if>>주문완료</option>
 		      <option value='2' <c:if test="${order.status eq '2'}">selected</c:if>>준비중</option>
@@ -333,76 +337,39 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
   
 <script type="text/javascript">
    
-   
-   
 /*---------------------------------------------------------------------------------------------
  * 상태 변경 클릭
  *----------------------------------------------------------------------------------------------*/
-
 	function saveOSelect(seq){
 		alert("상태 수정 클릭");
+		
+		var oSelect = '-1';
+		
+		//var chStore = document.getElementsByClassName(".chStoreSeq");
+		var chStore = $('input[name=chStoreSeq]').val();
+		//alert("점포 코드 : "+chStore);
+		if(chStore==0){
+			oSelect = $('select[name="'+seq+'"oSelect1]').val();
+			//alert("상태 선택 코드 : [0] "+oSelect);
+		}else{
+			oSelect = $('select[name="'+seq+'"oSelect2]').val();
+			//alert("상태 선택 코드 : "+oSelect);
+		}
 		
 		$.ajax({
             url : "changeOrder.do",
             type: "get",
-            data : { "seq" : seq },
+            data : { "seq" : seq, 
+            		"status" : oSelect	},
             dataType: 'json',
     		contentType : "application; charset=utf-8",
     		traditional : true,
             success : function(data){
-                //$("#ajax").remove();
                 
-                alert(JSON.stringify(data));
-                //alert("성공" + data);
-                alert("길이 : " +data.length);
-                alert(data[0].id);
-                if(!data){
-                    alert("존재하지 않는 ID입니다");
-                    return false;
-                }
+                //alert(JSON.stringify(data));
                 
-                var div = document.querySelector('#myTable');
-                var html = '<table>';
-                html += '<col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="20%"/><col width="20%"/>';
-                html += '<thead><tr><th>Store Code</th><th>ID</th><th>Password</th><th>Name</th><th>Phone</th><th>SET/DEL</th></tr></thead>';
-                html += '<tbody>';
-                
-                for(var i=0; i<data.length; i++){
-                    if(data[i].del==0){
-		               	html += '<tr>';
-		                html += '<td>'+data[i].store_seq+'</td>';
-		                html += '<td>'+data[i].id+'</td>';
-		                html += '<td>'+data[i].password+'</td>';
-		                html += '<td>'+data[i].name+'</td>';
-		                html += '<td>'+data[i].phone+'</td>';
-		                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
-						html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
-		                html += '</tr>';
-                    }else{
-                    	html += '<tr>';
-		                html += '<td>'+"삭제된 회원"+'</td>';
-		                html += '<td>'+data[i].id+'</td>';
-		                html += '<td>'+data[i].password+'</td>';
-		                html += '<td>'+data[i].name+'</td>';
-		                html += '<td>'+data[i].phone+'</td>';
-		                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
-						html += '<input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery('+data[i].seq+')">';
-		                html += '</tr>';
-                    }
-                }
-                
-                html += '</tbody></table>';
-                
-                div.innerHTML = html;
-                //$(".container-fluid").after(html);
-
-            
-                $(document).ready(function() {
-                	  $.fn.DataTable.ext.pager.numbers_length = 5;
-                	    $('#myTable').DataTable( {
-                	       "pagingType":"full_numbers",
-                	    } );  
-                	} );
+                //성공하면 이 함수 찾아서 고!
+                updateRow(data);
                 
             },error : function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -428,28 +395,9 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
             success : function(data){
                 //$("#ajax").remove();
                 
-                alert(JSON.stringify(data));
-                alert("길이 : " +data.length);
-                
-                /* 
-             private int order_seq;				//주문 시퀀스
-           	 
-           	 private int orderMenu_price;		//가격
-           	 private int orderMenu_quantity;	//수량
-           	 
-           	private String addr_address;		//배송주소
-       	 	private String addr_memo;			//배송메모
-           	 
-           	 private int menu_seq;				//주문 메뉴 seq
-           	 private String menu_name;			//-주문 메뉴 이름
-           	 
-           	 private int burger_seq;			//-버거 seq
-           	 private String burger_name;		//--버거명
-           	 private String burger_Ingredient;	//--버거 재료 순서
-           	 
-           	 private String beverage_name;		//-음료
-           	 private String side_name;			//-사이드 */
-           	 
+                //alert(JSON.stringify(data));
+                //alert("길이 : " +data.length);
+
            		var x = document.getElementById("detailBtn").value;
            	 
            	 	
@@ -458,12 +406,13 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
                 	if(x==0){
                 	
 	                	$( '#tr'+seq ).after( 
-	                		'<tr class="trtr'+seq+'"><td colspan="9">'+
+	                		'<tr class="trtr'+seq+'"><td colspan="11">'+
 	                		'<b>주문번호 : </b> '+data[i].order_seq+ '&nbsp&nbsp&nbsp&nbsp<b>메뉴명 : </b>'+data[i].menu_name+'&nbsp&nbsp&nbsp&nbsp<b>가격 : </b>'+data[i].orderMenu_price+ '&nbsp&nbsp&nbsp&nbsp<b>수량 : </b> '+data[i].orderMenu_quantity +
 	                		'<br><b>버거 : </b>'+data[i].burger_name+'&nbsp&nbsp&nbsp&nbsp<b>음료 : </b>'+data[i].beverage_name+'&nbsp&nbsp&nbsp&nbsp<b>사이드 : </b>'+data[i].side_name+
 	                		'<br><br>'+
 	                		'<b>버거 만들기</b>'+
-	                		'<br>랄랄라'+
+	                		'<br>'+
+	                		data[i].burger_Ingredient +
 	                		'</tr></td>'
 	                	);
 	                	
@@ -483,124 +432,29 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	}
 	 	
 	
+function updateRow(data){
 
-
-/*---------------------------------------------------------------------------------------------
- * 사원 수정
- *----------------------------------------------------------------------------------------------*/
-function ListSet(seq) {	
-		 
-	    alert("사원 수정클릭");
-	    alert(seq);
+	console.log(data);
+	
+	if(data.status==0){
+		$( '#tdPre'+data.seq ).html('<i class="material-icons">shopping_cart</i>');
+	}else if(data.status==1){
+		$( '#tdPre'+data.seq ).html('<i class="material-icons">payment</i>');
+	}else if(data.status==2){
+		$( '#tdPre'+data.seq ).html('<i class="material-icons">room_service</i>');
+	}else if(data.status==3){
+		$( '#tdPre'+data.seq ).html('<i class="material-icons">directions_bike</i>');
+	}else if(data.status==4){
+		$( '#tdPre'+data.seq ).html('<i class="material-icons">assignment_turned_in</i>');
+	}
+	
+	//$( '#tdPre'+data.seq ).html('랄라');
+	
+	
     
-		
-	    var data = {};
-	    
-		data["seq"]=seq;
-		
-		$.ajax({
-			contentType:'application/json',
-			dataType:'json',
-			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
-			url:"updateAdmin.do",			// admin
-			type:'POST',
-			success:function(data){
-				
-				alert(data.map.id);
-				
-				document.getElementById('_updatename').value = data.map.name;
-				document.getElementById('_updateid').value = data.map.id;
-				document.getElementById('_updatepassword').value = data.map.password;
-				document.getElementById('_updatestorename').value = data.map.store_seq;
-				document.getElementById('_updatestorecode').value = data.map.store_seq;
-				document.getElementById('_updatephone').value = data.map.phone;
-				document.getElementById('updateseq').value = seq;
-				
-				
-			},
-			error:function(req, status, error){
-				alert("error");
-			}
-		
-		});
-		
-			
-}
 
-/*---------------------------------------------------------------------------------------------
- * 사원 수정 후
- *----------------------------------------------------------------------------------------------*/
-function updateAdminAf() {	
-		 
-	    alert("사원 수정완료클릭");
-	    var data = {};
-		var seq = document.getElementById('updateseq').value;
-	    var id= document.getElementById('_updateid').value;
-	    var password= document.getElementById('_updatepassword').value;
-	    var name = document.getElementById('_updatename').value;
-	    var phone = document.getElementById('_updatephone').value;
-	    var store_seq = document.getElementById('_updatestorecode').value;
-	    
-	    
-		data["seq"]=seq;
-		data["id"]=id;
-		data["password"]=password;
-		data["name"]=name;
-		data["phone"]=phone;
-		data["store_seq"]=store_seq;
-		
-		
-		$.ajax({
-			contentType:'application/json',
-			dataType:'json',
-			data:JSON.stringify(data), 		//JavaScript 값을 JSON으로 변환 한다
-			url:"updateAdminAf.do",			// store
-			type:'POST',
-			
-			success:function(data){
-				alert("수정완료");
-				//해당 테이블 row일단 삭제
-				var deleteRowId = "tr"+$("#updateseq").val();
-				deleteTableRow(deleteRowId);
-				//수정된걸로 다시생성
-			
-			
-				$('#myTable tr:last').after('<tr id="tr'+seq+'">'+
-						'<td>'+store_seq+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td>'+password+'</td>'+
-						'<td>'+name+'</td>'+
-						'<td>'+phone+'</td>'+
-						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+seq+')" data-toggle="modal" data-target="#updateAdmin">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+seq+')"></td>'+
-						'</tr>');
-				
-				//$(".modal-fade").modal("hide");
-				//$(".modal-backdrop").remove();
-				//$(".modal").modal("hide");
-				$("updateAdmin").modal("hide");
-				//location.reload();
-			},
-			error : function(request,status,error){
-	               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	           }
-		
-		});
-		
 }
 
 
-/*---------------------------------------------------------------------------------------------
- * tr 아이디값으로 해당 row 지우는 함수 
- *----------------------------------------------------------------------------------------------*/
- function deleteTableRow(deleteRowId){
-	 var row = document.getElementById(deleteRowId);
-	    var table = row.parentNode;
-	    while ( table && table.tagName != 'TABLE' )
-	        table = table.parentNode;
-	    if ( !table )
-	        return;
-	    table.deleteRow(row.rowIndex);
- }
 </script>
   
-

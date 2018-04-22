@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import bba.com.a.dao.BbaOrderDao;
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_BeverageDto;
-import bba.com.a.model.Bb_BurgerDto;
+import bba.com.a.model.Bb_BurgerTableDto;
+import bba.com.a.model.Bb_IngredientDto;
 import bba.com.a.model.Bb_MemberDto;
 import bba.com.a.model.Bb_MenuTableDto;
 import bba.com.a.model.Bb_OrderDto;
@@ -39,6 +40,15 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 		list = sqlSession.selectList(namespace + "getOrderList");
 						
 		return list;
+	}
+	
+	/*------------------------------------------------------------------------------
+	* 주문 리스트 받아오기 (seq)
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public Bb_OrderDto getOrder(int seq) throws Exception {
+		Bb_OrderDto orderDto = sqlSession.selectOne(namespace + "getOrder", seq);
+		return orderDto;
 	}
 
 	/*------------------------------------------------------------------------------
@@ -85,15 +95,12 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 	}
 	
 	
-	
-	
-	
 	/*------------------------------------------------------------------------------
 	* 버거 리스트 가져오기
 	* -----------------------------------------------------------------------------*/
 	@Override
-	public List<Bb_BurgerDto> getBurgerList() throws Exception {
-		List<Bb_BurgerDto> list = new ArrayList<Bb_BurgerDto>();
+	public List<Bb_BurgerTableDto> getBurgerList() throws Exception {
+		List<Bb_BurgerTableDto> list = new ArrayList<Bb_BurgerTableDto>();
 		list = sqlSession.selectList(namespace + "getBurgerList");
 		return list;
 	}
@@ -107,6 +114,16 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 		list = sqlSession.selectList(namespace + "getBeverageList");
 		return list;
 	}
+	
+	
+	/*------------------------------------------------------------------------------
+	* 재료 리스트 가져오기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public List<Bb_IngredientDto> getIngreList() throws Exception {
+		return sqlSession.selectList(namespace + "getIngreList");
+	}
+	
 
 	/*------------------------------------------------------------------------------
 	* 사이드 리스트 가져오기
@@ -117,12 +134,18 @@ public class BbaOrderDaoImpl implements BbaOrderDao {
 		list = sqlSession.selectList(namespace + "getSideList");
 		return list;
 	}
+
 	
+	/*------------------------------------------------------------------------------
+	* 주문 상태 변경하기
+	* -----------------------------------------------------------------------------*/
+	@Override
+	public void changeOrder(Bb_OrderDto orderDto) throws Exception {
+		sqlSession.update(namespace + "changeOrder" , orderDto);
+	}
+
 	
-	
-	
-	
-	
+
 	
 	
 	

@@ -1,5 +1,6 @@
 package bba.com.a.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +36,8 @@ public class BbaMemberController {
 	
 	@Autowired
 	BbaStoreSerivce bbaStoreService;
+	
+	
 
 
 
@@ -128,6 +131,11 @@ public class BbaMemberController {
 		model.addAttribute("aList", aList);
 		//model.addAttribute("year", adminparam.getYear());
 		//model.addAttribute("month", adminparam.getMonth());
+		
+		//점포 dto 가져오기
+		List<Bb_StoreDto> bslist = bbaStoreService.GetStoreList();
+		model.addAttribute("storeList", bslist);		//store list
+		
 		
 		model.addAttribute("doc_title", "사원관리");
 		model.addAttribute("doc_menu", "멤버관리");
@@ -300,9 +308,20 @@ public class BbaMemberController {
 				0);
 
 		bbMemberService.updateAdminAf(admindto);
+		
+		List<Bb_StoreDto> bslist = bbaStoreService.GetStoreList();
+		
+		String store_name ="";
+		for(int i=0; i<bslist.size(); i++) {
+			if(bslist.get(i).getSeq()==store_seq) {
+				store_name = bslist.get(i).getName();
+			}
+		}
+		
+		map.put("store_name", store_name);
 	
 		Map<String, Object> rmap = new HashMap<String, Object>();
-		rmap.put("msg","수정완료");
+		rmap.put("map",map);
 		
 		return rmap;
 	}
@@ -321,7 +340,6 @@ public class BbaMemberController {
 	public String customerlist(HttpServletRequest request, Model model) throws Exception {
 		logger.info("BbaMemberController customerlist");
 		
-		System.out.println("첫번째로 옴??");
 		
 		List<Bb_MemberDto> cList = bbMemberService.getCustomerList();
 		model.addAttribute("cList", cList);
@@ -332,29 +350,7 @@ public class BbaMemberController {
 		return "customerlist.tiles";
 	}
 	
-	
 
-	/*--------------------------------------------------------------------------------------------
-	 * 고객 리스트 불러오기
-	 *-------------------------------------------------------------------------------------------*/
-/*	@RequestMapping(value = "customerList.do", 
-			method = {RequestMethod.POST,RequestMethod.GET})
-	public String customerList(HttpServletRequest request, Model model) throws Exception {
-		logger.info("Welcome BbaMemberController customerList! "+ new Date());
-		
-	
-		List<Bb_MemberDto> cList = bbMemberService.getCustomerList();
-		model.addAttribute("cList", cList);
-		//model.addAttribute("year", adminparam.getYear());
-		//model.addAttribute("month", adminparam.getMonth());
-		
-		model.addAttribute("doc_title", "고객관리");
-		model.addAttribute("doc_menu", "멤버관리");
-		
-		return "customerlist.tiles";
-	}*/
-	
-	
 
 
 	/*--------------------------------------------------------------------------------------------
@@ -447,19 +443,6 @@ public class BbaMemberController {
 		System.out.println("updateCustomerAf seq : " + sseq);
 		int seq = Integer.parseInt(sseq);
 		
-		/*
-		 *  SEQ NUMBER(10) PRIMARY KEY,
-			ID VARCHAR2(20) NOT NULL,
-			PASSWORD VARCHAR2(20) NOT NULL,
-			BDAY VARCHAR2(20) NOT NULL,
-			NAME VARCHAR2(20) NOT NULL,
-			PHONE VARCHAR2(20) NOT NULL,
-			SEX NUMBER(1) NOT NULL,
-			MILEAGE NUMBER(10) NOT NULL,
-			GRADE NUMBER(10) NOT NULL,
-			EXP NUMBER(10) NOT NULL,
-			DEL NUMBER(1) NOT NULL*/
-		
 
 		String ssex = (String)map.get("sex");
 		int sex = Integer.parseInt(ssex);
@@ -474,13 +457,16 @@ public class BbaMemberController {
 		int exp= Integer.parseInt(eexp);
 		
 		
+		String phon = (String)map.get("phone");
+		phon = phon.replaceAll("(^\\p{Z}+|\\p{Z}+$)", "");
+		
 		Bb_MemberDto customerDto = new Bb_MemberDto(
 				seq, 
 				(String)map.get("id"), 
 				(String)map.get("password"), 
 				(String)map.get("bday"), 
 				(String)map.get("name"), 
-				(String)map.get("phone"), 
+				phon, 
 				sex,
 				mileage,
 				grade,
@@ -488,9 +474,21 @@ public class BbaMemberController {
 				0);
 
 		bbMemberService.updateCustomerAf(customerDto);
+		
+		map.put("seq", customerDto.getSeq());
+		map.put("id", customerDto.getId());
+		map.put("password", customerDto.getPassword());
+		map.put("bday", customerDto.getBday());
+		map.put("name", customerDto.getName());
+		map.put("phone", customerDto.getPhone());
+		map.put("sex", customerDto.getSex());
+		map.put("mileage", customerDto.getMileage());
+		map.put("grade", customerDto.getGrade());
+		map.put("exp", customerDto.getExp());
+		map.put("del", customerDto.getDel());
 	
 		Map<String, Object> rmap = new HashMap<String, Object>();
-		rmap.put("msg","수정완료");
+		rmap.put("map",map);
 		
 		return rmap;
 	}
