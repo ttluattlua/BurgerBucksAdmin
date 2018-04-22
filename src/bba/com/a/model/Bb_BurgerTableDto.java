@@ -172,5 +172,4 @@ public class Bb_BurgerTableDto implements Serializable {
 	
 	
 	
-	
 }

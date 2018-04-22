@@ -51,13 +51,13 @@ if(session.getAttribute("login") != null){
                    <thead>
                        <tr>
                            <th></th>
-                           <th>ID</th>
+                           <th>이메일</th>
                            <th>비밀번호</th>
                            <th>이름</th>
                            <th>연락처</th>
                            <th>등급</th>
                            <th>마일리지</th>
-                           <th>가입일자</th>
+                           <th>생년월일</th>
                            <%if(store==0){ %>
                            <th></th>
                            <%} %>
@@ -77,7 +77,7 @@ if(session.getAttribute("login") != null){
                         <td>${custom.bday }</td>
                         <%if(store==0){ %>
                         <td>
-							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
+							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal" data-backdrop="static" data-keyboard="false"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
 						</td>
 						<%} %>
@@ -96,7 +96,7 @@ if(session.getAttribute("login") != null){
                         <td>${custom.bday }</td>
                         <%if(store==0){ %>
                         <td>
-							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal"> 
+							<input type="button" id="${custom.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${custom.seq})" data-toggle="modal" data-target="#updateCustomerModal" data-backdrop="static" data-keyboard="false"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${custom.seq})">
 						</td>
 						<%} %>
@@ -157,7 +157,7 @@ if(session.getAttribute("login") != null){
                 html += '<td>'+data[i].password+'</td>';
                 html += '<td>'+data[i].name+'</td>';
                 html += '<td>'+data[i].grade+'</td>';
-                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateCustomerModal"> ';
+                html += '<td><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateCustomerModal" data-backdrop="static" data-keyboard="false"> ';
 				html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
                 html += '</tr>';
 
@@ -249,8 +249,8 @@ if(session.getAttribute("login") != null){
                       
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label class="control-label">가입일자</label>
-                              <input type="date" name="updatebday" id="_updatebday" value="" class="form-control" placeholder="가입일자" required="required">
+                              <label class="control-label">생년월일</label>
+                              <input type="date" name="updatebday" id="_updatebday" value="" class="form-control" placeholder="생년월일" required="required">
                               <small class="form-control-feedback"></small></div>
                       </div>
                       </div>
@@ -325,17 +325,17 @@ function ListSet(seq) {
 				}else{
 					sex="여자";
 				} */
-				
+				/* 
 				var ddate = (data.map.bday).split("/");
 				var date = "20"+ddate[0]+"-"+ddate[1]+"-"+ddate[2];
-				alert(date);
-				
+				 */
+				alert(data.map.bday);
 				document.getElementById('_updatename').value = data.map.name;
 				document.getElementById('_updateid').value = data.map.id;
 				document.getElementById('_updatesex').value = data.map.sex;
 				document.getElementById('_updatepassword').value = data.map.password;
 				document.getElementById('_updatephone').value = data.map.phone;
-				document.getElementById('_updatebday').value = date;
+				document.getElementById('_updatebday').value = data.map.bday;
 				document.getElementById('_updatemileage').value = data.map.mileage;
 				document.getElementById('_updategrade').value = data.map.grade;
 				document.getElementById('_updateexp').value = data.map.exp;
@@ -370,20 +370,20 @@ function updateCustomerAf() {
 	    var exp = document.getElementById('_updateexp').value;
 	    alert(bday);
 	    
-	    var ddate = bday.split("-");
+	    /* var ddate = bday.split("-");
 	    var year = ddate[0].substr(2,4);
 	    var month = ddate[1];
 	    var day = ddate[2];
 	    
 	    var ccbday = year+"/"+month+"/"+day;
-	    
+	     */
 		data["seq"]=seq;
 		data["name"]=name;
 		data["id"]=id;
 		data["password"]=password;
 		data["phone"]=phone;
 		data["sex"]=sex;
-		data["bday"]=ccbday;
+		data["bday"]=bday;
 		data["mileage"]=mileage;
 		data["grade"]=grade;
 		data["exp"]=exp;
@@ -398,7 +398,8 @@ function updateCustomerAf() {
 			
 			success:function(data){
 				alert("수정완료");
-				
+				$("#updateCustomerModal").modal('hide');
+				$('.modal-backdrop').remove();
 				//해당 테이블 row일단 삭제
 				var deleteRowId = "tr"+$("#updateseq").val();
 				deleteTableRow(deleteRowId);
@@ -414,14 +415,10 @@ function updateCustomerAf() {
 						'<td>'+data.map.grade+'</td>'+
 						'<td>'+data.map.mileage+'</td>'+
 						'<td>'+data.map.bday+'</td>'+
-						'<td style="text-align: right;"><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+data.map.seq+')" data-toggle="modal" data-target="#updateCustomerModal">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+data.map.seq+')"></td>'
+						'<td style="text-align: right;"><input type="button" value="수정" class="btn btn-inverse" onclick="ListSet('+data.map.seq+')" data-toggle="modal" data-target="#updateCustomerModal" data-backdrop="static" data-keyboard="false">&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="ListDelete('+data.map.seq+')"></td>'
 						+'</tr>');
 				
-				//$(".modal-fade").modal("hide");
-				//$(".modal-backdrop").remove();
-				//$(".modal").modal("hide");
-				$("updateAdmin").modal("hide");
-				//location.reload();
+				
 			},
 			error : function(request,status,error){
 	               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

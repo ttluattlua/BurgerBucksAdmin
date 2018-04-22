@@ -82,9 +82,9 @@ if(session.getAttribute("login") != null){
 					</c:if>
                    <c:if test="${admin.del eq '0'}">
                     <tr id="tr${admin.seq}">
-                    	<c:forEach items="${storeList}" var="storeList" varStatus="status">
-	                    	<c:if test="${storeList.seq eq admin.store_seq}">
-	                        	<td>${storeList.name }</td>
+                    	<c:forEach items="${bslist}" var="bslist" varStatus="status">
+	                    	<c:if test="${bslist.seq eq admin.store_seq}">
+	                        	<td>${bslist.name }</td>
 	                        </c:if>
                         </c:forEach>
                         <td>${admin.id }</td>
@@ -94,7 +94,7 @@ if(session.getAttribute("login") != null){
                         
                         <%if(store==0){ %>
                         <td style="text-align: center;">
-							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin"> 
+							<input type="button" id="${admin.seq}Btn" value="수정" class="btn btn-inverse" onclick="ListSet(${admin.seq})" data-toggle="modal" data-target="#updateAdmin" data-backdrop="static" data-keyboard="false"> 
                             <input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete(${admin.seq})">
 						</td>
 						<%} %>
@@ -188,8 +188,8 @@ $(document).ready(function() {
 								<label for="exampleFormControlSelect1">지점명</label>
 								    <select class="form-control" onchange="document.getElementById('_updatestorecode').value = this.options[this.selectedIndex].value">
 								    <option selected value=''>선택하세요</option> 
-								    <c:forEach items="${storeList}" var="storeList" varStatus="status">
-				                    	<option value='${storeList.seq }'>${storeList.name }</option>
+								    <c:forEach items="${bslist}" var="bslist" varStatus="status">
+				                    	<option value='${bslist.seq }'>${bslist.name }</option>
 			                        </c:forEach>
 								      
 								    </select>
@@ -271,7 +271,7 @@ $(document).ready(function() {
 		                html += '<td>'+data[i].password+'</td>';
 		                html += '<td>'+data[i].name+'</td>';
 		                html += '<td>'+data[i].phone+'</td>';
-		                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+		                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin" data-backdrop="static" data-keyboard="false"> ';
 						html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
 		                html += '</tr>';
                     }else{
@@ -281,7 +281,7 @@ $(document).ready(function() {
 		                html += '<td>'+data[i].password+'</td>';
 		                html += '<td>'+data[i].name+'</td>';
 		                html += '<td>'+data[i].phone+'</td>';
-		                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+		                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin" data-backdrop="static" data-keyboard="false"> ';
 						html += '<input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery('+data[i].seq+')">';
 		                html += '</tr>';
                     }
@@ -347,7 +347,7 @@ $(document).ready(function() {
 			                html += '<td>'+data[i].password+'</td>';
 			                html += '<td>'+data[i].name+'</td>';
 			                html += '<td>'+data[i].phone+'</td>';
-			                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+			                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin" data-backdrop="static" data-keyboard="false"> ';
 							html += '<input type="button" value="삭제"  class="btn btn-inverse" onclick="ListDelete('+data[i].seq+')">';
 			                html += '</tr>';
 	                    }else{
@@ -357,7 +357,7 @@ $(document).ready(function() {
 			                html += '<td>'+data[i].password+'</td>';
 			                html += '<td>'+data[i].name+'</td>';
 			                html += '<td>'+data[i].phone+'</td>';
-			                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin"> ';
+			                html += '<td style="text-align: center;"><input type="button" id="'+data[i].seq+'Btn" value="수정" class="btn btn-inverse" onclick="ListSet('+data[i].seq+')" data-toggle="modal" data-target="#updateAdmin" data-backdrop="static" data-keyboard="false"> ';
 							html += '<input type="button" value="회복"  class="btn btn-inverse" onclick="ListRecovery('+data[i].seq+')">';
 			                html += '</tr>';
 	                    }
@@ -472,7 +472,8 @@ function updateAdminAf() {
 				//$(".modal-fade").modal("hide");
 				//$(".modal-backdrop").remove();
 				//$(".modal").modal("hide");
-				$("updateAdmin").modal("hide");
+				$("#updateAdmin").modal('hide');
+				$('.modal-backdrop').remove();
 				//location.reload();
 			},
 			error : function(request,status,error){
