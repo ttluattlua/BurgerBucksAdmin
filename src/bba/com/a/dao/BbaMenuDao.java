@@ -3,6 +3,7 @@ package bba.com.a.dao;
 import java.util.List;
 
 import bba.com.a.model.Bb_BeverageDto;
+import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_MenuDto;
 import bba.com.a.model.Bb_SideDto;
 
@@ -29,9 +30,15 @@ public interface BbaMenuDao {
 	public Bb_BeverageDto getDetailBeverage(int seq);
 	
 	/*--------------------------------------------------------------------------------------------
-	 *menu 디테일 음료 가져오기 
+	 *menu 지우기
 	 *-------------------------------------------------------------------------------------------*/
 	
 	public void deleteMenu(int seq);
+	
+	/*--------------------------------------------------------------------------------------------
+	 *버거 재료 디테일 가져오기 
+	 *-------------------------------------------------------------------------------------------*/
+	
+	public Bb_BurgerDto getDetailBurger(int seq);
 	
 }

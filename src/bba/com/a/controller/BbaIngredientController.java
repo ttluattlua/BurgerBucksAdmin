@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import bba.com.a.arrow.FileUploadMethod;
+import bba.com.a.arrow.directoryFinder;
+import bba.com.a.arrow.xmlParser;
 import bba.com.a.model.Bb_IngredientDto;
 import bba.com.a.model.Bb_ImageDto;
 import bba.com.a.service.BbaIngredientService;
@@ -88,7 +90,7 @@ public class BbaIngredientController {
 			String root = System.getProperty("catalina.home");
 			System.out.println("root: " + root);
 			//xml파일에서 정해준 'upload'폴더로 디렉터리 정해줌
-	      
+			
 	         
 	        String newFileName = ""; // 업로드 되는 파일명
 	        //파일업로드 함수
@@ -100,6 +102,9 @@ public class BbaIngredientController {
 	        bbdto = bbaIngredientService.registerIng(bbdto, bidto);
 			HttpSession session = req.getSession(true);
 			String imagePath = (String)session.getAttribute("imagePath");
+			//xml에 추가하기
+			String ingredient_xml = directoryFinder.directory + "ingredient.xml";
+			xmlParser.xml_addIngredient(ingredient_xml, bbdto);
 			
 			bbdto.setImage_Src(imagePath+newFileName);
 	        
@@ -170,11 +175,21 @@ public class BbaIngredientController {
 				HttpSession session = req.getSession(true);
 				String imagePath = (String)session.getAttribute("imagePath");
 				
+			 
+				
 				//여기서 해당파일 찾아서 폴더에서 지워줘야함 (시간나면 할거임)
 		        bbaIngredientService.updateIngAf(bbdto);
+		        //xml수정
+		        String ingredient_xml = directoryFinder.directory + "ingredient.xml";
+			    System.out.println("xml file directory : " + ingredient_xml);
+
+			    xmlParser.xml_updIngredient(ingredient_xml, bbdto);
+			    
 		        bbaIngredientService.updateIngImageAf(bidto);
 		        
 		        bbdto.setImage_Src(imagePath+newFileName);
+		        
+		        
 		        
 		 		
 		 	//파일은 수정 안하면 

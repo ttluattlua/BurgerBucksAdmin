@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><ingredientlist>
+
+	<ingredient>
+	  <seq>1</seq>
+	  <name>밀번</name>
+	  <types>0</types>
+	  <price>300</price>
+	  <cal>80</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Rye.png</img>
+	</ingredient>
+	
+	<ingredient>
+		<seq>2</seq>
+		<name>호밀번</name>
+		<types>0</types>
+		<price>400</price>
+		<cal>70</cal>
+		<del>0</del>
+		<img>./Ingredient/Ingredient_Wheat.png</img>
+  </ingredient>
+	 
+	<ingredient>
+	  <seq>3</seq>
+	  <name>흑미번</name>
+	  <types>0</types>
+	  <price>500</price>
+	  <cal>80</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Black.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>4</seq>
+	  <name>소고기패티</name>
+	  <types>1</types>
+	  <price>1000</price>
+	  <cal>180</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Beaf.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>5</seq>
+	  <name>스테이크패티</name>
+	  <types>1</types>
+	  <price>1700</price>
+	  <cal>210</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Steak.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>6</seq>
+	  <name>치킨패티</name>
+	  <types>1</types>
+	  <price>1300</price>
+	  <cal>230</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Chicken.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>7</seq>
+	  <name>양상추</name>
+	  <types>2</types>
+	  <price>400</price>
+	  <cal>30</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Lettuce.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>8</seq>
+	  <name>토마토</name>
+	  <types>2</types>
+	  <price>500</price>
+	  <cal>40</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Tomato.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>9</seq>
+	  <name>양파</name>
+	  <types>2</types>
+	  <price>400</price>
+	  <cal>30</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Onion.png</img>
+	</ingredient>
+	
+	<ingredient>
+	  <seq>10</seq>
+	  <name>치즈</name>
+	  <types>3</types>
+	  <price>500</price>
+	  <cal>60</cal>
+	  <del>0</del>
+	  <img>./Ingredient/Ingredient_Cheese.png</img>
+	</ingredient>
+	
+	<ingredient>
+    <seq>11</seq>
+    <name>바뀌어라</name>
+    <types>3</types>
+    <price>3000</price>
+    <cal>200</cal>
+    <del>0</del>
+    <img>이미지위치바뀜</img>
+  </ingredient>
+ 
+</ingredientlist>

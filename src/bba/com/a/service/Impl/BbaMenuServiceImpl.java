@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import bba.com.a.dao.BbaMenuDao;
 import bba.com.a.model.Bb_BeverageDto;
+import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_MenuDto;
 import bba.com.a.model.Bb_SideDto;
 import bba.com.a.service.BbaMenuService;
@@ -19,19 +20,16 @@ public class BbaMenuServiceImpl implements BbaMenuService {
 
 	@Override
 	public List<Bb_MenuDto> getMenuList() {
-		// TODO Auto-generated method stub
 		return bbaMenuDao.getMenuList();
 	}
 
 	@Override
 	public Bb_SideDto getDetailSide(int seq) {
-		// TODO Auto-generated method stub
 		return bbaMenuDao.getDetailSide(seq);
 	}
 
 	@Override
 	public Bb_BeverageDto getDetailBeverage(int seq) {
-		// TODO Auto-generated method stub
 		return bbaMenuDao.getDetailBeverage(seq);
 	}
 
@@ -39,5 +37,10 @@ public class BbaMenuServiceImpl implements BbaMenuService {
 	public void deleteMenu(int seq) {
 		bbaMenuDao.deleteMenu(seq);
 		
+	}
+
+	@Override
+	public Bb_BurgerDto getDetailBurger(int seq) {
+		return bbaMenuDao.getDetailBurger(seq);
 	}
 }

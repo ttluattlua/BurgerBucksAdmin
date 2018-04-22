@@ -9,9 +9,9 @@
 <!--스토어 등록 -->
 <insert id="registerStore" parameterType="bba.com.a.model.Bb_StoreDto">
  INSERT INTO BB_STORE(SEQ, NAME ,PHONE ,ADDRESS ,LAT, LNG, DEL) 
- VALUES(STORE_SEQ.NEXTVAL, #{name}, #{phone}, #{address}, #{lat}, #{lng}, 0)
+ VALUES(BB_STORE_SEQ.NEXTVAL, #{name}, #{phone}, #{address}, #{lat}, #{lng}, 0)
  <selectKey keyProperty="seq" resultType="Integer" order="AFTER"> 
- SELECT STORE_SEQ.CURRVAL FROM dual 
+ SELECT BB_STORE_SEQ.CURRVAL FROM dual 
  </selectKey>
 </insert>
 

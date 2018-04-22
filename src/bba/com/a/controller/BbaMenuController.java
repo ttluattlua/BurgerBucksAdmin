@@ -82,14 +82,36 @@ public class BbaMenuController {
 			bevDto.setImage_Src(imagePath+bevDto.getImage_Src());
 		}
 		
+		String burger_ingredient_name="";
+		if(burger_seq != 0) {
+			burgerDto = bbaMenuService.getDetailBurger(burger_seq);
+			//이미지가 있을때만 경로로 세팅해줌 (이미지 없으면 기본버거 이미지불러줄거임)
+			if(!burgerDto.getImage_Src().equals("없음")) {
+				burgerDto.setImage_Src(imagePath+burgerDto.getImage_Src());
+			}
+			burger_ingredient_name += burgerDto.getBread_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient01_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient02_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient03_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient04_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient05_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient06_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient07_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient08_name() + " ";
+			burger_ingredient_name += burgerDto.getIngredient09_name() + " ";
+		}
+		System.out.println("메뉴버거재료이름:"+burger_ingredient_name);
+		
 		String sideJson = gson.toJson(sideDto);
 		System.out.println(sideDto);
 		String bevJson = gson.toJson(bevDto);
 		System.out.println(bevJson);
+		String burgerJson = gson.toJson(burgerDto);
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		rmap.put("sideJson",sideJson);
 		rmap.put("bevJson",bevJson);
-		
+		rmap.put("burgerJson",burgerJson);
+		rmap.put("burger_ingredient_name",burger_ingredient_name);
 		return rmap;
 	}
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import bba.com.a.dao.BbaMenuDao;
 import bba.com.a.model.Bb_BeverageDto;
+import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_MenuDto;
 import bba.com.a.model.Bb_SideDto;
 
@@ -50,9 +51,22 @@ public class BbaMenuDaoImpl implements BbaMenuDao {
 	public Bb_BeverageDto getDetailBeverage(int seq) {
 		return sqlSession.selectOne(ns+"getDetailBeverage", seq);
 	}
-
+	
+	/*--------------------------------------------------------------------------------------------
+	 *메뉴지우기
+	 *-------------------------------------------------------------------------------------------*/
+	
 	@Override
 	public void deleteMenu(int seq) {
 		sqlSession.update(ns+"deleteMenu", seq);
+	}
+	
+	/*--------------------------------------------------------------------------------------------
+	 *메뉴버거디테일가져오기
+	 *-------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public Bb_BurgerDto getDetailBurger(int seq) {
+		return sqlSession.selectOne(ns+"getMenuDetailBurger", seq);
 	}
 }

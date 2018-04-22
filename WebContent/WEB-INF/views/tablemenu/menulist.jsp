@@ -216,8 +216,7 @@
 				                       </div>
 				
 				                   </div>
-				                   <div class="form-actions" align="right">
-				                       <button type="button" class="btn btn-success" id="registerStoreBtn" onclick="d()"> <i class="fa fa-check"></i> 삭제</button>
+				                   <div class="form-actions" align="right">				    
 				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
 				                   </div>
 				               </form>
@@ -310,6 +309,7 @@ function detailMenuFunc(object) {
 		success:function(data){
 		var side = JSON.parse(data.sideJson);
 		var bev = JSON.parse(data.bevJson);
+		var burger = JSON.parse(data.burgerJson);
 		console.log(side);
 		console.log(bev);
 		
@@ -335,6 +335,24 @@ function detailMenuFunc(object) {
 			$("#t_beverage_name").html('x');
 			$("#t_beverage_price").html('x');
 			$("#t_beverage_cal").html('x');
+		}
+
+		if(bev != null){
+			if(burger.image_Src=='없음'){
+				$("#t_burger_picture").html('<img alt="" src="./images/AdminBurgerImage.png" style="width: 100px; height: 100px">');
+			}else{
+				$("#t_burger_picture").html('<img alt="" src="'+burger.image_Src+'" style="width: 100px; height: 100px">');
+			}
+			$("#t_burger_name").html(burger.name);
+			$("#t_burger_ingredients").html(data.burger_ingredient_name);
+			$("#t_burger_price").html(burger.price);
+			$("#t_burger_cal").html(burger.cal);
+		}else{
+			$("#t_burger_picture").html('x');
+			$("#t_burger_name").html('x');
+			$("#t_burger_ingredients").html('x');
+			$("#t_burger_price").html('x');
+			$("#t_burger_cal").html('x');
 		}
 
 		},

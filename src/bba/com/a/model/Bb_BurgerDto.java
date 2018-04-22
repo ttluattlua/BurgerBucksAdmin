@@ -45,9 +45,237 @@ public class Bb_BurgerDto implements Serializable {
 	private String image_Src;
 	private int image_Seq;
 	
+	//버거 재료 이름뽑아오기
+	private String bread_name;
+	public String getBread_name() {
+		return bread_name;
+	}
+
+
+
+
+
+	public void setBread_name(String bread_name) {
+		this.bread_name = bread_name;
+	}
+
+
+
+
+
+	public String getIngredient01_name() {
+		return ingredient01_name;
+	}
+
+
+
+
+
+	public void setIngredient01_name(String ingredient01_name) {
+		this.ingredient01_name = ingredient01_name;
+	}
+
+
+
+
+
+	public String getIngredient02_name() {
+		return ingredient02_name;
+	}
+
+
+
+
+
+	public void setIngredient02_name(String ingredient02_name) {
+		this.ingredient02_name = ingredient02_name;
+	}
+
+
+
+
+
+	public String getIngredient03_name() {
+		return ingredient03_name;
+	}
+
+
+
+
+
+	public void setIngredient03_name(String ingredient03_name) {
+		this.ingredient03_name = ingredient03_name;
+	}
+
+
+
+
+
+	public String getIngredient04_name() {
+		return ingredient04_name;
+	}
+
+
+
+
+
+	public void setIngredient04_name(String ingredient04_name) {
+		this.ingredient04_name = ingredient04_name;
+	}
+
+
+
+
+
+	public String getIngredient05_name() {
+		return ingredient05_name;
+	}
+
+
+
+
+
+	public void setIngredient05_name(String ingredient05_name) {
+		this.ingredient05_name = ingredient05_name;
+	}
+
+
+
+
+
+	public String getIngredient06_name() {
+		return ingredient06_name;
+	}
+
+
+
+
+
+	public void setIngredient06_name(String ingredient06_name) {
+		this.ingredient06_name = ingredient06_name;
+	}
+
+
+
+
+
+	public String getIngredient07_name() {
+		return ingredient07_name;
+	}
+
+
+
+
+
+	public void setIngredient07_name(String ingredient07_name) {
+		this.ingredient07_name = ingredient07_name;
+	}
+
+
+
+
+
+	public String getIngredient08_name() {
+		return ingredient08_name;
+	}
+
+
+
+
+
+	public void setIngredient08_name(String ingredient08_name) {
+		this.ingredient08_name = ingredient08_name;
+	}
+
+
+
+
+
+	public String getIngredient09_name() {
+		return ingredient09_name;
+	}
+
+
+
+
+
+	public void setIngredient09_name(String ingredient09_name) {
+		this.ingredient09_name = ingredient09_name;
+	}
+
+
+
+	private String ingredient01_name;
+	private String ingredient02_name;
+	private String ingredient03_name;
+	private String ingredient04_name;
+	private String ingredient05_name;
+	private String ingredient06_name;
+	private String ingredient07_name;
+	private String ingredient08_name;
+	private String ingredient09_name;
 	
 	
 	public Bb_BurgerDto() {}
+	
+	
+
+
+
+	public Bb_BurgerDto(int seq, String name, Bb_IngredientDto breadCls, Bb_IngredientDto ingredientsCls1,
+			Bb_IngredientDto ingredientsCls2, Bb_IngredientDto ingredientsCls3, Bb_IngredientDto ingredientsCls4,
+			Bb_IngredientDto ingredientsCls5, Bb_IngredientDto ingredientsCls6, Bb_IngredientDto ingredientsCls7,
+			Bb_IngredientDto ingredientsCls8, Bb_IngredientDto ingredientsCls9, int bread, int ingredients01,
+			int ingredients02, int ingredients03, int ingredients04, int ingredients05, int ingredients06,
+			int ingredients07, int ingredients08, int ingredients09, int creator, int price, int cal, int del,
+			String creatorID, String what_Image, String image_Src, int image_Seq, String bread_name,
+			String ingredient01_name, String ingredient02_name, String ingredient03_name, String ingredient04_name,
+			String ingredient05_name, String ingredient06_name, String ingredient07_name, String ingredient08_name,
+			String ingredient09_name) {
+		super();
+		this.seq = seq;
+		this.name = name;
+		this.breadCls = breadCls;
+		this.ingredientsCls1 = ingredientsCls1;
+		this.ingredientsCls2 = ingredientsCls2;
+		this.ingredientsCls3 = ingredientsCls3;
+		this.ingredientsCls4 = ingredientsCls4;
+		this.ingredientsCls5 = ingredientsCls5;
+		this.ingredientsCls6 = ingredientsCls6;
+		this.ingredientsCls7 = ingredientsCls7;
+		this.ingredientsCls8 = ingredientsCls8;
+		this.ingredientsCls9 = ingredientsCls9;
+		this.bread = bread;
+		this.ingredients01 = ingredients01;
+		this.ingredients02 = ingredients02;
+		this.ingredients03 = ingredients03;
+		this.ingredients04 = ingredients04;
+		this.ingredients05 = ingredients05;
+		this.ingredients06 = ingredients06;
+		this.ingredients07 = ingredients07;
+		this.ingredients08 = ingredients08;
+		this.ingredients09 = ingredients09;
+		this.creator = creator;
+		this.price = price;
+		this.cal = cal;
+		this.del = del;
+		this.creatorID = creatorID;
+		this.what_Image = what_Image;
+		this.image_Src = image_Src;
+		this.image_Seq = image_Seq;
+		this.bread_name = bread_name;
+		this.ingredient01_name = ingredient01_name;
+		this.ingredient02_name = ingredient02_name;
+		this.ingredient03_name = ingredient03_name;
+		this.ingredient04_name = ingredient04_name;
+		this.ingredient05_name = ingredient05_name;
+		this.ingredient06_name = ingredient06_name;
+		this.ingredient07_name = ingredient07_name;
+		this.ingredient08_name = ingredient08_name;
+		this.ingredient09_name = ingredient09_name;
+	}
+
+
 
 
 

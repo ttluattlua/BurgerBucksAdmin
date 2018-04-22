@@ -32,9 +32,22 @@ public class Bb_IngredientDto implements Serializable {
 		this.cal = cal;
 		this.del = del;
 	}
+	
+	
 
 	
 	
+	public Bb_IngredientDto(int seq, String name, int types, int price, int cal, int del, String image_Src) {
+		super();
+		this.seq = seq;
+		this.name = name;
+		this.types = types;
+		this.price = price;
+		this.cal = cal;
+		this.del = del;
+		this.image_Src = image_Src;
+	}
+
 	public Bb_IngredientDto(int seq, String name, int types, int price, int cal, int del, String what_Image,
 			String image_Src, int image_Seq, String type_name) {
 		super();
