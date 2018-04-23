@@ -291,66 +291,91 @@ public class Bb_BurgerDto implements Serializable {
 	public void setImage_Seq(int image_Seq) {
 		this.image_Seq = image_Seq;
 	}
+	
+	
+	
+	
+	
 	public String getBread_name() {
 		return bread_name;
 	}
+
 	public void setBread_name(String bread_name) {
 		this.bread_name = bread_name;
 	}
+
 	public String getIngredient01_name() {
 		return ingredient01_name;
 	}
+
 	public void setIngredient01_name(String ingredient01_name) {
 		this.ingredient01_name = ingredient01_name;
 	}
+
 	public String getIngredient02_name() {
 		return ingredient02_name;
 	}
+
 	public void setIngredient02_name(String ingredient02_name) {
 		this.ingredient02_name = ingredient02_name;
 	}
+
 	public String getIngredient03_name() {
 		return ingredient03_name;
 	}
+
 	public void setIngredient03_name(String ingredient03_name) {
 		this.ingredient03_name = ingredient03_name;
 	}
+
 	public String getIngredient04_name() {
 		return ingredient04_name;
 	}
+
 	public void setIngredient04_name(String ingredient04_name) {
 		this.ingredient04_name = ingredient04_name;
 	}
+
 	public String getIngredient05_name() {
 		return ingredient05_name;
 	}
+
 	public void setIngredient05_name(String ingredient05_name) {
 		this.ingredient05_name = ingredient05_name;
 	}
+
 	public String getIngredient06_name() {
 		return ingredient06_name;
 	}
+
 	public void setIngredient06_name(String ingredient06_name) {
 		this.ingredient06_name = ingredient06_name;
 	}
+
 	public String getIngredient07_name() {
 		return ingredient07_name;
 	}
+
 	public void setIngredient07_name(String ingredient07_name) {
 		this.ingredient07_name = ingredient07_name;
 	}
+
 	public String getIngredient08_name() {
 		return ingredient08_name;
 	}
+
 	public void setIngredient08_name(String ingredient08_name) {
 		this.ingredient08_name = ingredient08_name;
 	}
+
 	public String getIngredient09_name() {
 		return ingredient09_name;
 	}
+
 	public void setIngredient09_name(String ingredient09_name) {
 		this.ingredient09_name = ingredient09_name;
 	}
+
 	@Override
 	public String toString() {
 		return "Bb_BurgerDto [seq=" + seq + ", name=" + name + ", breadCls=" + breadCls + ", ingredientsCls1="

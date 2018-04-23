@@ -40,7 +40,7 @@ public class BbaMenuServiceImpl implements BbaMenuService {
 	}
 
 	@Override
-	public Bb_BurgerDto getDetailBurger(int seq) {
-		return bbaMenuDao.getDetailBurger(seq);
+	public Bb_BurgerDto getMenuDetailBurger(int seq) {
+		return bbaMenuDao.getMenuDetailBurger(seq);
 	}
 }

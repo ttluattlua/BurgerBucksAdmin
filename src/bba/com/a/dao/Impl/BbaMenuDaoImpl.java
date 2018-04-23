@@ -66,7 +66,7 @@ public class BbaMenuDaoImpl implements BbaMenuDao {
 	 *-------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public Bb_BurgerDto getDetailBurger(int seq) {
+	public Bb_BurgerDto getMenuDetailBurger(int seq) {
 		return sqlSession.selectOne(ns+"getMenuDetailBurger", seq);
 	}
 }

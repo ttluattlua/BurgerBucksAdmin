@@ -39,6 +39,6 @@ public interface BbaMenuDao {
 	 *버거 재료 디테일 가져오기 
 	 *-------------------------------------------------------------------------------------------*/
 	
-	public Bb_BurgerDto getDetailBurger(int seq);
+	public Bb_BurgerDto getMenuDetailBurger(int seq);
 	
 }

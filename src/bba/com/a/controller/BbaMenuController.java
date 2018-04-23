@@ -71,6 +71,7 @@ public class BbaMenuController {
 		
 		HttpSession session = req.getSession(true);
 		String imagePath = (String)session.getAttribute("imagePath");
+		System.out.println("imagePath:"+imagePath);
 		
 		if(side_seq != 0) {
 			sideDto = bbaMenuService.getDetailSide(side_seq);
@@ -84,11 +85,13 @@ public class BbaMenuController {
 		
 		String burger_ingredient_name="";
 		if(burger_seq != 0) {
-			burgerDto = bbaMenuService.getDetailBurger(burger_seq);
+			burgerDto = bbaMenuService.getMenuDetailBurger(burger_seq);
 			//이미지가 있을때만 경로로 세팅해줌 (이미지 없으면 기본버거 이미지불러줄거임)
+			System.out.println(burgerDto.toString());
 			if(!burgerDto.getImage_Src().equals("없음")) {
 				burgerDto.setImage_Src(imagePath+burgerDto.getImage_Src());
 			}
+
 			burger_ingredient_name += burgerDto.getBread_name() + " ";
 			burger_ingredient_name += burgerDto.getIngredient01_name() + " ";
 			burger_ingredient_name += burgerDto.getIngredient02_name() + " ";

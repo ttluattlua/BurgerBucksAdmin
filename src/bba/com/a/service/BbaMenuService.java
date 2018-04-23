@@ -20,6 +20,7 @@ public interface BbaMenuService {
 	/*--------------------------------------------------------------------------------------------
 	 *메뉴버거디테일가져오기
 	 *-------------------------------------------------------------------------------------------*/
-	public Bb_BurgerDto getDetailBurger(int seq);
+	public Bb_BurgerDto getMenuDetailBurger(int seq);
+
 
 }
