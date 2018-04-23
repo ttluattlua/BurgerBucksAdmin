@@ -123,6 +123,7 @@ public class BbaLoginController {
 			model.addAttribute("preProfit", preProfit);
 			model.addAttribute("preOrderCount", preOrderCount);
 			model.addAttribute("osListStr", osListStr);
+			model.addAttribute("osList", osList);
 			model.addAttribute("msg", admin.getId()+" login 완료"); 
 		    
 			//저장된 세션 출력
@@ -156,6 +157,7 @@ public class BbaLoginController {
 				osListStr += osList.get(i).toString();
 			}
 		}
+		model.addAttribute("osList", osList);
 		model.addAttribute("StoreCount", StoreCount);
 		model.addAttribute("memCount", memCount);
 		model.addAttribute("preProfit", preProfit);

@@ -93,37 +93,30 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body browser">
-  								<%-- <c:forEach var="sdto" items="${osListStr}" varStatus="status">
-  								</c:forEach> --%>
-                                <p class="f-w-600">고객수 <span class="pull-right">85%</span></p>
-                                <div class="progress ">
-                                    <div role="progressbar" style="width: 85%; height:8px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-								
-                                <p class="m-t-30 f-w-600">전 월 매출<span class="pull-right">90%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 90%; height:8px;" class="progress-bar bg-info wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                                <p class="m-t-30 f-w-600">전 월 주문량<span class="pull-right">65%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div>
-
-                               <p class="m-t-30 f-w-600">지점 수<span class="pull-right">65%</span></p>
-                                <div class="progress">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-warning wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div> 
-
-								<!-- <p class="m-t-30 f-w-600">android<span class="pull-right">65%</span></p>
-                                <div class="progress m-b-30">
-                                    <div role="progressbar" style="width: 65%; height:8px;" class="progress-bar bg-success wow animated progress-animated"> <span class="sr-only">60% Complete</span> </div>
-                                </div> -->
+  								<table id="example" class="table table-bordered table-striped">
+  								 <thead>
+  								 	<tr>
+  								 		<th>No</th>
+  								 		<th>연도</th>
+  								 		<th>매출액(원)</th>
+  								 	</tr>
+  								 </thead>
+  								 <tbody>
+  								 <c:forEach var="osdto" items="${osList}" varStatus="status">
+		                                <tr>
+		                                    <td>${status.count }</td>
+		                                    <td>${osdto.period }</td>
+		                                    <td>${osdto.profit }</td>
+		                                </tr>
+	                              </c:forEach>
+	                              </tbody>
+  								</table>
                             </div>
                         </div>
                     </div>
                     <!-- column -->
                 </div>
+               </div>
 
 <script type="text/javascript">
 //Dashboard 1 Morris-chart
@@ -154,5 +147,4 @@ $( function () {
 
 
 } );
-
 </script>
