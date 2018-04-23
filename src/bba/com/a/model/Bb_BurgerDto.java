@@ -294,8 +294,6 @@ public class Bb_BurgerDto implements Serializable {
 	
 	
 	
-	
-	
 	public String getBread_name() {
 		return bread_name;
 	}

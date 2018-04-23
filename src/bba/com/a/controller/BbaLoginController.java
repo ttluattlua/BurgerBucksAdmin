@@ -80,7 +80,7 @@ public class BbaLoginController {
 		
 
 		//혜진 집  http://192.168.219.110:8191/upload/
-		session.setAttribute("imagePath", "http://172.30.1.9:8090/upload/");
+		session.setAttribute("imagePath", "http://192.168.40.156:8090/upload/");
 
 		
 		//언니 여기다가 이미지 경로 좀 session에다 저장해 놓을게요 지우지말아주세용 ㅋㅋ
