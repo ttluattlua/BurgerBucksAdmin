@@ -233,44 +233,71 @@ public class BbaOrderController {
 					
 					burgerIngre += "번 : " ;
 					for(int z = 0; z < ingreList.size(); z++) {
-					
-						
 						if(burgerList.get(j).getBread() == ingreList.get(z).getSeq()) {
 							burgerIngre += ingreList.get(z).getName();
 						}
 					}
 		
+					//재료  0-X / 1-번 / 2-패티 / 3-채소 / 4-기타
 					burgerIngre += "  /  재료 : " ;
+					
 					for(int z = 0; z < ingreList.size(); z++) {
-						
-						
-						
-						if(burgerList.get(j).getIngredient01() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient02() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient03() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient04() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient05() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient06() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient07() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient08() == ingreList.get(z).getSeq()) {
-							burgerIngre += " - " + ingreList.get(z).getName();
-						}else if(burgerList.get(j).getIngredient09() == ingreList.get(z).getSeq()) {
+						if(burgerList.get(j).getIngredient01() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient01()!=0) {
+							burgerIngre += ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient02() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient02()!=0) {
 							burgerIngre += " - " + ingreList.get(z).getName();
 						}
-						
 					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient03() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient03()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient04() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient04()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient05() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient05()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient06() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient06()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient07() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient07()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient08() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient08()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}
+					
+					for(int z = 0; z < ingreList.size(); z++) {
+						if(burgerList.get(j).getIngredient09() == ingreList.get(z).getSeq() && burgerList.get(j).getIngredient09()!=0) {
+							burgerIngre += " - " + ingreList.get(z).getName();
+						}
+					}				
 				}
 			}
-			
-				
-			odList.add(new Bb_OrderDetailDto(
+		
+					odList.add(new Bb_OrderDetailDto(
 					orderDetail.get(i).getOrder_seq(),	//order_seq
 					orderDetail.get(i).getPrice(), 		//orderMenu_price 
 					orderDetail.get(i).getQuantity(),		//orderMenu_quantity 
