@@ -29,12 +29,7 @@
                     <h4 class="card-title">FAQ 현황</h4>
                     <h6 class="card-subtitle">등록된 FAQ 현황</h6>
                     <div class="table-responsive m-t-40">
-                    	<!--===========================FAQ 버튼 ===================================-->
-	                    <div align="right"> 
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addfaq">
-                                  	FAQ 등록
-							</button>
-						</div>
+
 						<!--===========================FAQ테이블 ===================================-->
                         <table id="myTable" class="table table-bordered table-striped">
                         	<colgroup>
@@ -54,7 +49,7 @@
                             </thead>
                             <tbody>
                             	<c:forEach var="idto" items="${InquiryList}" varStatus="status">
-                            		<!--답글이 아닌경우-->
+
 	    
 		                                <tr id="tr${idto.seq}">
 		                                	<td>${status.count }</td>
@@ -135,7 +130,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="sendCustomerInquiry" onclick="sendCustomerInquiryAf()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="sendmodalcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -156,7 +151,7 @@
  *----------------------------------------------------------------------------------------------*/
 
  /*---------------------------------------------------------------------------------------------
-  * FAQ 답글등록 버튼 클릭(FAQ 답글 등록하는 함수) 
+  * 고객답변하기 답글등록 버튼 클릭(FAQ 답글 등록하는 함수) 
   *----------------------------------------------------------------------------------------------*/
  function sendInquiryClick(object) {
  	alert("클릭");
@@ -202,12 +197,13 @@
 		success:function(data){
 			alert("답변 보내기 성공");
 
-			//맨마지막테이블 no구하기
-			var tableId = "tr"+$("#send_seq").val();
-			var tr = $('#'+tableId);
-	        var td = tr.children();
-			td.eq(4).html('<input type="button" value="답변완료" disabled="disabled" class="btn btn-inverse">');
+		//맨마지막테이블 no구하기
+		var tableId = "tr"+$("#send_seq").val();
+		var tr = $('#'+tableId);
+        var td = tr.children();
+		td.eq(4).html('<input type="button" value="답변완료" disabled="disabled" class="btn btn-inverse">');
 
+		$("#sendmodalcansel").click();
 
 		},
 		error:function(req, status, error){

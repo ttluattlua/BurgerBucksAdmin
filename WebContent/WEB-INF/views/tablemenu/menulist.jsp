@@ -256,7 +256,7 @@
 	                           <!--/span-->
 	                           <div class="col-md-6">
 	                               <div class="form-group has-danger">
-										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal" id="deletemenucansel">취소</button>
 	                                   <small class="form-control-feedback"></small> </div>
 	                           </div>
 	                           <!--/span-->
@@ -401,7 +401,9 @@ function deleteSideAf() {
 				var deleteRowId =	"td_seq"+$("#deleteseq").val();
 				 console.log(deleteRowId);
 				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 메뉴입니다.</p>');   
-					
+	 			 
+				 $("#deletemenucansel").click();
+
  					
  			},
  			error:function(req, status, error){

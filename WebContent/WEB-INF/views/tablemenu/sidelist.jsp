@@ -159,7 +159,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="registerSideBtn" onclick="registerSideClick()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="addsidecansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -248,7 +248,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="updateSideBtn" onclick="updateSideAf()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="updatesidecansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -288,7 +288,7 @@
 	                           <!--/span-->
 	                           <div class="col-md-6">
 	                               <div class="form-group has-danger">
-										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal" id="deletesidecansel">취소</button>
 	                                   <small class="form-control-feedback"></small> </div>
 	                           </div>
 	                           <!--/span-->
@@ -357,8 +357,10 @@ function registerSideClick() {
 					'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
 					'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside"></td>'+
 					'</tr>');
- 		//모달 숨기기
-         /*  $('#addside').modal('hide'); */
+ 			
+ 			$("#addsidecansel").click();
+
+
 
         },
         error : function(req, status, error) {
@@ -475,20 +477,9 @@ function registerSideClick() {
 	            td.eq(4).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside">');
 	            
-	            //해당 테이블 로우 삭제
-/* 	            var deleteRow= "tr"+data.seq;
-	            deleteTableRow(deleteRow);
-	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
-				'<td><img alt="사이드사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
-				'<td>'+data.name+'</td>'+
-						'<td>'+data.price+'</td>'+
-						'<td>'+data.cal+'</td>'+
-						'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateSide('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updateside">'+
-						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteSide('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteside"></td>'+
-						'</tr>'); */
-	 	 		//모달 숨기기
-	 	         /*  $('#updateside').modal().hide(); */
+	            $("#updatesidecansel").click();
+
+
 
 	        },
 	        error : function(req, status, error) {
@@ -545,7 +536,9 @@ function registerSideClick() {
  				var deleteRowId =	"td_seq"+$("#deleteseq").val();
 				 console.log(deleteRowId);
 				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 사이드입니다.</p>');   
- 					
+				 
+				 $("#deletesidecansel").click();
+
   					
   			},
   			error:function(req, status, error){

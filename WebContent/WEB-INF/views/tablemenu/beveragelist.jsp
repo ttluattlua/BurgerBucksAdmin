@@ -159,7 +159,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="registerBevBtn" onclick="registerBevClick()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="addbevcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -248,7 +248,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="updateBevBtn" onclick="updateBevAf()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="updatebevcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -288,7 +288,7 @@
 	                           <!--/span-->
 	                           <div class="col-md-6">
 	                               <div class="form-group has-danger">
-										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal" id="deletebevcansel">취소</button>
 	                                   <small class="form-control-feedback"></small> </div>
 	                           </div>
 	                           <!--/span-->
@@ -358,6 +358,8 @@ function registerBevClick() {
 					'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
 					'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteBev('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deletebev"></td>'+
 					'</tr>');
+ 			$("#addbevcansel").click();
+
 
         },
         error : function(req, status, error) {
@@ -474,7 +476,8 @@ function registerBevClick() {
 	            td.eq(3).text(data.cal);
 	            td.eq(4).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateBev('+data.seq+','+data.image_Seq+','+imageurl+')" data-toggle="modal" data-target="#updatebev">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteBev('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deletebev">');
-	            
+	            $("#updatebevcansel").click();
+
 	           /*  deleteTableRow(deleteRow); */
 	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
 /* 	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
@@ -540,7 +543,9 @@ function registerBevClick() {
  				console.log($("#deleteseq").val());
 				var deleteRowId =	"td_seq"+$("#deleteseq").val();
  				 console.log(deleteRowId);
- 				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 음료입니다.</p>');   					
+ 				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 음료입니다.</p>');
+ 				 $("#deletebevcansel").click();
+
   			},
   			error:function(req, status, error){
   				alert("error");

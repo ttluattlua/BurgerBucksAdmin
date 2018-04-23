@@ -47,6 +47,16 @@ public class Bb_BurgerDto implements Serializable {
 	
 	//버거 재료 이름뽑아오기
 	private String bread_name;
+	private String ingredient01_name;
+	private String ingredient02_name;
+	private String ingredient03_name;
+	private String ingredient04_name;
+	private String ingredient05_name;
+	private String ingredient06_name;
+	private String ingredient07_name;
+	private String ingredient08_name;
+	private String ingredient09_name;
+	
 	public String getBread_name() {
 		return bread_name;
 	}
@@ -205,15 +215,7 @@ public class Bb_BurgerDto implements Serializable {
 
 
 
-	private String ingredient01_name;
-	private String ingredient02_name;
-	private String ingredient03_name;
-	private String ingredient04_name;
-	private String ingredient05_name;
-	private String ingredient06_name;
-	private String ingredient07_name;
-	private String ingredient08_name;
-	private String ingredient09_name;
+
 	
 	
 	public Bb_BurgerDto() {}

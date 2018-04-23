@@ -107,6 +107,7 @@ public class BbaMenuController {
 		String bevJson = gson.toJson(bevDto);
 		System.out.println(bevJson);
 		String burgerJson = gson.toJson(burgerDto);
+		System.out.println("burgerJson:" +burgerJson);
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		rmap.put("sideJson",sideJson);
 		rmap.put("bevJson",bevJson);

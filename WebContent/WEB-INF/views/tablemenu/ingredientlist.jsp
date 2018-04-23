@@ -198,7 +198,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="registerIngBtn" onclick="registerIngClick()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="addingcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -302,7 +302,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="updateIngBtn" onclick="updateIngAf()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="updateingcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -342,7 +342,7 @@
 	                           <!--/span-->
 	                           <div class="col-md-6">
 	                               <div class="form-group has-danger">
-										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal" id="deleteingcansel">취소</button>
 	                                   <small class="form-control-feedback"></small> </div>
 	                           </div>
 	                           <!--/span-->
@@ -424,6 +424,8 @@ function registerIngClick() {
 			'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
 			'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteIng('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteing"></td>'+
 			'</tr>');
+ 			$("#addingcansel").click();
+
 
         },
         error : function(req, status, error) {
@@ -572,22 +574,10 @@ function registerIngClick() {
 	            td.eq(5).text(data.cal);
 	            td.eq(6).html('<input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
 	    				'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteIng('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteing">');
-	            
-/* 	            //해당 테이블 로우 삭제
-	            var deleteRow= "tr"+data.seq;
-	            deleteTableRow(deleteRow); */
-	          //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-	            //성공시 테이블에 등록된 스토어 row추가 (맨 마지막줄)
-/* 	 			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
-				'<td><img alt="재료사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
-				'<td>'+data.name+'</td>'+
-				'<td>'+data_type+'</td>'+
-				'<td>'+data.what_Image+'</td>'+
-				'<td>'+data.price+'</td>'+
-				'<td>'+data.cal+'</td>'+
-				'<td id="td_seq'+data.seq+'"><input type="button" value="수정" class="btn btn-inverse" onclick="updateIng('+data.seq+','+data.image_Seq+','+imageurl+','+imageType+')" data-toggle="modal" data-target="#updateing">'+
-				'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteIng('+data.seq+','+data.image_Seq+')" data-toggle="modal" data-target="#deleteing"></td>'+
-				'</tr>'); */
+	            $("#updateingcansel").click();
+
+
+
 
 	        },
 	        error : function(req, status, error) {
@@ -643,7 +633,9 @@ function registerIngClick() {
  				
  				var deleteRowId =	"td_seq"+$("#deleteseq").val();
 				 console.log(deleteRowId);
-				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 재료입니다.</p>');   
+				 $("#"+deleteRowId).html('<p style="color: #a33b2b">삭제된 재료입니다.</p>'); 
+				 $("#deleteingcansel").click();
+
   					
   			},
   			error:function(req, status, error){

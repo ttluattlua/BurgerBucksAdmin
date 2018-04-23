@@ -182,7 +182,7 @@ if(session.getAttribute("login") != null){
 				                   </div>
 				                   <div class="form-actions" align="right">
 				                       <button type="button" class="btn btn-success" id="registerStoreBtn" onclick="registerStore()"> <i class="fa fa-check"></i> 등록</button>
-				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+				                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="addmodalcancel">취소</button>
 				                   </div>
 				               </form>
 				           </div>
@@ -297,7 +297,7 @@ if(session.getAttribute("login") != null){
 				                   </div>
 				                   <div class="form-actions" align="right">
 				                       <button type="button" class="btn btn-success" id="updateStoreAfBtn" onclick="updateStoreAf()"> <i class="fa fa-check"></i> 수정</button>
-				                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+				                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="updatemodalcancel">취소</button>
 				                   </div>
 				               </form>
 				           </div>
@@ -360,7 +360,7 @@ if(session.getAttribute("login") != null){
 	                           <!--/span-->
 	                           <div class="col-md-6">
 	                               <div class="form-group has-danger">
-										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal">취소</button>
+										<button type="button" class="btn btn-inverse" style="width: 200px;" data-dismiss="modal" id="deletemodalcansel">취소</button>
 	                                   <small class="form-control-feedback"></small> </div>
 	                           </div>
 	                           <!--/span-->
@@ -755,6 +755,7 @@ function removeMarker(num) {
 				, seq: seq}
 				
 				markerArray.push(resetMarkerArray);
+			 	$("#addmodalcancel").click();
 
 					
 			},
@@ -886,6 +887,9 @@ function updateStoreAf() {
 						'<td><input type="button" value="수정" class="btn btn-inverse" onclick="updateStore('+seq+')" data-toggle="modal" data-target="#updatestore">'+
 						'&nbsp;<input type="button" value="삭제" class="btn btn-inverse" onclick="deleteStore('+seq+')" data-toggle="modal" data-target="#deletestore"></td>'+
 						'</tr>');
+				
+				$("#updatemodalcancel").click();
+
 			},
 			error:function(req, status, error){
 				alert("error");
@@ -935,6 +939,7 @@ function deleteStoreAf() {
 				
 				var deleteRowId = "tr"+$("#deleteseq").val();
 				deleteTableRow(deleteRowId);
+				$("#deletemodalcansel").click();
  					
  			},
  			error:function(req, status, error){

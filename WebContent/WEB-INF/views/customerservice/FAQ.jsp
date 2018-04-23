@@ -82,7 +82,7 @@
 	                                <c:if test="${faqdto.step != 0}">
 		                                <tr id="tr${faqdto.seq}">
 		                                    <td>${status.count }</td>
-		                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;<span class='label label-info'>RE:</span>답변입니다</td>
+		                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;<span class='label label-info'>RE:</span>답글입니다</td>
 		                                    <td>${faqdto.readcount }</td>
 		          							<td id="td_seq${faqdto.seq}">
 			          							<c:if test="${faqdto.del == 0}">
@@ -163,7 +163,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="registerFaqBtn" onclick="registerFaqClick()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="addmodalcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -228,7 +228,7 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="registerAnswerBtn" onclick="registerAnswerAfClick()"> <i class="fa fa-check"></i> 답변등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="answermodalcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -309,7 +309,8 @@
 	                   </div>
 	                   <div class="form-actions" align="right">
 	                       <button type="button" class="btn btn-success" id="updateFaqBtn" onclick="updateFaqAf()"> <i class="fa fa-check"></i> 수정</button>
-	                       <button type="button" class="btn btn-success" id="deleteFaqBtn" onclick="deleteFaqClick()"> <i class="fa fa-check"></i> 삭제</button>
+	                       <button type="button" class="btn btn-success" id="deleteFaqBtn" onclick="deleteFaqClick()" > <i class="fa fa-check"></i> 삭제</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="updatemodalcansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -377,6 +378,7 @@ function registerFaqClick() {
 					'<td id="td_seq'+data.seq+'"><input type="button" id="'+data.seq+'Btn" value="수정" class="btn btn-inverse" onclick='+updateMethod+' data-toggle="modal" data-target="#updatefaq"> '+
 					'<input type="button" value="답글달기"  class="btn btn-inverse" onclick='+answerMethod+'  data-toggle="modal" data-target="#answerfaqmodal"></td>'+
 					'</tr>');
+ 			$("#addmodalcansel").click();
 
 		},
 		error:function(req, status, error){
@@ -483,6 +485,8 @@ function registerAnswerClick(object) {
 					'<td id="td_seq'+data.seq+'"><input type="button" id="'+data.seq+'Btn" value="수정" class="btn btn-inverse" onclick='+updateMethod+' data-toggle="modal" data-target="#updatefaq"> '+
 					'</tr>');
 			
+			$("#answermodalcansel").click();
+			
 			
 
 		},
@@ -583,9 +587,7 @@ function registerAnswerClick(object) {
 				var tr = $('#'+tableId);
 		        var td = tr.children();
 		        //답글일 경우 다음과같이수정
-		        if(data.step == 1){
-		        	td.eq(1).html($("&nbsp;&nbsp;&nbsp;&nbsp;<span class='label label-info'>RE:</span>"+"#update_title").val());	
-		        }else{
+		        if(data.step == 0){
 		        	td.eq(1).text($("#update_title").val());
 		        }
 		        
@@ -596,16 +598,20 @@ function registerAnswerClick(object) {
 			        td.eq(3).html('<input type="button" id="'+data.seq+'Btn" value="수정" class="btn btn-inverse" onclick='+updateMethod+' data-toggle="modal" data-target="#updatefaq">'+
 					'&nbsp;<input type="button" value="답변완료" disabled="disabled" class="btn btn-inverse"> ');
 		        
-			      //답글을 아직 달지 않은경우 
-		        }else if(data.step == 0 && data.status == 0){
+			       
+		        }
+		        //답글을 아직 달지 않은경우
+		        if(data.step == 0 && data.status == 0){
 		        	td.eq(3).html('<input type="button" id="'+data.seq+'Btn" value="수정" class="btn btn-inverse" onclick='+updateMethod+' data-toggle="modal" data-target="#updatefaq">'+
-					'&nbsp;<input type="button" value="답변완료" disabled="disabled" class="btn btn-inverse">'+
 					'<input type="button" value="답글달기"  class="btn btn-inverse" onclick='+answerMethod+'  data-toggle="modal" data-target="#answerfaqmodal"></td>');
 		        
+		        
+		        }
 		        //답글일 경우
-		        }else if(data.step == 1){
+		        if(data.step == 1){
 		        	 td.eq(3).html('<input type="button" id="'+data.seq+'Btn" value="수정" class="btn btn-inverse" onclick='+updateMethod+' data-toggle="modal" data-target="#updatefaq">');
 		        }
+		        $("#updatemodalcansel").click();
 				
 
 			},
@@ -647,11 +653,8 @@ function registerAnswerClick(object) {
 				var tr = $('#'+tableId);
 		        var td = tr.children();
  				td.eq(3).html('<p style="color: #a33b2b">삭제된 FAQ입니다.</p> ');
- 				if(status=="1"){
- 					var answerIndex = tr.rowIndex+1;
- 					var answerTd = answerIndex.children();
- 					answerTd.eq(3).html('<p style="color: #a33b2b">삭제된 FAQ입니다.</p> ');
- 				}
+
+ 				$("#updatemodalcansel").click();
  			
   			},
   			error:function(req, status, error){
