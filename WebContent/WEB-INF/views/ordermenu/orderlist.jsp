@@ -343,17 +343,18 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
 	function saveOSelect(seq){
 		alert("상태 수정 클릭");
 		
-		var oSelect = '-1';
+		var oSelect = -1;
 		
-		//var chStore = document.getElementsByClassName(".chStoreSeq");
+		var chStore = document.getElementsByClassName(".chStoreSeq");
 		var chStore = $('input[name=chStoreSeq]').val();
-		//alert("점포 코드 : "+chStore);
+		alert("점포 코드 : "+chStore);
+		
 		if(chStore==0){
-			oSelect = $('select[name="'+seq+'"oSelect1]').val();
-			//alert("상태 선택 코드 : [0] "+oSelect);
+			oSelect = $('select[name='+seq+'oSelect1]').val();
+			alert("상태 선택 코드 : [0] "+oSelect);
 		}else{
-			oSelect = $('select[name="'+seq+'"oSelect2]').val();
-			//alert("상태 선택 코드 : "+oSelect);
+			oSelect = $('select[name='+seq+'oSelect2]').val();
+			alert("상태 선택 코드 : "+oSelect);
 		}
 		
 		$.ajax({
@@ -366,7 +367,7 @@ status 는 for문의 돌아가는 상태를 알 수 있게 체크하여 준다
     		traditional : true,
             success : function(data){
                 
-                //alert(JSON.stringify(data));
+                alert(JSON.stringify(data));
                 
                 //성공하면 이 함수 찾아서 고!
                 updateRow(data);
@@ -450,9 +451,6 @@ function updateRow(data){
 	
 	//$( '#tdPre'+data.seq ).html('랄라');
 	
-	
-    
-
 }
 
 
