@@ -80,10 +80,12 @@ if(session.getAttribute("login") != null){
 						<%} %>
                     </tr>
 					</c:if>
+					
+					<!-- 삭제 안된 사원 -->
                    <c:if test="${admin.del eq '0'}">
                     <tr id="tr${admin.seq}">
                     	<c:forEach items="${bslist}" var="bslist" varStatus="status">
-	                    	<c:if test="${bslist.seq eq admin.store_seq}">
+	                    	<c:if test="${admin.store_seq eq bslist.seq}">
 	                        	<td>${bslist.name }</td>
 	                        </c:if>
                         </c:forEach>

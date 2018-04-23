@@ -32,7 +32,7 @@ public interface BbaMemberDao {
 	void updateAdminAf(Bb_AdminDto adminDto);
 	
 	
-	//해당 시퀀스 점포 DTO 가졍괴
+	//해당 시퀀스 점포 DTO 가져오기
 	Bb_StoreDto getStoreName(int seq);
 	
 	

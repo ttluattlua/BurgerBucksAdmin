@@ -136,6 +136,10 @@ public class BbaMemberController {
 		List<Bb_StoreDto> bslist = bbaStoreService.GetStoreList();
 		model.addAttribute("bslist", bslist);		//store list
 		
+		for (int i = 0; i < bslist.size(); i++) {
+			System.out.println("bslist의 점포 이름 :  " + bslist.get(i).getName());
+		}
+		
 			
 		model.addAttribute("doc_title", "사원관리");
 		model.addAttribute("doc_menu", "멤버관리");
