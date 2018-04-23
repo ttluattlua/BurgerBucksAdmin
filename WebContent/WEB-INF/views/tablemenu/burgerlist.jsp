@@ -39,27 +39,51 @@
                         <table id="myTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>지점명</th>
-                                    <th>주소</th>
-                                    <th>전화번호</th>
-                                    <th>--</th>
+                                    <th>사진</th>
+                                    <th>버거이름</th>
+                                    <th>재료</th>
+                                    <th>만든사람</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach var="bsdto" items="${bslist}">
-                            	<c:if test="${bsdto.del == 0}">
-                                <tr id="tr${bsdto.seq}">
+                            	<c:forEach var="bgdto" items="${burgerList}">
+
+                                <tr id="tr${bgdto.seq}">
                                 	
-                                    <td>${bsdto.name }</td>
-                                    <td>${bsdto.address }</td>
-                                    <td>${bsdto.phone }</td>
                                     <td>
-                                    <input type="button" id="${bsdto.seq}Btn" value="수정" class="btn btn-inverse" onclick="updateStore(${bsdto.seq })" data-toggle="modal" data-target="#updatestore"> 
-                                    <input type="button" value="삭제"  class="btn btn-inverse" onclick="deleteStore(${bsdto.seq })" data-toggle="modal" data-target="#deletestore">
+                                    <c:if test="${bgdto.creator!=0 }">
+                                    <img alt="버거사진" src="./images/AdminBurgerImage.png" style="width: 200px">
+                                    </c:if>
+                                    <c:if test="${bgdto.creator ==0 }">
+                                    <img alt="버거사진" src="${bgdto.image_Src}" style="width: 200px">
+                                    </c:if>
+                                    <c:if test="${bgdto.image_Src =='없음' && bgdto.creator ==0}">
+                                    <img alt="버거사진" src="./images/AdminBurgerImage.png" style="width: 200px">
+                                    </c:if>
+                                    </td>
+                                    <td>${bgdto.name }</td>
+                                    <td>
+                                    ${bgdto.bread_name }
+                                    ${bgdto.ingredient01_name }
+                                    ${bgdto.ingredient02_name }
+                                    ${bgdto.ingredient03_name }
+                                    ${bgdto.ingredient04_name }
+                                    ${bgdto.ingredient05_name }
+                                    ${bgdto.ingredient06_name }
+                                    ${bgdto.ingredient07_name }
+                                    ${bgdto.ingredient08_name }
+                                    ${bgdto.ingredient09_name }
+                                    </td>
+                                    <td>
+                                      	<c:if test="${bgdto.creatorID =='0' }">
+                                         	ad
+                                    	</c:if>
+                                    	<c:if test="${bgdto.creatorID !='0' }">
+                                         	${bgdto.creatorID}
+                                    	</c:if>
                                     </td>
                                     
                                 </tr>
-                                </c:if>
                                 </c:forEach>
                             </tbody>
                         </table>
@@ -90,16 +114,34 @@
 	           </div>
 	           <div class="card-body">
 	               <form action="registerIng.do" method="post" enctype="multipart/form-data" id="fileForm">
+	                   <input type="hidden" name="creator" value="0">
 	                   <div class="form-body">
+	                   	
 	                       <hr>
+	                          <div class="row">
+	                           <div class="col-md-6">
+	                               <div class="form-group">
+	                                   <label>버거 이름</label>
+	                                    <input type="text" id="name" name="name" class="form-control"/>
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+	                                   <label>칼로리</label>
+	                                   <input type="number" min="0" name="cal"  class="form-control" id="buger_cal" placeholder="칼로리" required="required">
+	                               </div>
+	                           </div>
+	                           <!--/span-->
+	                       </div>
 	                         <div class="row">
 	                           <div class="col-md-6">
 	                               <div class="form-group">
 	                                  <label class="control-label">번</label>
-                                       <select name="bun" id="bun"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+                                       <select name="bread" id="bread"  class="form-control custom-select" tabindex="1" style="height: 40px;">
                                            <c:forEach var="bigdto" items="${IngList}">
-                                           		<c:if test="${bigdto.types == 1}">
-                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}" >${bigdto.name}</option>
+                                           		<c:if test="${bigdto.types == 1}">                                          		
+                                           		<option value="${bigdto.seq}" >${bigdto.name}</option>
                                            		</c:if>
                                            </c:forEach>
                                        </select>
@@ -108,74 +150,124 @@
 	                           <!--/span-->
 	                           <div class="col-md-6">
 		                          <div class="form-group">
-                                       <label class="control-label">패티</label>
-                                       <select name="patty" id="patty"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+                                       <label class="control-label">재료1</label>
+                                       <select name="ingredient01" id="ingredient01"  class="form-control custom-select"  tabindex="1" style="height: 40px;">
 										   <c:forEach var="bigdto" items="${IngList}">
-                                           		<c:if test="${bigdto.types == 2}">
-                                           		<option value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}">${bigdto.name}</option>
-                                           		</c:if>
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           </c:if>
+                                           </c:forEach>
+                                           
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료2</label>
+                                       <select name="ingredient02" id="ingredient02"  class="form-control custom-select" tabindex="1" style="height: 40px;">
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
                                            </c:forEach>
                                        </select>
                                    </div>
 	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료3</label>
+                                       <select name="ingredient03" id="ingredient03"  class="form-control custom-select" tabindex="1" style="height: 40px;">
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료4</label>
+                                       <select name="ingredient04" id="ingredient04"  class="form-control custom-select"  tabindex="1" style="height: 40px;">
+										   <option value="0">선택안함</option>
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료5</label>
+                                       <select name="ingredient05" id="ingredient05"  class="form-control custom-select"  tabindex="1" style="height: 40px;">
+										   <option value="0">선택안함</option>
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료6</label>
+                                       <select name="ingredient06" id="ingredient06"  class="form-control custom-select"  tabindex="1" style="height: 40px;">
+										   <option value="0">선택안함</option>
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료7</label>
+                                       <select name="ingredient07" id="ingredient07"  class="form-control custom-select"  tabindex="1" style="height: 40px;">
+										   <option value="0">선택안함</option>
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료8</label>
+                                       <select name="ingredient08" id="ingredient08"  class="form-control custom-select"  tabindex="1" style="height: 40px;">
+										   <option value="0">선택안함</option>
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           <div class="col-md-6">
+		                          <div class="form-group">
+                                       <label class="control-label">재료9</label>
+                                       <select name="ingredient09" id="ingredient09"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
+										   <option value="0">선택안함</option>
+										   <c:forEach var="bigdto" items="${IngList}">
+										   <c:if test="${bigdto.types != 1 && igdto.types != 0}"> 
+                                           		<option value="${bigdto.seq}">${bigdto.name}</option>
+                                           	</c:if>
+                                           </c:forEach>
+                                       </select>
+                                   </div>
+	                           </div>
+	                           
 	                           <!--/span-->
 	                       </div>
 	                       <!--/row-->
 
-	
-	                        <div class="row">
-	                           <div class="col-md-6">
-	                               <div class="form-group">
-	                                  <label class="control-label">채소</label>
-                                       <select name="veggie" id="veggie"  class="form-control custom-select" tabindex="1" style="height: 40px;" onchange="showImage(this.value)">
-										   <c:forEach var="bigdto" items="${IngList}">
-                                           		<c:if test="${bigdto.types == 3}">
-                                           			<option value="${bigdto.seq}--something--${bigdto.image_Src}">${bigdto.name}</option>
-                                           		</c:if>
-                                           </c:forEach>
-                                       </select>
-	                               </div>
-	                           </div>
-	                           <!--/span-->
-	                           <div class="col-md-6">
-		                          <div class="form-group">
-                                       <label class="control-label">기타</label>
-                                       <select name="etc" id="etc"  class="form-control custom-select" onchange="showImage(this.value)" tabindex="1" style="height: 40px;">
-										   <c:forEach var="bigdto" items="${IngList}">
-                                           		<c:if test="${bigdto.types == 4}">
-                                           			<option onclick="showImage(${bigdto.seq}, '${bigdto.image_Src}')" value="{'seq':'${bigdto.seq}','url':'${bigdto.image_Src}'}" >${bigdto.name}</option>
-                                           		</c:if>
-                                           </c:forEach>
-                                       </select>
-                                   </div>
-	                           </div>
-	                           <!--/span-->
-	                       </div>
-	                       <!--/row-->
-	                       <div class="row">
-	                           <div class="col-md-12 ">
-	                               <div class="form-group">
-	                                   <label>재료 이미지  </label>
-	                                   
-	                                   <table>
-	                                   		<tr>
-	                                   			<td>
-	                                   				<img alt="" src="" id="bunImage" style="width: 100px;">
-	                                   			</td>
-	                                   			<td>재료1</td>
-	                                   			<td>재료2</td>
-	                                   			<td>재료3</td>
-	                                   			<td>재료4</td>
-	                                   			<td>재료5</td>
-	                                   			<td>재료6</td>
-	                                   			<td>재료7</td>
-	                                   			<td>재료8</td>
-	                                   			<td>재료9</td>
-	                                  	 	</tr>
-	                                   </table>    		
-	                               </div>
-	                           </div>
-				           </div>
 	                       <div class="row">
 	                           <div class="col-md-6">
 	                               <div class="form-group">
@@ -186,14 +278,9 @@
 	                           <!--/span-->
 	                           <div class="col-md-6">
 		                          <div class="form-group">
-                                        <label class="control-label">재료 타입</label>
-                                        <select name="types" id="types"  class="form-control custom-select" data-placeholder="재료타입을 선택해주세요" tabindex="1" style="height: 40px;">
-                                            <option value="1">번</option>
-                                            <option value="2">패티</option>
-                                            <option value="3">채소</option>
-                                            <option value="4">기타</option>
-                                        </select>
-                                   </div>
+	                                   <label>가격</label>
+	                                   <input type="number" min="0" name="price"  class="form-control" id="burger_price" placeholder="가격" required="required">
+	                               </div>
 	                           </div>
 	                           <!--/span-->
 	                       </div>
@@ -206,8 +293,8 @@
 	
 	                   </div>
 	                   <div class="form-actions" align="right">
-	                       <button type="button" class="btn btn-success" id="registerIngBtn" onclick="registerIngClick()"> <i class="fa fa-check"></i> 등록</button>
-	                       <button type="button" class="btn btn-inverse" data-dismiss="modal">취소</button>
+	                       <button type="button" class="btn btn-success" id="registerIngBtn" onclick="registerBurgerClick()"> <i class="fa fa-check"></i> 등록</button>
+	                       <button type="button" class="btn btn-inverse" data-dismiss="modal" id="addburgercansel">취소</button>
 	                   </div>
 	               </form>
 	           </div>
@@ -219,23 +306,82 @@
  
  <!--=============================스크립트=======================================-->
  <script>
-/*  function showImage(image) {
-	 var imageUrl = JSON.stringify(image);
-	 console.log(imageUrl);
-	 var obj = JSON.parse(imageUrl);
-	 console.log(obj);
-	 console.log(obj.seq);
-	 console.log(obj);
-	 alert("imageUrl:" + imageUrl);
-	 alert("imageUrl.r:" + obj.url);
-	$("#bunImage").attr("src", obj.url);
-} */
-function showImage(tempValue) {
-    var temp = tempValue.split('--something--');
-	var seq = parseInt(temp[0]);
-	var src = temp[1];
-	
-	$("#bunImage").attr("src", src);
-}
+ 
+
+ /*---------------------------------------------------------------------------------------------
+  * 버거등록 클릭했을때 실행되는 함수 
+  *----------------------------------------------------------------------------------------------*/
+ function registerBurgerClick() {
+
+ 	//입력란에 다 입력했는지 막아주기 
+ 	if($("#name").val() == "" || $("#name").val() == null){
+ 		alert("버거명을 입력해주세요");
+ 		return;
+ 	}else if($("#buger_cal").val() == "" || $("#buger_cal").val() == null){
+ 		alert("칼로리를 입력해주세요");
+ 		return;
+ 	}else if($("#burger_price").val() == "" || $("#burger_price").val() == null){
+ 		alert("가격을 입력해주세요");
+ 		return;
+ 	}else if(document.getElementById("image_src").files.length == 0){
+ 		alert("버거사진을 선택해주세요");
+ 		return;
+ 	}
+     var formData = new FormData($("#fileForm")[0]);
+     $.ajax({
+         type : 'post',
+         url : 'registerBurger.do',
+         dataType:'json',
+         data : formData,
+         processData : false,
+         contentType : false,
+         success : function(data) {
+             alert("파일 업로드하였습니다.");
+             console.log(data);
+
+  			$('#myTable tr:last').after('<tr id="tr'+data.seq+'">'+
+ 			'<td><img alt="버거사진" src="'+data.image_Src+'" style="width: 200px"></td>'+		
+ 			'<td>'+data.name+'</td>'+
+ 			'<td>'+
+ 			data.bread_name+ '&nbsp;'+
+            data.ingredient01_name+ '&nbsp;'+
+            data.ingredient02_name+ '&nbsp;'+
+            data.ingredient03_name+ '&nbsp;'+
+            data.ingredient04_name+ '&nbsp;'+
+            data.ingredient05_name+ '&nbsp;'+
+            data.ingredient06_name+ '&nbsp;'+
+            data.ingredient07_name+ '&nbsp;'+
+            data.ingredient08_name+ '&nbsp;'+
+            data.ingredient09_name+ '&nbsp;'+
+ 			'</td>'+
+ 			'<td>admin</td>');
+  			$("#addburgercansel").click();
+
+         },
+         error : function(req, status, error) {
+             alert("파일 업로드에 실패하였습니다.");
+             alert(req);
+             alert(status);
+             alert(error);
+             console.log(error);
+             console.log(error.status);
+         }
+     });
+ }
+
+
+ /*---------------------------------------------------------------------------------------------
+  * tr 아이디값으로 해당 row 지우는 함수 
+  *----------------------------------------------------------------------------------------------*/
+  function deleteTableRow(deleteRowId){
+ 	 var row = document.getElementById(deleteRowId);
+ 	    var table = row.parentNode;
+ 	    while ( table && table.tagName != 'TABLE' )
+ 	        table = table.parentNode;
+ 	    if ( !table )
+ 	        return;
+ 	    table.deleteRow(row.rowIndex);
+  }
+ 
  
  </script>

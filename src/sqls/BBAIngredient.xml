@@ -30,7 +30,7 @@
 
 <!--재료 게시 판/ 재료 리스트 뽑아오기 -->
 <select resultType="bba.com.a.model.Bb_IngredientDto" id="getIngList"> 
-SELECT SEQ, NAME,TYPES,PRICE ,CAL, DEL FROM BB_INGREDIENT ORDER BY SEQ
+SELECT SEQ, NAME,TYPES,PRICE ,CAL, DEL FROM BB_INGREDIENT WHERE SEQ!=0 ORDER BY SEQ
 </select>
 
 

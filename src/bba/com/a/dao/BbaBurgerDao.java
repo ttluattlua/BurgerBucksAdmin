@@ -2,6 +2,8 @@ package bba.com.a.dao;
 
 import java.util.List;
 
+import bba.com.a.model.Bb_BurgerDto;
+import bba.com.a.model.Bb_ImageDto;
 import bba.com.a.model.Bb_IngredientDto;
 
 public interface BbaBurgerDao {
@@ -11,7 +13,23 @@ public interface BbaBurgerDao {
 	public List<Bb_IngredientDto> getIngredientList();
 	
 	/*--------------------------------------------------------------------------------------------
-	 *버거 
+	 *버거 테이블위해 버거리스트 가져오기
 	 *-------------------------------------------------------------------------------------------*/	
-
+	public List<Bb_BurgerDto> getBurgerListForBurgerTB();
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 버거등록
+	 *-------------------------------------------------------------------------------------------*/
+	public int registerBurger(Bb_BurgerDto bgdto);
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 버거 새로 이미지 등록 
+	 *-------------------------------------------------------------------------------------------*/
+	
+	public int registerburgerImage(Bb_ImageDto bidto);
+	
+	/*--------------------------------------------------------------------------------------------
+	 * 버거 등록후 재료들 이름뽑아오기 
+	 *-------------------------------------------------------------------------------------------*/
+	public Bb_BurgerDto getBurgerIngredientForBurgerTB(int seq);
 }
