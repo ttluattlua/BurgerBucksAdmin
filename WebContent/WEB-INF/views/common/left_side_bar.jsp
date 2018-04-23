@@ -66,7 +66,7 @@ if(session.getAttribute("login") != null){
                         
                                                 
                         <li class="nav-label">고객서비스관리</li>   
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/order-food-24px.png"><span class="hide-menu"></span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><img alt="" src="./icons/menuicon/customerservice.png"><span class="hide-menu"></span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="faq.do">FAQ</a></li>
                             </ul>
