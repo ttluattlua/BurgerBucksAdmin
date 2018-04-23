@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import bba.com.a.model.Bb_AddrDto;
 import bba.com.a.model.Bb_BeverageDto;
-import bba.com.a.model.Bb_BurgerDto;
 import bba.com.a.model.Bb_BurgerTableDto;
 import bba.com.a.model.Bb_IngredientDto;
 import bba.com.a.model.Bb_MemberDto;

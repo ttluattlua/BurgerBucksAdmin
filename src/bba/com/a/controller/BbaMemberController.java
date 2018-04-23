@@ -134,9 +134,9 @@ public class BbaMemberController {
 		
 		//점포 dto 가져오기
 		List<Bb_StoreDto> bslist = bbaStoreService.GetStoreList();
-		model.addAttribute("storeList", bslist);		//store list
+		model.addAttribute("bslist", bslist);		//store list
 		
-		
+			
 		model.addAttribute("doc_title", "사원관리");
 		model.addAttribute("doc_menu", "멤버관리");
 		
